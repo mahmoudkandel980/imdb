@@ -1,26 +1,128 @@
-html,
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .vedio-icon--parent {
+        @apply flex absolute -top-96 group-hover:translate-y-96 items-center w-full h-full opacity-30 group-hover:opacity-100 justify-center group-hover:bg-black group-hover:bg-opacity-50 duration-700;
+    }
+    .vedio-icon {
+        @apply w-12 h-12 cursor-pointer absolute opacity-0 group-hover:opacity-100 brightness-200 z-30  hover:bg-white hover:bg-opacity-10 rounded-full text-white transition-all hover:text-[#c92a2a] hover:scale-110 blur-none group-hover:blur-[1px] duration-500;
+    }
+}
+
+/* Built in css */
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    overflow-x: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.flicker {
+    opacity: 1;
+    -webkit-box-shadow: 0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25),
+        0 0 100px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25),
+        0 0 100px rgba(255, 255, 255, 0.1);
 }
 
-* {
-  box-sizing: border-box;
+.sm-flicker {
+    opacity: 1;
+    -webkit-box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.45), 0 0 5px rgba(255, 255, 255, 0.25),
+        0 0 50px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.45), 0 0 5px rgba(255, 255, 255, 0.25),
+        0 0 50px rgba(255, 255, 255, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+.flicker-text {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25),
+        0 0 100px rgba(255, 255, 255, 0.1);
+}
+
+.flicker-white {
+    box-shadow: 1px 1px 10px #fff;
+}
+.flicker-black {
+    box-shadow: 1px 1px 10px #000000;
+}
+.flicker-red {
+    box-shadow: 1px 1px 10px #e03131;
+}
+.flicker-yellow {
+    box-shadow: 1px 1px 10px #f59f00;
+}
+.flicker-green {
+    box-shadow: 1px 1px 10px #37b24d;
+}
+
+/* animations */
+.shake-horizontal {
+    -webkit-animation: shake-horizontal 5s
+        cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
+    animation: shake-horizontal 5s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+        infinite both;
+}
+@-webkit-keyframes shake-horizontal {
+    0%,
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translateX(-2px);
+        transform: translateX(-2px);
+    }
+    20%,
+    40%,
+    60% {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    80% {
+        -webkit-transform: translateX(1px);
+        transform: translateX(1px);
+    }
+    90% {
+        -webkit-transform: translateX(-1px);
+        transform: translateX(-1px);
+    }
+}
+@keyframes shake-horizontal {
+    0%,
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translateX(-2px);
+        transform: translateX(-2px);
+    }
+    20%,
+    40%,
+    60% {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    80% {
+        -webkit-transform: translateX(1px);
+        transform: translateX(1px);
+    }
+    90% {
+        -webkit-transform: translateX(-1px);
+        transform: translateX(-1px);
+    }
 }
