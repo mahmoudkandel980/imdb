@@ -148,7 +148,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                             )
                                                         }
                                                     >
-                                                        <BsEye className="vedio-icon" />
+                                                        <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
                                                     </div>
                                                 ) : (
                                                     <div
@@ -241,20 +241,18 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                         <div className="group flex items-center justify-center space-x-1 z-10">
                                                             {media.vote_average ===
                                                             0 ? (
-                                                                <div>
-                                                                    <div
-                                                                        onClick={() =>
-                                                                            onClickHandler(
-                                                                                media.title,
-                                                                                media.name,
-                                                                                media.id,
-                                                                                media.vote_average,
-                                                                                media
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
-                                                                    </div>
+                                                                <div
+                                                                    onClick={() =>
+                                                                        onClickHandler(
+                                                                            media.title,
+                                                                            media.name,
+                                                                            media.id,
+                                                                            media.vote_average,
+                                                                            media
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
                                                                 </div>
                                                             ) : (
                                                                 <div
