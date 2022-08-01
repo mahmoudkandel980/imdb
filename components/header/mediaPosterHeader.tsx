@@ -138,7 +138,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                             <div className="group flex items-center justify-center space-x-1 z-10">
                                                 {media.vote_average === 0 ? (
                                                     <div>
-                                                        <div className="">
+                                                        <div className="vedio-icon--parent group">
                                                             <BsEye
                                                                 onClick={() =>
                                                                     onClickHandler(
@@ -149,7 +149,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                                         media
                                                                     )
                                                                 }
-                                                                className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation"
+                                                                className="vedio-icon"
                                                             />
                                                         </div>
                                                     </div>

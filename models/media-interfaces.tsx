@@ -17,24 +17,6 @@ export interface MediaDataInterface {
         name: string;
     }[];
 }
-export interface MediaDataInterface {
-    mediaData: {
-        backdrop_path: string;
-        id: string;
-        title: string;
-        original_language: string;
-        original_title: string;
-        original_name: string;
-        overview: string;
-        poster_path: string;
-        media_type: string;
-        release_date: string;
-        first_air_date: string;
-        vote_average: number;
-        vote_count: number;
-        name: string;
-    }[];
-}
 
 // SPECIFIC MEDIA DATA
 export interface SpecificMediaDataInterface {
