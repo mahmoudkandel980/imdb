@@ -137,36 +137,32 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                             {/* see media */}
                                             <div className="group flex items-center justify-center space-x-1 z-10">
                                                 {media.vote_average === 0 ? (
-                                                    <div>
-                                                        <div className="vedio-icon--parent group">
-                                                            <BsEye
-                                                                onClick={() =>
-                                                                    onClickHandler(
-                                                                        media.title,
-                                                                        media.name,
-                                                                        media.id,
-                                                                        media.vote_average,
-                                                                        media
-                                                                    )
-                                                                }
-                                                                className="vedio-icon"
-                                                            />
-                                                        </div>
+                                                    <div
+                                                        onClick={() =>
+                                                            onClickHandler(
+                                                                media.title,
+                                                                media.name,
+                                                                media.id,
+                                                                media.vote_average,
+                                                                media
+                                                            )
+                                                        }
+                                                    >
+                                                        <BsEye className="vedio-icon" />
                                                     </div>
                                                 ) : (
-                                                    <div className="">
-                                                        <BiPlayCircle
-                                                            onClick={() =>
-                                                                onClickHandler(
-                                                                    media.title,
-                                                                    media.name,
-                                                                    media.id,
-                                                                    media.vote_average,
-                                                                    media
-                                                                )
-                                                            }
-                                                            className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation"
-                                                        />
+                                                    <div
+                                                        onClick={() =>
+                                                            onClickHandler(
+                                                                media.title,
+                                                                media.name,
+                                                                media.id,
+                                                                media.vote_average,
+                                                                media
+                                                            )
+                                                        }
+                                                    >
+                                                        <BiPlayCircle className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
                                                     </div>
                                                 )}
                                             </div>
@@ -246,24 +242,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                             {media.vote_average ===
                                                             0 ? (
                                                                 <div>
-                                                                    <div className="">
-                                                                        <BsEye
-                                                                            onClick={() =>
-                                                                                onClickHandler(
-                                                                                    media.title,
-                                                                                    media.name,
-                                                                                    media.id,
-                                                                                    media.vote_average,
-                                                                                    media
-                                                                                )
-                                                                            }
-                                                                            className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation"
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            ) : (
-                                                                <div className="">
-                                                                    <BiPlayCircle
+                                                                    <div
                                                                         onClick={() =>
                                                                             onClickHandler(
                                                                                 media.title,
@@ -273,8 +252,23 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                                                 media
                                                                             )
                                                                         }
-                                                                        className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation"
-                                                                    />
+                                                                    >
+                                                                        <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                <div
+                                                                    onClick={() =>
+                                                                        onClickHandler(
+                                                                            media.title,
+                                                                            media.name,
+                                                                            media.id,
+                                                                            media.vote_average,
+                                                                            media
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <BiPlayCircle className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
                                                                 </div>
                                                             )}
                                                         </div>
