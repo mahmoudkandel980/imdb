@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import type { AppProps } from "next/app";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -9,6 +11,7 @@ import Footer from "../components/footer/footer";
 
 import { MovieContextProvider } from "../context/movieData-context";
 import "../styles/globals.css";
+import Spinner from "../components/ui/spinner";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -21,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             : router.asPath.startsWith("/movie")
             ? router.query.type?.toString() || "Trending"
             : router.asPath.startsWith("/tv")
-            ? router.query.type?.toString() || "TopRated"
+            ? router.query.type?.toString() || "Popular"
             : router.query.type?.toString() || "Popular";
 
     const mediaType = router.asPath.toLocaleLowerCase().includes("movie")
@@ -33,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         : "home";
 
     return (
-        <>
+        <div>
             <Head>
                 <title>IMDB Clone</title>
                 <meta
@@ -44,19 +47,20 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Head>
             {/* {!router.query.id && <Header />} */}
             <Header />
-            {routerHasId ? (
-                // <NavbarFrame>
-                //     <></>
-                // </NavbarFrame>
+            {routerHasId ||
+            router.pathname === "/movie" ||
+            router.pathname === "/tv" ? (
                 <></>
             ) : (
                 <Navbar type={type} mediaType={mediaType} />
             )}
+
             <MovieContextProvider>
                 <Component {...pageProps} />
             </MovieContextProvider>
+
             <Footer />
-        </>
+        </div>
     );
 }
 

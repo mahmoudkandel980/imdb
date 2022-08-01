@@ -1,26 +1,21 @@
 import { GetServerSideProps } from "next";
 
-import {
-    moviesDataInterface,
-    RequestMediaInterface,
-} from "../../models/interfaces";
-
-import data from "../../response/movies";
-
-import { requestMoviePage } from "../../libs/requests";
-
 import Media from "../../components/media/media";
+import MediaPosterHeaader from "../../components/header/mediaPosterHeader";
 
-const TvPage = (props: moviesDataInterface & RequestMediaInterface) => {
-    const { moviesData, type } = props;
-    // console.log(type);
+import { requestTvPage } from "../../libs/requests";
 
-    // console.log(moviesData);
-    console.log(moviesData);
+import { RequestMediaInterface } from "../../models/interfaces";
+import { MediaDataInterface } from "../../models/media-interfaces";
+
+const TvPage = (props: MediaDataInterface & RequestMediaInterface) => {
+    const { mediaData, type } = props;
 
     return (
         <div>
-            <Media moviesData={moviesData} />
+            <MediaPosterHeaader mediaData={mediaData} />
+
+            <Media mediaData={mediaData} />
         </div>
     );
 };
@@ -28,27 +23,32 @@ const TvPage = (props: moviesDataInterface & RequestMediaInterface) => {
 export default TvPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { query } = context;
-    const type = query.type || "TopRated";
     let url;
+    let pages;
+    let req;
+    const { query } = context;
+    const type = query.type || "Popular";
+    const page = query.page;
 
-    requestMoviePage.forEach((requestType) => {
-        if (requestType.type == type) {
+    requestTvPage.forEach((requestType) => {
+        if (requestType.type === type) {
             url = requestType.url;
             return;
         }
     });
 
-    console.log(type);
+    if (pages !== "one page") {
+        req = await fetch(`https://api.themoviedb.org/3${url}&page=${page}`);
+    } else {
+        req = await fetch(`https://api.themoviedb.org/3${url}`);
+    }
 
-    // const req = await fetch(`https://api.themoviedb.org/3${url}`);
-
-    // const res = await req.json();
+    const res = await req.json();
 
     return {
         props: {
-            // moviesData: res.results,
-            moviesData: data,
+            mediaData: res.results,
+            // mediaData: data,
             type,
         },
     };

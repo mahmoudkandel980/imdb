@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
 
-import MovieCard from "../models/mediaCard";
+import MediaCard from "../models/mediaCard";
 import MovieContext from "../../context/movieData-context";
 
-import { moviesDataInterface } from "../../models/interfaces";
+import { MediaDataInterface } from "../../models/media-interfaces";
 import { movieDataInterface } from "../../models/context-interfaces";
 
-const Media = (props: moviesDataInterface): JSX.Element => {
-    const { moviesData } = props;
+const Media = (props: MediaDataInterface): JSX.Element => {
+    const { mediaData } = props;
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const { getMovieData } = movieCtx;
@@ -42,12 +42,12 @@ const Media = (props: moviesDataInterface): JSX.Element => {
     };
 
     return (
-        <div className="bg-[#212529]">
+        <div className="bg-[#212529] pt-20">
             <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-6 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {moviesData.map((movie) => (
-                    <MovieCard
-                        movie={movie}
-                        key={movie.id}
+                {mediaData.map((media) => (
+                    <MediaCard
+                        media={media}
+                        key={media.id}
                         onClickHandler={onClickHandler}
                     />
                 ))}

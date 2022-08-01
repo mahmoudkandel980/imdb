@@ -1,17 +1,18 @@
 import { useContext } from "react";
 import Image from "next/image";
-import { movieDataInterface } from "../../models/interfaces";
 
 import MovieContext from "../../context/movieData-context";
-import SpecialMediaPoster from "./specialMediaPoster";
+import SpecificMediaPoster from "./specificMediaPoster";
 
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { GoCalendar } from "react-icons/go";
 import { BsEyeFill } from "react-icons/bs";
 
+import { SpecificMediaDataInterface } from "../../models/media-interfaces";
+
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
-const SpecificMedia = (props: movieDataInterface): JSX.Element => {
+const SpecificMedia = (props: SpecificMediaDataInterface): JSX.Element => {
     const movieCtx = useContext(MovieContext);
     const contextMovieData = movieCtx.movieData;
     let {
@@ -23,7 +24,11 @@ const SpecificMedia = (props: movieDataInterface): JSX.Element => {
         title,
         vote_average,
         vote_count,
-    } = props.movieData;
+        episode_run_time,
+        first_air_date,
+    } = props.mediaData;
+
+    runtime = runtime ? runtime : episode_run_time[0];
 
     backdrop_path = backdrop_path
         ? backdrop_path
@@ -33,6 +38,8 @@ const SpecificMedia = (props: movieDataInterface): JSX.Element => {
 
     release_date = release_date
         ? release_date
+        : first_air_date
+        ? first_air_date
         : contextMovieData.release_date || contextMovieData.first_air_date;
 
     vote_count = vote_count ? vote_count : contextMovieData.vote_count;
@@ -40,7 +47,7 @@ const SpecificMedia = (props: movieDataInterface): JSX.Element => {
 
     return (
         <div className="bg-[#212529]">
-            <div className="w-full h-screen relative  mx-auto shadow-xl overflow-hidden">
+            <div className="w-full h-screen  relative  mx-auto shadow-xl overflow-hidden">
                 <div className="hidden md:block  relative w-full h-screen">
                     <Image
                         src={`${srcStartWith}${backdrop_path || poster_path}`}
@@ -113,7 +120,7 @@ const SpecificMedia = (props: movieDataInterface): JSX.Element => {
                 </div>
                 {/*overlay*/}
                 <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-[#212529]/30 to-[#212529]/90 "></div>
-                <SpecialMediaPoster movieData={props.movieData} />
+                <SpecificMediaPoster mediaData={props.mediaData} />
             </div>
         </div>
     );

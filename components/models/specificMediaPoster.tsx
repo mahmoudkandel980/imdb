@@ -9,11 +9,13 @@ import { GoCalendar } from "react-icons/go";
 import { BsEyeFill } from "react-icons/bs";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-import { movieDataInterface } from "../../models/interfaces";
+import { SpecificMediaDataInterface } from "../../models/media-interfaces";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
-const SpecialMediaPoster = (props: movieDataInterface): JSX.Element => {
+const SpecificMediaPoster = (
+    props: SpecificMediaDataInterface
+): JSX.Element => {
     const movieCtx = useContext(MovieContext);
     const contextMovieData = movieCtx.movieData;
     let {
@@ -35,7 +37,15 @@ const SpecialMediaPoster = (props: movieDataInterface): JSX.Element => {
         title,
         vote_average,
         vote_count,
-    } = props.movieData;
+        name,
+        first_air_date,
+        episode_run_time,
+        number_of_seasons,
+        number_of_episodes,
+        seasons,
+    } = props.mediaData;
+
+    runtime = runtime ? runtime : episode_run_time[0];
 
     backdrop_path = backdrop_path
         ? backdrop_path
@@ -43,14 +53,22 @@ const SpecialMediaPoster = (props: movieDataInterface): JSX.Element => {
 
     original_title = original_title
         ? original_title
+        : name
+        ? name
         : contextMovieData.original_name || contextMovieData.name;
     poster_path = poster_path ? poster_path : contextMovieData.poster_path;
     release_date = release_date
         ? release_date
+        : first_air_date
+        ? first_air_date
         : contextMovieData.release_date || contextMovieData.first_air_date;
+
     vote_count = vote_count ? vote_count : contextMovieData.vote_count;
+
     vote_average = vote_average ? vote_average : contextMovieData.vote_average;
+
     overview = overview ? overview : contextMovieData.overview;
+
     original_language = original_language
         ? original_language
         : contextMovieData.original_language;
@@ -68,7 +86,7 @@ const SpecialMediaPoster = (props: movieDataInterface): JSX.Element => {
                             width={234}
                             height={300}
                             layout="responsive"
-                            className="static text-center  object-cover"
+                            className="static text-center object-cover"
                             priority
                         />
                         {/*overlay*/}
@@ -93,7 +111,7 @@ const SpecialMediaPoster = (props: movieDataInterface): JSX.Element => {
                         )}
                         {/* votes and date */}
 
-                        <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute bottom-10 text-gray-200 w-full0">
+                        <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute bottom-0 text-gray-200 w-full0">
                             {/* like */}
                             <div className="group flex items-center justify-center space-x-1 z-10">
                                 <AiFillLike className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
@@ -196,31 +214,53 @@ const SpecialMediaPoster = (props: movieDataInterface): JSX.Element => {
                                     {genres.map((genre) => (
                                         <span
                                             key={genre.id}
-                                            className="flicker-red  bg-[#e03131] cursor-pointer hover:scale-105 md:hover:scale-110 hover:bg-opacity-50 text-white p-1 px-1.5 rounded-full duration-150"
+                                            className="flicker-red  bg-[#e03131] text-white p-1 px-1.5 rounded-full"
                                         >
                                             {genre.name}
                                         </span>
                                     ))}
                                 </div>
                             )}
+                            {/* number_of_seasons  & number_of_episodes */}
+                            <div className="flex items-end justify-start flex-wrap space-x-2 md:space-x-3 lg:space-x-5 space-y-3">
+                                {number_of_seasons && (
+                                    <span className="flicker-red  bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                                        {number_of_seasons}{" "}
+                                        {number_of_seasons > 1
+                                            ? "Seasons"
+                                            : "Season"}
+                                    </span>
+                                )}
+                                {number_of_episodes && (
+                                    <span className="flicker-red  bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                                        {number_of_episodes}{" "}
+                                        {number_of_episodes > 1
+                                            ? "Episodes"
+                                            : "Episode"}
+                                    </span>
+                                )}
+                            </div>
                             {/* status */}
                             {status && (
                                 <div className="flex items-center justify-start">
                                     <span
                                         className={`${
                                             status.toLocaleLowerCase() ===
-                                            "released"
+                                                "released" ||
+                                            status.toLocaleLowerCase() ===
+                                                "ended"
                                                 ? "bg-[#37b24d] flicker-green"
                                                 : status.toLocaleLowerCase() ===
                                                   "post production"
                                                 ? "bg-[#f59f00] flicker-yellow"
                                                 : "bg-[#e03131] flicker-red"
-                                        } cursor-pointer hover:scale-110 hover:bg-opacity-50 text-white p-1 px-1.5 rounded-full duration-150 mt-5`}
+                                        } cursor-pointer bg-opacity-80 hover:bg-opacity-100 hover:scale-105 text-white p-1 px-1.5 rounded-full duration-150 mt-5`}
                                     >
                                         {status}
                                     </span>
                                 </div>
                             )}
+
                             {homepage && (
                                 <div className="group relative flex items-center mt-5 justify-start">
                                     <div
@@ -246,7 +286,7 @@ const SpecialMediaPoster = (props: movieDataInterface): JSX.Element => {
                             )}
                             <div className="flex items-center justify-start">
                                 {/* overview */}
-                                <span className="text-xs ml-4 sm:ml-0 sm:text-base mt-16 w-[90%] sm:w-[80%] md:[500px] lg:w-[100%] xl:w-[700px]">
+                                <span className="text-xs line-clamp-6 sm:line-clamp-none ml-4 sm:ml-0 sm:text-base mt-16 w-[90%] sm:w-[80%] md:[500px] lg:w-[100%] xl:w-[700px]">
                                     {overview}
                                 </span>
                             </div>
@@ -258,4 +298,4 @@ const SpecialMediaPoster = (props: movieDataInterface): JSX.Element => {
     );
 };
 
-export default SpecialMediaPoster;
+export default SpecificMediaPoster;

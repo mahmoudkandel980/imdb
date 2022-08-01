@@ -1,24 +1,32 @@
 import { GetServerSideProps } from "next";
 
 import SpecificMedia from "../../components/models/specificMedia";
-import SpecialMediaVideo from "../../components/models/specialMediaVideo";
+import SpecificMediaVideo from "../../components/models/specificMediaVideo";
 
 import data from "../../response/movieId";
 import movieVediosData from "../../response/movieVedios";
 
 import { requestMovieIdPage } from "../../libs/requests";
 import {
-    movieDataInterface,
-    movieVedioDataInterface,
-} from "../../models/interfaces";
+    MediaVedioDataInterface,
+    initialVideoDataInterface,
+} from "../../models/media-interfaces";
+import { SpecificMediaDataInterface } from "../../models/media-interfaces";
 
-const SelcetedMovie = (props: movieDataInterface & movieVedioDataInterface) => {
-    const { movieData, movieVedioData } = props;
+const SelcetedMovie = (
+    props: SpecificMediaDataInterface &
+        MediaVedioDataInterface &
+        initialVideoDataInterface
+) => {
+    const { mediaData, mediaVedioData, initialVideoData } = props;
 
     return (
         <div className="bg-[#141516]">
-            <SpecificMedia movieData={movieData} />
-            <SpecialMediaVideo movieVedioData={movieVedioData} />
+            <SpecificMedia mediaData={mediaData} />
+            <SpecificMediaVideo
+                mediaVedioData={mediaVedioData}
+                initialVideoData={initialVideoData}
+            />
         </div>
     );
 };
@@ -26,15 +34,20 @@ const SelcetedMovie = (props: movieDataInterface & movieVedioDataInterface) => {
 export default SelcetedMovie;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const movieVedioData: any[] = [];
+    const mediaVedioData: any[] = [];
+    let initialVideoData = {
+        name: "",
+        key: "",
+    };
+
     const { params, query } = context;
     const { id, type } = query;
     let url = requestMovieIdPage.url;
 
-    const movieDataReq = await fetch(
+    const mediaDataReq = await fetch(
         `https://api.themoviedb.org/3/movie/${id}${url}`
     );
-    const movieData = await movieDataReq.json();
+    const mediaData = await mediaDataReq.json();
 
     const movieVediosReq = await fetch(
         `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.API_KEY}&language=en-US`
@@ -45,23 +58,51 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         if (movieVedios.results.length > 0) {
             movieVedios.results.forEach((el: any) => {
                 if (el) {
-                    movieVedioData.push(el);
+                    mediaVedioData.push(el);
+                    mediaVedioData.forEach((vedio) => {
+                        if (vedio.name === "Official Trailer") {
+                            initialVideoData.key = vedio.key;
+                            initialVideoData.name = vedio.name;
+                            return;
+                        } else if (vedio.name.includes("Official Trailer")) {
+                            initialVideoData.key = vedio.key;
+                            initialVideoData.name = vedio.name;
+                            return;
+                        } else if (vedio.name.includes("Trailer")) {
+                            initialVideoData.key = vedio.key;
+                            initialVideoData.name = vedio.name;
+                            return;
+                        } else if (
+                            vedio.name.toLocaleLowerCase().includes("promo")
+                        ) {
+                            initialVideoData.key = vedio.key;
+                            initialVideoData.name = vedio.name;
+                            return;
+                        } else {
+                            initialVideoData.key = vedio.key;
+                            initialVideoData.name = vedio.name;
+                            return;
+                        }
+                    });
                 }
             });
         }
     }
 
-    // const movieData = data;
+    // specificMedia Key & name
+
+    // const mediaData = data;
     // movieVediosData.forEach((el) => {
     //     if (el) {
-    //         movieVedioData.push(el);
+    //         mediaVedioData.push(el);
     //     }
     // });
 
     return {
         props: {
-            movieData,
-            movieVedioData,
+            mediaData,
+            mediaVedioData,
+            initialVideoData,
         },
     };
 };

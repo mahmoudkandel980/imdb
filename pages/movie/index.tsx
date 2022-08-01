@@ -1,23 +1,20 @@
 import { GetServerSideProps } from "next";
 
-import {
-    moviesDataInterface,
-    RequestMediaInterface,
-} from "../../models/interfaces";
+import Media from "../../components/media/media";
+import MediaPosterHeaader from "../../components/header/mediaPosterHeader";
 
-import data from "../../response/movies";
+import { RequestMediaInterface } from "../../models/interfaces";
+import { MediaDataInterface } from "../../models/media-interfaces";
 
 import { requestMoviePage } from "../../libs/requests";
 
-import Media from "../../components/media/media";
-
-const MoviesPage = (props: moviesDataInterface & RequestMediaInterface) => {
-    const { moviesData, type } = props;
-    // console.log(moviesData);
+const MoviesPage = (props: MediaDataInterface & RequestMediaInterface) => {
+    const { mediaData, type } = props;
 
     return (
         <div>
-            <Media moviesData={moviesData} />
+            <MediaPosterHeaader mediaData={mediaData} />
+            <Media mediaData={mediaData} />
         </div>
     );
 };
@@ -48,13 +45,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     const res = await req.json();
-    const moviesData = res.results;
+    const mediaData = res.results;
 
-    // const moviesData = data;
+    // const mediaData = data;
 
     return {
         props: {
-            moviesData,
+            mediaData,
             type,
         },
     };

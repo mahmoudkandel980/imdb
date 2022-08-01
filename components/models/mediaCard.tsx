@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { CardInterface } from "../../models/interfaces";
+import { CardInterface } from "../../models/media-interfaces";
 
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { BiPlayCircle } from "react-icons/bi";
@@ -9,7 +9,7 @@ import { GoCalendar } from "react-icons/go";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
-const MovieCard = (props: CardInterface): JSX.Element => {
+const MediaCard = (props: CardInterface): JSX.Element => {
     const {
         name,
         id,
@@ -22,7 +22,7 @@ const MovieCard = (props: CardInterface): JSX.Element => {
         vote_average,
         vote_count,
         poster_path,
-    } = props.movie;
+    } = props.media;
     const { onClickHandler } = props;
 
     const mediahasVideo = vote_average === 0 ? false : true;
@@ -62,7 +62,7 @@ const MovieCard = (props: CardInterface): JSX.Element => {
                                     name,
                                     id,
                                     mediahasVideo,
-                                    props.movie
+                                    props.media
                                 )}
                                 className="vedio-icon"
                             />
@@ -77,7 +77,7 @@ const MovieCard = (props: CardInterface): JSX.Element => {
                                 name,
                                 id,
                                 mediahasVideo,
-                                props.movie
+                                props.media
                             )}
                             className="vedio-icon"
                         />
@@ -110,7 +110,7 @@ const MovieCard = (props: CardInterface): JSX.Element => {
                 <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 left-3 sm:-left-2 absolute bottom-10 sm:bottom-3  sm:scale-[0.85] text-gray-200 w-full">
                     {/* like */}
                     <div className="group flex items-center justify-center space-x-1 z-10">
-                        <AiFillLike className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
+                        <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
                         <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                             <span className=" font-mono font-medium">
                                 {vote_count}
@@ -123,7 +123,7 @@ const MovieCard = (props: CardInterface): JSX.Element => {
                             !release_date && !first_air_date && "hidden"
                         } group flex items-center justify-center space-x-1 z-10`}
                     >
-                        <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
+                        <GoCalendar className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
                         <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                             <span className="font-mono font-medium">
                                 {release_date || first_air_date}
@@ -131,32 +131,6 @@ const MovieCard = (props: CardInterface): JSX.Element => {
                         </div>
                     </div>
                 </div>
-
-                {/* desc & votes & date */}
-                {/* <div className="absolute -bottom-32 opacity-0 w-full group-hover:opacity-100 group-hover:bottom-0 duration-500">
-                    <div className="flex flex-col absolute select-none bottom-0 p-3 px-1 bg-black opacity-70 text-white text-sm">
-                        <div>
-                            <p className="line-clamp-3 text-white font-mono">
-                                {overview}
-                            </p>
-                        </div>
-                        {vote_average > 0 && (
-                            <div className="flex justify-between items-center px-3 mt-2.5 text-xs text-gray-300">
-                                <div>
-                                    <span className="capitalize">votes :</span>
-                                    <span> {vote_count}</span>
-                                </div>
-                                <div>
-                                    <span className="capitalize">date :</span>
-                                    <span>
-                                        {" "}
-                                        {release_date || first_air_date}
-                                    </span>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div> */}
             </div>
             <div>
                 <h3 className="mt-4 sm:mt-3 text-gray-200">{title || name}</h3>
@@ -165,4 +139,4 @@ const MovieCard = (props: CardInterface): JSX.Element => {
     );
 };
 
-export default MovieCard;
+export default MediaCard;

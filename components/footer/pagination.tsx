@@ -63,7 +63,7 @@ const Pagination = (): JSX.Element => {
                                     <span
                                         className={`m-0 flex items-center justify-center w-full h-full rounded-full ${
                                             currentPage === page
-                                                ? "bg-gray-700 bg-opacity-10 border-[1px] border-gray-700 flex-1 text-lg sm:text-xl shadow-2xl text-white hover:bg-gray-700 hover:bg-opacity-30 hover:border-transparent duration-300"
+                                                ? "bg-gray-700 bg-opacity-10 border-[1px] border-gray-700 scale-75 flex-1 text-lg sm:text-xl shadow-2xl text-white hover:bg-gray-700 hover:bg-opacity-30 hover:border-transparent duration-300"
                                                 : "text-gray-400"
                                         }   duration-200 hover:text-white`}
                                     >
