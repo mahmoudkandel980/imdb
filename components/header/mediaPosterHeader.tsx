@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -31,10 +31,6 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
     const movieCtx = useContext(MovieContext);
     const { getMovieData } = movieCtx;
 
-    const mediahasVideo = mediaData.forEach((media) =>
-        media.vote_average === 0 ? false : true
-    );
-
     const type =
         router.asPath === "/"
             ? ""
@@ -56,7 +52,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
         title: string,
         name: string,
         id: string,
-        mediahasVideo: boolean,
+        mediahasVideo: number,
         movieData: movieDataInterface
     ) => {
         getMovieData(movieData);
@@ -66,13 +62,13 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
         // Name has the first role
         // Explain : you will get one of name and title undefined
         if (name) {
-            mediahasVideo
+            mediahasVideo > 0
                 ? router.push(
                       `/${page}/${name}?type=${type}&media=${true}&id=${id}`
                   )
                 : router.push(`/${page}/${name}?type=${type}&id=${id}`);
         } else {
-            mediahasVideo
+            mediahasVideo > 0
                 ? router.push(
                       `/${page}/${title}?type=${type}&media=${true}&id=${id}`
                   )
@@ -144,14 +140,15 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                     <div>
                                                         <div className="">
                                                             <BsEye
-                                                                onClick={onClickHandler.bind(
-                                                                    null,
-                                                                    media.title,
-                                                                    media.name,
-                                                                    media.id,
-                                                                    mediahasVideo,
-                                                                    media
-                                                                )}
+                                                                onClick={() =>
+                                                                    onClickHandler(
+                                                                        media.title,
+                                                                        media.name,
+                                                                        media.id,
+                                                                        media.vote_average,
+                                                                        media
+                                                                    )
+                                                                }
                                                                 className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation"
                                                             />
                                                         </div>
@@ -159,14 +156,15 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                 ) : (
                                                     <div className="">
                                                         <BiPlayCircle
-                                                            onClick={onClickHandler.bind(
-                                                                null,
-                                                                media.title,
-                                                                media.name,
-                                                                media.id,
-                                                                mediahasVideo,
-                                                                media
-                                                            )}
+                                                            onClick={() =>
+                                                                onClickHandler(
+                                                                    media.title,
+                                                                    media.name,
+                                                                    media.id,
+                                                                    media.vote_average,
+                                                                    media
+                                                                )
+                                                            }
                                                             className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation"
                                                         />
                                                     </div>
@@ -250,14 +248,15 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                                 <div>
                                                                     <div className="">
                                                                         <BsEye
-                                                                            onClick={onClickHandler.bind(
-                                                                                null,
-                                                                                media.title,
-                                                                                media.name,
-                                                                                media.id,
-                                                                                mediahasVideo,
-                                                                                media
-                                                                            )}
+                                                                            onClick={() =>
+                                                                                onClickHandler(
+                                                                                    media.title,
+                                                                                    media.name,
+                                                                                    media.id,
+                                                                                    media.vote_average,
+                                                                                    media
+                                                                                )
+                                                                            }
                                                                             className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation"
                                                                         />
                                                                     </div>
@@ -265,14 +264,15 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                             ) : (
                                                                 <div className="">
                                                                     <BiPlayCircle
-                                                                        onClick={onClickHandler.bind(
-                                                                            null,
-                                                                            media.title,
-                                                                            media.name,
-                                                                            media.id,
-                                                                            mediahasVideo,
-                                                                            media
-                                                                        )}
+                                                                        onClick={() =>
+                                                                            onClickHandler(
+                                                                                media.title,
+                                                                                media.name,
+                                                                                media.id,
+                                                                                media.vote_average,
+                                                                                media
+                                                                            )
+                                                                        }
                                                                         className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation"
                                                                     />
                                                                 </div>
