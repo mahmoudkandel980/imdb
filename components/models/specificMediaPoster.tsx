@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -16,6 +17,7 @@ const srcStartWith = "https://image.tmdb.org/t/p/original/";
 const SpecificMediaPoster = (
     props: SpecificMediaDataInterface
 ): JSX.Element => {
+    const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const contextMovieData = movieCtx.movieData;
     let {
@@ -45,7 +47,8 @@ const SpecificMediaPoster = (
         seasons,
     } = props.mediaData;
 
-    runtime = runtime ? runtime : episode_run_time[0];
+    const media = router.query.media;
+    runtime = runtime ? runtime : 0;
 
     backdrop_path = backdrop_path
         ? backdrop_path
@@ -193,8 +196,8 @@ const SpecificMediaPoster = (
                                                             <Image
                                                                 src={`${srcStartWith}${pCompiny.logo_path}`}
                                                                 alt={title}
-                                                                width={"70"}
-                                                                height={"35"}
+                                                                width={"60"}
+                                                                height={"30"}
                                                                 className="static group-hover:brightness-125 duration-300"
                                                             />
                                                             <span className="absolute whitespace-nowrap opacity-0 top-4 sm:top-5 left-0 p-1.5 text-[12px] sm:text-base group-hover:opacity-100 group-hover:translate-y-2 sm:group-hover:translate-y-3 duration-300">

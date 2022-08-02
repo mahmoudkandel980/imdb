@@ -22,11 +22,6 @@ const SpecificMediaSwiper = (
 ): JSX.Element => {
     const { seasons, number_of_seasons } = props.mediaData;
 
-    console.log(number_of_seasons);
-
-    // console.log(seasons);
-    // console.log(number_of_seasons);
-
     if (!seasons) {
         return <></>;
     }

@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-sync-scripts */
+import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -10,8 +9,8 @@ import Navbar from "../components/header/navbar";
 import Footer from "../components/footer/footer";
 
 import { MovieContextProvider } from "../context/movieData-context";
+import { SpinnerContextProvider } from "../context/spinner-context";
 import "../styles/globals.css";
-import Spinner from "../components/ui/spinner";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -45,21 +44,21 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
                 <link rel="icon" href="/favicon.png" />
             </Head>
-            {/* {!router.query.id && <Header />} */}
-            <Header />
-            {routerHasId ||
-            router.pathname === "/movie" ||
-            router.pathname === "/tv" ? (
-                <></>
-            ) : (
-                <Navbar type={type} mediaType={mediaType} />
-            )}
 
-            <MovieContextProvider>
-                <Component {...pageProps} />
-            </MovieContextProvider>
-
-            <Footer />
+            <SpinnerContextProvider>
+                <MovieContextProvider>
+                    {/* {!router.query.id && <Header />} */}
+                    <Header />
+                    {routerHasId ||
+                    router.pathname === "/movie" ||
+                    router.pathname === "/tv" ? (
+                        <></>
+                    ) : (
+                        <Navbar type={type} mediaType={mediaType} />
+                    )}
+                    <Component {...pageProps} />
+                </MovieContextProvider>
+            </SpinnerContextProvider>
         </div>
     );
 }

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 import MovieContext from "../../context/movieData-context";
@@ -13,6 +14,7 @@ import { SpecificMediaDataInterface } from "../../models/media-interfaces";
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
 const SpecificMedia = (props: SpecificMediaDataInterface): JSX.Element => {
+    const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const contextMovieData = movieCtx.movieData;
     let {
@@ -28,7 +30,9 @@ const SpecificMedia = (props: SpecificMediaDataInterface): JSX.Element => {
         first_air_date,
     } = props.mediaData;
 
-    runtime = runtime ? runtime : episode_run_time[0];
+    const media = router.query.media;
+
+    runtime = runtime ? runtime : 0;
 
     backdrop_path = backdrop_path
         ? backdrop_path

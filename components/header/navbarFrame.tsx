@@ -4,7 +4,7 @@ const NavbarFrame = (props: NavbarFrameInterface): JSX.Element => {
     const { children } = props;
 
     return (
-        <div className="flex justify-center items-center space-x-7 select-none  text-gray-200 p-5  pb-10">
+        <div className="flicker-black select-none bg-transparent text-gray-200 p-2 px-0 rounded-full mb-3">
             {children}
         </div>
     );

@@ -1,10 +1,12 @@
+import { useContext } from "react";
 import { GetServerSideProps } from "next";
 
 import SpecificMedia from "../../components/models/specificMedia";
 import SpecificMediaVideo from "../../components/models/specificMediaVideo";
-
-import data from "../../response/movieId";
-import movieVediosData from "../../response/movieVedios";
+import Footer from "../../components/footer/footer";
+import Spinner from "../../components/ui/spinner";
+import RouterSpinner from "../../components/ui/routerSpinner";
+import SpinnerContext from "../../context/spinner-context";
 
 import { requestMovieIdPage } from "../../libs/requests";
 import {
@@ -19,14 +21,26 @@ const SelcetedMovie = (
         initialVideoDataInterface
 ) => {
     const { mediaData, mediaVedioData, initialVideoData } = props;
+    const spinnerCtx = useContext(SpinnerContext);
+    const { showMedia } = spinnerCtx;
 
     return (
         <div className="bg-[#141516]">
-            <SpecificMedia mediaData={mediaData} />
-            <SpecificMediaVideo
-                mediaVedioData={mediaVedioData}
-                initialVideoData={initialVideoData}
-            />
+            {showMedia ? (
+                <div className="h-screen w-full flex justify-center items-center">
+                    {/* <Spinner className="" /> */}
+                    <RouterSpinner />
+                </div>
+            ) : (
+                <div>
+                    <SpecificMedia mediaData={mediaData} />
+                    <SpecificMediaVideo
+                        mediaVedioData={mediaVedioData}
+                        initialVideoData={initialVideoData}
+                    />
+                    {showMedia ? <></> : <Footer />}
+                </div>
+            )}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 import { movieDataInterface, Props } from "../models/context-interfaces";
 
@@ -24,6 +24,7 @@ const MovieContext = createContext({
 
 export const MovieContextProvider = (props: Props): JSX.Element => {
     const { children } = props;
+    const [showMedia, setShowMedia] = useState<boolean>(false);
     const [movieData, setMovieData] = useState<movieDataInterface>({
         backdrop_path: "",
         id: "",

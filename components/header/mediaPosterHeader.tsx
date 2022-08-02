@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
 import MovieContext from "../../context/movieData-context";
+import SpinnerContext from "../../context/spinner-context";
 import Navbar from "./navbar";
 
 import { AiFillStar, AiFillLike } from "react-icons/ai";
@@ -29,7 +30,10 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
     const { mediaData } = props;
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
+    const spinnerCtx = useContext(SpinnerContext);
+
     const { getMovieData } = movieCtx;
+    const { showSpinnerHandler } = spinnerCtx;
 
     const type =
         router.asPath === "/"
@@ -55,6 +59,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
         mediahasVideo: number,
         movieData: movieDataInterface
     ) => {
+        showSpinnerHandler(true);
         getMovieData(movieData);
 
         const type = router.query.type || "Trending";
@@ -76,9 +81,13 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
         }
     };
 
+    // if (showMedia) {
+    //     return <h1>Loading</h1>;
+    // }
+
     return (
         <div className="bg-[#212529]">
-            <div className="w-full h-screen sm:h-[800px] relative mx-auto shadow-xl overflow-hidden">
+            <div className="w-full h-screen md:h-[800px] relative mx-auto shadow-xl overflow-hidden">
                 <Swiper
                     spaceBetween={5}
                     slidesPerView={1}
@@ -90,7 +99,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                         delay: 4000,
                         disableOnInteraction: false,
                     }}
-                    speed={800}
+                    speed={1500}
                     grabCursor={true}
                     mousewheel={true}
                     loop={true}
@@ -101,7 +110,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                         (media) =>
                             (media.backdrop_path || media.poster_path) && (
                                 <SwiperSlide key={media.id}>
-                                    <div className="hidden md:block relative w-full h-screen sm:h-[800px]">
+                                    <div className="hidden md:block relative w-full h-screen md:h-[800px]">
                                         <Image
                                             src={`${srcStartWith}${
                                                 media.backdrop_path ||
@@ -340,7 +349,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                     <div className="ml-2 sm:ml-3 md:ml-5">
                                                         <div className="flex items-center justify-start">
                                                             {/* overview */}
-                                                            <span className="text-sm  ml-4 sm:ml-0 sm:text-base mt-5 w-[100%] sm:w-[80%] md:[500px] lg:w-[100%] xl:w-[700px]">
+                                                            <span className="text-sm line-clamp-[8] sm:line-clamp-none  ml-4 sm:ml-0 sm:text-base mt-5 w-[100%] sm:w-[80%] md:[500px] lg:w-[100%] xl:w-[700px]">
                                                                 {media.overview}
                                                             </span>
                                                         </div>
@@ -353,10 +362,8 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                             )
                     )}
                 </Swiper>
-                <div className="absolute bottom-0 left-0 z-10 w-full flex justify-center items-end">
-                    {/* NavBar */}
-                    <Navbar type={type} mediaType={mediaType} />
-                </div>
+                {/* NavBar */}
+                <Navbar type={type} mediaType={mediaType} />
             </div>
         </div>
     );

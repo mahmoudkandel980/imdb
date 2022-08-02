@@ -1,7 +1,13 @@
+import { useContext } from "react";
 import { GetServerSideProps } from "next";
 
 import Media from "../../components/media/media";
 import MediaPosterHeaader from "../../components/header/mediaPosterHeader";
+import Footer from "../../components/footer/footer";
+import Spinner from "../../components/ui/spinner";
+import RouterSpinner from "../../components/ui/routerSpinner";
+
+import SpinnerContext from "../../context/spinner-context";
 
 import { RequestMediaInterface } from "../../models/interfaces";
 import { MediaDataInterface } from "../../models/media-interfaces";
@@ -11,10 +17,23 @@ import { requestMoviePage } from "../../libs/requests";
 const MoviesPage = (props: MediaDataInterface & RequestMediaInterface) => {
     const { mediaData, type } = props;
 
+    const spinnerCtx = useContext(SpinnerContext);
+    const { showMedia } = spinnerCtx;
+
     return (
-        <div>
-            <MediaPosterHeaader mediaData={mediaData} />
-            <Media mediaData={mediaData} />
+        <div className="bg-[#141516]">
+            {showMedia ? (
+                <div className="h-screen w-full flex justify-center items-center">
+                    {/* <Spinner className="" /> */}
+                    <RouterSpinner />
+                </div>
+            ) : (
+                <div>
+                    <MediaPosterHeaader mediaData={mediaData} />
+                    <Media mediaData={mediaData} />
+                    {showMedia ? <></> : <Footer />}
+                </div>
+            )}
         </div>
     );
 };

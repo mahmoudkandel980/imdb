@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import MediaCard from "../models/mediaCard";
 import MovieContext from "../../context/movieData-context";
+import SpinnerContext from "../../context/spinner-context";
 
 import { MediaDataInterface } from "../../models/media-interfaces";
 import { movieDataInterface } from "../../models/context-interfaces";
@@ -11,7 +12,10 @@ const Media = (props: MediaDataInterface): JSX.Element => {
     const { mediaData } = props;
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
+    const spinnerCtx = useContext(SpinnerContext);
+
     const { getMovieData } = movieCtx;
+    const { showSpinnerHandler } = spinnerCtx;
 
     const onClickHandler = (
         title: string,
@@ -20,6 +24,7 @@ const Media = (props: MediaDataInterface): JSX.Element => {
         mediahasVideo: boolean,
         movieData: movieDataInterface
     ) => {
+        showSpinnerHandler(true);
         getMovieData(movieData);
 
         const type = router.query.type || "Trending";
