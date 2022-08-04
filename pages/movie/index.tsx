@@ -2,20 +2,21 @@ import { useContext } from "react";
 import { GetServerSideProps } from "next";
 
 import Media from "../../components/media/media";
-import MediaPosterHeaader from "../../components/header/mediaPosterHeader";
+import MediaPosterHeaader from "../../components/media/mediaPosterHeader";
 import Footer from "../../components/footer/footer";
-import Spinner from "../../components/ui/spinner";
 import RouterSpinner from "../../components/ui/routerSpinner";
-
 import SpinnerContext from "../../context/spinner-context";
+import { requestMoviePage } from "../../libs/requests";
 
 import { RequestMediaInterface } from "../../models/interfaces";
 import { MediaDataInterface } from "../../models/media-interfaces";
+import { TotalPagesInterface } from "../../models/interfaces";
 
-import { requestMoviePage } from "../../libs/requests";
-
-const MoviesPage = (props: MediaDataInterface & RequestMediaInterface) => {
-    const { mediaData, type } = props;
+const MoviesPage = (
+    props: RequestMediaInterface & MediaDataInterface & TotalPagesInterface
+) => {
+    const { mediaData, type, total_pages } = props;
+    console.log(total_pages);
 
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
@@ -31,7 +32,7 @@ const MoviesPage = (props: MediaDataInterface & RequestMediaInterface) => {
                 <div>
                     <MediaPosterHeaader mediaData={mediaData} />
                     <Media mediaData={mediaData} />
-                    {showMedia ? <></> : <Footer />}
+                    {showMedia ? <></> : <Footer total_pages={total_pages} />}
                 </div>
             )}
         </div>
@@ -65,12 +66,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const res = await req.json();
     const mediaData = res.results;
-
-    // const mediaData = data;
+    const total_pages = res.total_pages;
 
     return {
         props: {
             mediaData,
+            total_pages,
             type,
         },
     };

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
 
-import MediaCard from "../models/mediaCard";
+import MediaCard from "./models/mediaCard";
 import MovieContext from "../../context/movieData-context";
 import SpinnerContext from "../../context/spinner-context";
 

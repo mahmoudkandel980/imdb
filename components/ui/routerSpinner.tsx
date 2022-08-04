@@ -1,4 +1,5 @@
 import classes from "./routerSpinner.module.css";
+
 const RouterSpinner = (): JSX.Element => {
     return (
         <div>

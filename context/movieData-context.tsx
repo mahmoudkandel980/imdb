@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 import { movieDataInterface, Props } from "../models/context-interfaces";
 
@@ -42,8 +42,38 @@ export const MovieContextProvider = (props: Props): JSX.Element => {
         name: "",
     });
 
-    const getMovieData = (movieData: movieDataInterface) => {
-        setMovieData(movieData);
+    const getMovieData = ({
+        backdrop_path,
+        id,
+        title,
+        original_language,
+        original_title,
+        original_name,
+        overview,
+        poster_path,
+        media_type,
+        release_date,
+        first_air_date,
+        vote_average,
+        vote_count,
+        name,
+    }: movieDataInterface) => {
+        setMovieData({
+            backdrop_path,
+            id,
+            title,
+            original_language,
+            original_title,
+            original_name,
+            overview,
+            poster_path,
+            media_type,
+            release_date,
+            first_air_date,
+            vote_average,
+            vote_count,
+            name,
+        });
     };
 
     const data = {

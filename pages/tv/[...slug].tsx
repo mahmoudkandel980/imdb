@@ -1,16 +1,14 @@
 import { useContext } from "react";
 import { GetServerSideProps } from "next";
 
-import SpecificMedia from "../../components/models/specificMedia";
-import SpecificMediaVideo from "../../components/models/specificMediaVideo";
-import SpecificMediaSwiper from "../../components/models/specificMediaSwiper";
+import SpecificMedia from "../../components/media/specificMedia";
+import SpecificMediaVideo from "../../components/media/specificMediaVideo";
+import SpecificMediaSwiper from "../../components/media/models/specificMediaSwiper";
 import Footer from "../../components/footer/footer";
-import Spinner from "../../components/ui/spinner";
 import RouterSpinner from "../../components/ui/routerSpinner";
-
 import SpinnerContext from "../../context/spinner-context";
-
 import { requestMovieIdPage } from "../../libs/requests";
+
 import {
     SpecificMediaDataInterface,
     MediaVedioDataInterface,
@@ -43,7 +41,7 @@ const SelcetedTv = (
                         mediaVedioData={mediaVedioData}
                         initialVideoData={initialVideoData}
                     />
-                    {showMedia ? <></> : <Footer />}
+                    {showMedia ? <></> : <Footer total_pages={1} />}
                 </div>
             )}
         </div>

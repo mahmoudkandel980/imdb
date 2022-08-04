@@ -1,5 +1,6 @@
 const API_KEY = process.env.API_KEY;
 
+// Movies
 export const requestMoviePage = [
     {
         pageName: "movie",
@@ -35,6 +36,7 @@ export const requestMoviePage = [
     },
 ];
 
+// Tv
 export const requestTvPage = [
     {
         pageName: "tv",
@@ -71,6 +73,7 @@ export const requestTvPage = [
     },
 ];
 
+// HomePage
 export const requestHomePage = [
     {
         pageName: "home",
@@ -95,6 +98,7 @@ export const requestHomePage = [
     },
 ];
 
+// People
 export const requestPeoplePage = [
     {
         pageName: "people",
@@ -105,8 +109,14 @@ export const requestPeoplePage = [
     },
 ];
 
+export const requestPersonIdPage = {
+    pageName: "personId",
+    url: `?api_key=${API_KEY}&language=en-US`,
+    pages: "one page",
+};
+
 export const requestMovieIdPage = {
     pageName: "movieId",
     url: `?api_key=${API_KEY}&language=en-US`,
-    pages: "More than one",
+    pages: "one page",
 };

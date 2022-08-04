@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { SpecificMediaDataInterface } from "../../models/media-interfaces";
+import { SpecificMediaDataInterface } from "../../../models/media-interfaces";
 import { GoCalendar } from "react-icons/go";
 import { BiPlayCircle } from "react-icons/bi";
 
@@ -20,7 +20,7 @@ SwiperCore.use([Navigation, Autoplay]);
 const SpecificMediaSwiper = (
     props: SpecificMediaDataInterface
 ): JSX.Element => {
-    const { seasons, number_of_seasons } = props.mediaData;
+    const { seasons } = props.mediaData;
 
     if (!seasons) {
         return <></>;

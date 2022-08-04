@@ -6,9 +6,13 @@ import PaginationButtons from "./paginationButtons";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-const Pagination = (): JSX.Element => {
+import { TotalPagesInterface } from "../../models/interfaces";
+
+const Pagination = (props: TotalPagesInterface): JSX.Element => {
     const router = useRouter();
     const { type, page } = router.query;
+
+    const { total_pages } = props;
 
     const currentPage = Number(page);
     const pathName = router.pathname;

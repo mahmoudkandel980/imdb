@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-
 import { PaginationButtons } from "../../models/interfaces";
 
 const PaginationButtons = (props: PaginationButtons): JSX.Element => {

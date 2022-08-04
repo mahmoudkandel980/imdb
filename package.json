@@ -9,10 +9,12 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "framer-motion": "^4.1.17",
         "next": "12.2.3",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-icons": "^4.4.0",
+        "react-media-hook": "^0.4.9",
         "swiper": "^8.3.2"
     },
     "devDependencies": {

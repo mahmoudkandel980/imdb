@@ -1,6 +1,6 @@
-export interface NavbarFrameInterface {
-    children: JSX.Element[] | JSX.Element;
-}
+// export interface NavbarFrameInterface {
+//     children: JSX.Element[] | JSX.Element;
+// }
 
 export interface NavElInterface {
     href: string;
@@ -16,4 +16,8 @@ export interface RequestMediaInterface {
 export interface PaginationButtons {
     icon: JSX.Element;
     target: string;
+}
+
+export interface TotalPagesInterface {
+    total_pages: number;
 }

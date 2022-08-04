@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Link from "next/link";
 import SpinnerContext from "../../context/spinner-context";
-
 import { NavElInterface } from "../../models/interfaces";
 
 const NavElement = (props: NavElInterface): JSX.Element => {
@@ -21,9 +20,9 @@ const NavElement = (props: NavElInterface): JSX.Element => {
                 onClick={onClickHandler}
             >
                 <Link href={href}>
-                    <a className="flex flex-col w-12 h-12 relative items-center space-y-1">
+                    <a className="sm:flex flex-col w-12 h-12 relative items-center space-y-1">
                         {icon}
-                        <span className="opacity-0 absolute scale-75 group-hover:scale-100 top-0 group-hover:top-5 sm:top-5 sm:group-hover:top-10 text-sm group-hover:opacity-100 sm:text-lg duration-300">
+                        <span className="hidden sm:block opacity-0 absolute scale-75 group-hover:scale-100 top-0  md:group-hover:top-8 sm:top-5 sm:group-hover:top-5 text-sm group-hover:opacity-100 sm:text-lg duration-300">
                             {navEl}
                         </span>
                     </a>

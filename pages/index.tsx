@@ -9,14 +9,13 @@ const Home: NextPage = () => {
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
     return (
-        <div className="bg-[#141516]">
+        <div className="bg-[#141516] h-screen">
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
-                    {/* <Spinner className="" /> */}
                     <RouterSpinner />
                 </div>
             ) : (
-                <div>{showMedia ? <></> : <Footer />}</div>
+                <div>{showMedia ? <></> : <Footer total_pages={1} />}</div>
             )}
         </div>
     );

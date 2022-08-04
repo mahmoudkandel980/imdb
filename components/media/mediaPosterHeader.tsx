@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
 import MovieContext from "../../context/movieData-context";
 import SpinnerContext from "../../context/spinner-context";
-import Navbar from "./navbar";
+import Navbar from "../header/navbar";
 
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { GoCalendar } from "react-icons/go";
@@ -81,10 +81,6 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
         }
     };
 
-    // if (showMedia) {
-    //     return <h1>Loading</h1>;
-    // }
-
     return (
         <div className="bg-[#212529]">
             <div className="w-full h-screen md:h-[800px] relative mx-auto shadow-xl overflow-hidden">
@@ -94,7 +90,6 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                     navigation
                     slidesPerGroup={1}
                     pagination={{ clickable: true }}
-                    scrollbar={{ draggable: true }}
                     autoplay={{
                         delay: 4000,
                         disableOnInteraction: false,

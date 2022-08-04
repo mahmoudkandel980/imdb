@@ -1,14 +1,13 @@
 import { useContext } from "react";
 import { GetServerSideProps } from "next";
 
-import SpecificMedia from "../../components/models/specificMedia";
-import SpecificMediaVideo from "../../components/models/specificMediaVideo";
+import SpecificMedia from "../../components/media/specificMedia";
+import SpecificMediaVideo from "../../components/media/specificMediaVideo";
 import Footer from "../../components/footer/footer";
-import Spinner from "../../components/ui/spinner";
 import RouterSpinner from "../../components/ui/routerSpinner";
 import SpinnerContext from "../../context/spinner-context";
-
 import { requestMovieIdPage } from "../../libs/requests";
+
 import {
     MediaVedioDataInterface,
     initialVideoDataInterface,
@@ -28,7 +27,6 @@ const SelcetedMovie = (
         <div className="bg-[#141516]">
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
-                    {/* <Spinner className="" /> */}
                     <RouterSpinner />
                 </div>
             ) : (
@@ -38,7 +36,7 @@ const SelcetedMovie = (
                         mediaVedioData={mediaVedioData}
                         initialVideoData={initialVideoData}
                     />
-                    {showMedia ? <></> : <Footer />}
+                    {showMedia ? <></> : <Footer total_pages={1} />}
                 </div>
             )}
         </div>
@@ -102,15 +100,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             });
         }
     }
-
-    // specificMedia Key & name
-
-    // const mediaData = data;
-    // movieVediosData.forEach((el) => {
-    //     if (el) {
-    //         mediaVedioData.push(el);
-    //     }
-    // });
 
     return {
         props: {

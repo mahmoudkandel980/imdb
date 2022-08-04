@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { CardInterface } from "../../models/media-interfaces";
+import { CardInterface } from "../../../models/media-interfaces";
 
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { BiPlayCircle } from "react-icons/bi";
@@ -16,7 +16,6 @@ const MediaCard = (props: CardInterface): JSX.Element => {
         backdrop_path,
         first_air_date,
         original_language,
-        overview,
         release_date,
         title,
         vote_average,
@@ -97,7 +96,7 @@ const MediaCard = (props: CardInterface): JSX.Element => {
                     <span>{original_language.toLocaleUpperCase()}</span>
                 </div>
 
-                {/* likes and date */}
+                {/* Rating */}
                 <div className="flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-[#e03131]">
                     <AiFillStar className="h-5 w-5 " />
                     {vote_average ? (
@@ -107,7 +106,7 @@ const MediaCard = (props: CardInterface): JSX.Element => {
                     )}
                 </div>
 
-                <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 left-3 sm:-left-2 absolute bottom-10 sm:bottom-3  sm:scale-[0.85] text-gray-200 w-full">
+                <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 left-3 sm:-left-2 absolute bottom-0.5 sm:bottom-1  sm:scale-[0.85] text-gray-200 w-full">
                     {/* like */}
                     <div className="group flex items-center justify-center space-x-1 z-10">
                         <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />

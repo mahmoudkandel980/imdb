@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
-import MovieContext from "../../context/movieData-context";
+import MovieContext from "../../../context/movieData-context";
 
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { GoCalendar } from "react-icons/go";
 import { BsEyeFill } from "react-icons/bs";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-import { SpecificMediaDataInterface } from "../../models/media-interfaces";
+import { SpecificMediaDataInterface } from "../../../models/media-interfaces";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
@@ -24,14 +24,11 @@ const SpecificMediaPoster = (
         backdrop_path,
         genres,
         homepage,
-        id,
-        imdb_id,
         original_language,
         original_title,
         overview,
         poster_path,
         production_companies,
-        production_countries,
         release_date,
         runtime,
         spoken_languages, //
@@ -41,10 +38,8 @@ const SpecificMediaPoster = (
         vote_count,
         name,
         first_air_date,
-        episode_run_time,
         number_of_seasons,
         number_of_episodes,
-        seasons,
     } = props.mediaData;
 
     const media = router.query.media;
@@ -289,7 +284,7 @@ const SpecificMediaPoster = (
                             )}
                             <div className="flex items-center justify-start">
                                 {/* overview */}
-                                <span className="text-xs line-clamp-6 sm:line-clamp-none ml-4 sm:ml-0 sm:text-base mt-16 w-[90%] sm:w-[80%] md:[500px] lg:w-[100%] xl:w-[700px]">
+                                <span className="text-xs line-clamp-6 sm:line-clamp-none ml-4 sm:ml-0 sm:text-sm lg:text-base mt-16 w-[90%] sm:w-[100%] md:[500px] lg:w-[100%] xl:w-[700px]">
                                     {overview}
                                 </span>
                             </div>
