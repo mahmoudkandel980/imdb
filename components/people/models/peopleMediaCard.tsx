@@ -18,6 +18,15 @@ import { PeopleMediaDataIntrerface } from "../../../models/people-interfaces";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
+import * as React from "react";
+
+//
+declare module "framer-motion" {
+    export interface AnimatePresenceProps {
+        children?: React.ReactNode;
+    }
+}
+
 const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
     const { known_for: mediaData, onClickHandler, gender, id, name } = props;
     const router = useRouter();

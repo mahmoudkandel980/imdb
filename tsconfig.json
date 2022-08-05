@@ -20,7 +20,8 @@
         "**/*.ts",
         "**/*.tsx",
         "libs/requests.ts",
-        "components/models/specificMediaSesssonSlider.tssx"
+        "components/models/specificMediaSesssonSlider.tssx",
+        "components/people/models/peopleMediaCard.tsx"
     ],
     "exclude": ["node_modules"]
 }
