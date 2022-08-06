@@ -71,23 +71,23 @@ const SpecificMedia = (props: SpecificMediaDataInterface): JSX.Element => {
                     <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute left-0 bottom-0 text-gray-200 w-full0">
                         {/* like */}
                         <div className="group flex items-center justify-center space-x-1 z-10">
-                            <AiFillLike className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                            <AiFillLike className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                             <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
-                                <span className="flicker-black font-mono font-medium bg-[#212529] p-4 py-0.5 rounded-md bg-opacity-95">
+                                <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
                                     {vote_count}
                                 </span>
                             </div>
                         </div>
                         {/* rate */}
                         <div className="group flex items-center justify-center space-x-1 z-10">
-                            <AiFillStar className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                            <AiFillStar className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                             <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                 {vote_average ? (
-                                    <span className="flicker-black font-mono font-medium bg-[#212529] p-4 py-0.5 rounded-md bg-opacity-95">
+                                    <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
                                         {vote_average.toFixed(1)}
                                     </span>
                                 ) : (
-                                    <span className="flicker-black font-mono font-medium bg-[#212529] p-4 py-0.5 rounded-md bg-opacity-95">
+                                    <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
                                         0
                                     </span>
                                 )}
@@ -95,9 +95,9 @@ const SpecificMedia = (props: SpecificMediaDataInterface): JSX.Element => {
                         </div>
                         {/* runtime */}
                         <div className="group flex items-center justify-center space-x-1 z-10">
-                            <BsEyeFill className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                            <BsEyeFill className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                             <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
-                                <span className="flicker-black font-mono font-medium bg-[#212529] p-4 py-0.5 rounded-md bg-opacity-95">
+                                <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
                                     {runtime || 0}
                                 </span>
                             </div>
@@ -108,9 +108,9 @@ const SpecificMedia = (props: SpecificMediaDataInterface): JSX.Element => {
                                 !release_date && "hidden"
                             } group flex items-center justify-center space-x-1 z-10`}
                         >
-                            <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                            <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                             <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
-                                <span className="flicker-black font-mono font-medium bg-[#212529] p-4 py-0.5 rounded-md bg-opacity-95">
+                                <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
                                     {release_date}
                                 </span>
                             </div>
@@ -118,7 +118,7 @@ const SpecificMedia = (props: SpecificMediaDataInterface): JSX.Element => {
                     </div>
                 </div>
                 {/*overlay*/}
-                <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-[#212529]/30 to-[#212529]/90 "></div>
+                <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-darkGray/30 to-darkGray/90 "></div>
                 <SpecificMediaPoster mediaData={props.mediaData} />
             </div>
         </div>

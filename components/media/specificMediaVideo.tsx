@@ -48,7 +48,7 @@ const SpecificMediaVideo = (
                 <div className="flex ">
                     <div className="container mx-auto">
                         <div className="flex flex-col items-center justify-center ">
-                            <h2 className="self-start text-red-500 lg:ml-15 text-sm md:text-xl mb-5 font-bold font-mono">
+                            <h2 className="self-start text-darkRed lg:ml-15 text-sm md:text-xl mb-5 font-bold font-mono">
                                 No Media To Show
                             </h2>
                             <div className="w-full h-full">

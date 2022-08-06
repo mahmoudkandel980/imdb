@@ -9,7 +9,7 @@ const Footer = (props: TotalPagesInterface): JSX.Element => {
     const page = router.query.page;
     return (
         <div className="">
-            <div className=" bg-[#1f2224] ">
+            <div className=" bg-darkFooter ">
                 {page && <Pagination total_pages={total_pages} />}
             </div>
             <div className="pt-10 bg-black">Footer</div>

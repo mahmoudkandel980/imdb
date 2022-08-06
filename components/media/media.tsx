@@ -22,7 +22,8 @@ const Media = (props: MediaDataInterface): JSX.Element => {
         name: string,
         id: string,
         mediahasVideo: boolean,
-        movieData: movieDataInterface
+        movieData: movieDataInterface,
+        media_type: string
     ) => {
         showSpinnerHandler(true);
         getMovieData(movieData);
@@ -34,21 +35,29 @@ const Media = (props: MediaDataInterface): JSX.Element => {
         if (name) {
             mediahasVideo
                 ? router.push(
-                      `/${page}/${name}?type=${type}&media=${true}&id=${id}`
+                      `/${
+                          media_type || page
+                      }/${name}?type=${type}&media=${true}&id=${id}`
                   )
-                : router.push(`/${page}/${name}?type=${type}&id=${id}`);
+                : router.push(
+                      `/${media_type || page}/${name}?type=${type}&id=${id}`
+                  );
         } else {
             mediahasVideo
                 ? router.push(
-                      `/${page}/${title}?type=${type}&media=${true}&id=${id}`
+                      `/${
+                          media_type || page
+                      }/${title}?type=${type}&media=${true}&id=${id}`
                   )
-                : router.push(`/${page}/${title}?type=${type}&id=${id}`);
+                : router.push(
+                      `/${media_type || page}/${title}?type=${type}&id=${id}`
+                  );
         }
     };
 
     return (
-        <div className="bg-[#212529] pt-20">
-            <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-6 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="bg-darkGray pt-20">
+            <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-0 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {mediaData.map((media) => (
                     <MediaCard
                         media={media}

@@ -82,7 +82,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
     };
 
     return (
-        <div className="bg-[#212529]">
+        <div className="bg-darkGray">
             <div className="w-full h-screen md:h-[800px] relative mx-auto shadow-xl overflow-hidden">
                 <Swiper
                     spaceBetween={5}
@@ -152,7 +152,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                             )
                                                         }
                                                     >
-                                                        <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
+                                                        <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-iconRed flickerAnimation" />
                                                     </div>
                                                 ) : (
                                                     <div
@@ -166,7 +166,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                             )
                                                         }
                                                     >
-                                                        <BiPlayCircle className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
+                                                        <BiPlayCircle className="w-16 h-16 cursor-pointer flicker-red rounded-full text-iconRed flickerAnimation" />
                                                     </div>
                                                 )}
                                             </div>
@@ -175,7 +175,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                         <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute left-0 bottom-20 text-gray-200 w-full0">
                                             {/* like */}
                                             <div className="group flex items-center justify-center space-x-1 z-10">
-                                                <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                                <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                                 <div className="absolut left-10 group-hover:text-white translate-x-2 duration-500">
                                                     <span className="font-mono font-medium p-4 py-0.5 bg-opacity-95">
                                                         {media.vote_count}
@@ -184,7 +184,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                             </div>
                                             {/* rate */}
                                             <div className="group flex items-center justify-center space-x-1 z-10">
-                                                <AiFillStar className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                                <AiFillStar className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                                 <div className="absolut left-10 group-hover:text-white translate-x-2 duration-500">
                                                     {media.vote_average ? (
                                                         <span className="font-mono font-medium p-4 py-0.5 bg-opacity-95">
@@ -206,7 +206,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                     "hidden"
                                                 } group flex items-center justify-center space-x-1 z-10`}
                                             >
-                                                <GoCalendar className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                                <GoCalendar className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                                 <div className="absolut left-10 group-hover:text-white translate-x-2 duration-500">
                                                     <span className="font-mono font-medium p-4 py-0.5 bg-opacity-95">
                                                         {media.release_date}
@@ -216,7 +216,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                         </div>
                                     </div>
                                     {/*overlay*/}
-                                    <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-[#212529]/30 to-[#212529]/90 "></div>
+                                    <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-darkGray/30 to-darkGray/90 "></div>
 
                                     {/* Large Screen */}
                                     {/* Poster Data */}
@@ -237,7 +237,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                         priority
                                                     />
                                                     {/*overlay*/}
-                                                    <div className="absolute flex justify-center items-center top-0 left-0 h-full w-full bg-gradient-to-t from-[#212529]/40 to-[#212529]/0 duration-1000"></div>
+                                                    <div className="absolute flex justify-center items-center top-0 left-0 h-full w-full bg-gradient-to-t from-darkGray/40 to-darkGray/0 duration-1000"></div>
 
                                                     {/* Large Screan */}
                                                     <div className="flex flex-col items-start justify-between z-10 space-y-5 p-2.5 px-2 absolute left-[50%] top-[50%] -translate-x-10 -translate-y-12 text-gray-200 w-full0">
@@ -256,7 +256,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                                         )
                                                                     }
                                                                 >
-                                                                    <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
+                                                                    <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-iconRed flickerAnimation" />
                                                                 </div>
                                                             ) : (
                                                                 <div
@@ -270,14 +270,14 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                                         )
                                                                     }
                                                                 >
-                                                                    <BiPlayCircle className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
+                                                                    <BiPlayCircle className="w-16 h-16 cursor-pointer flicker-red rounded-full text-iconRed flickerAnimation" />
                                                                 </div>
                                                             )}
                                                         </div>
                                                     </div>
 
                                                     {/* rate */}
-                                                    <div className="flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-[#e03131]">
+                                                    <div className="flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-darkRed">
                                                         <AiFillStar className="h-5 w-5 " />
                                                         {media.vote_average ? (
                                                             <span>
@@ -291,7 +291,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                     </div>
                                                     {/* language */}
                                                     {media.original_language && (
-                                                        <div className="absolute top-3 z-10 select-none right-3 bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                                                        <div className="absolute top-3 z-10 select-none right-3 bg-darkRed text-white p-1 px-1.5 rounded-full">
                                                             <span>
                                                                 {media.original_language.toLocaleUpperCase()}
                                                             </span>
@@ -302,7 +302,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                     <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute bottom-0 text-gray-200 w-full0">
                                                         {/* like */}
                                                         <div className="group flex items-center justify-center space-x-1 z-10">
-                                                            <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                                            <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                                             <div className="absolut left-10  group-hover:text-white translate-x-2 duration-500">
                                                                 <span className=" font-mono font-medium">
                                                                     {
@@ -321,7 +321,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                                                 ) && "hidden"
                                                             } group flex items-center justify-center space-x-1 z-10`}
                                                         >
-                                                            <GoCalendar className="flicker-white h-7 w-7 bg-[#212529] p-1 rounded-full text-white cursor-pointer duration-300" />
+                                                            <GoCalendar className="flicker-white h-7 w-7 bg-darkGray p-1 rounded-full text-white cursor-pointer duration-300" />
                                                             <div className="absolut left-10 group-hover:text-white translate-x-2 duration-500">
                                                                 <span className="font-mono font-medium">
                                                                     {media.release_date ||

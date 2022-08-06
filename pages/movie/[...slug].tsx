@@ -1,30 +1,45 @@
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { GetServerSideProps } from "next";
 
 import SpecificMedia from "../../components/media/specificMedia";
+import SpecifcPeopleMedia from "../../components/media/models/specifcPeopleMedia";
 import SpecificMediaVideo from "../../components/media/specificMediaVideo";
 import Footer from "../../components/footer/footer";
 import RouterSpinner from "../../components/ui/routerSpinner";
 import SpinnerContext from "../../context/spinner-context";
-import { requestMovieIdPage } from "../../libs/requests";
+import {
+    requestMovieIdPage,
+    requestMediaPeoplePage,
+} from "../../libs/requests";
 
 import {
     MediaVedioDataInterface,
     initialVideoDataInterface,
 } from "../../models/media-interfaces";
 import { SpecificMediaDataInterface } from "../../models/media-interfaces";
+import { MediaPeopleInterface } from "../../models/people-interfaces";
+
+const isSSR = typeof window === "undefined";
 
 const SelcetedMovie = (
-    props: SpecificMediaDataInterface &
-        MediaVedioDataInterface &
-        initialVideoDataInterface
+    props: MediaVedioDataInterface &
+        initialVideoDataInterface &
+        SpecificMediaDataInterface &
+        MediaPeopleInterface
 ) => {
-    const { mediaData, mediaVedioData, initialVideoData } = props;
+    const [isSSR, setIsSSR] = useState(true);
+
+    const { mediaData, mediaVedioData, initialVideoData, mediaPeople } = props;
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
 
+    useEffect(() => {
+        setIsSSR(false);
+    }, []);
+
     return (
-        <div className="bg-[#141516]">
+        <div className="bg-smothDark">
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />
@@ -32,10 +47,15 @@ const SelcetedMovie = (
             ) : (
                 <div>
                     <SpecificMedia mediaData={mediaData} />
-                    <SpecificMediaVideo
-                        mediaVedioData={mediaVedioData}
-                        initialVideoData={initialVideoData}
-                    />
+                    {!isSSR && (
+                        <>
+                            <SpecifcPeopleMedia mediaPeople={mediaPeople} />
+                            <SpecificMediaVideo
+                                mediaVedioData={mediaVedioData}
+                                initialVideoData={initialVideoData}
+                            />
+                        </>
+                    )}
                     {showMedia ? <></> : <Footer total_pages={1} />}
                 </div>
             )}
@@ -101,11 +121,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         }
     }
 
+    const mediaPeopleReq = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/credits${requestMediaPeoplePage.url}`
+    );
+    const mediaPeopleRes = await mediaPeopleReq.json();
+    const mediaPeople = mediaPeopleRes.cast;
+
     return {
         props: {
             mediaData,
             mediaVedioData,
             initialVideoData,
+            mediaPeople,
         },
     };
 };

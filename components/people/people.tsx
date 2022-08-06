@@ -29,7 +29,7 @@ const People = (props: PeopleDataInterface): JSX.Element => {
     };
 
     return (
-        <div className="bg-[#212529] pt-20">
+        <div className="bg-darkGray pt-20">
             <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-6 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {peopleData.map((person) => (
                     <div
@@ -48,7 +48,7 @@ const People = (props: PeopleDataInterface): JSX.Element => {
                                     priority
                                 />
                             </div>
-                            <div className="absolute w-full h-full bg-gradient-to-b from-[#212529]/0 to-[#212529]/70"></div>
+                            <div className="absolute w-full h-full bg-gradient-to-b from-darkGray/0 to-darkGray/70"></div>
 
                             <div className="vedio-icon--parent group">
                                 <BsEye
@@ -62,7 +62,7 @@ const People = (props: PeopleDataInterface): JSX.Element => {
                             </div>
 
                             {/* language */}
-                            <div className="flicker absolute top-3 z-10 select-none right-3  bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                            <div className="flicker absolute top-3 z-10 select-none right-3  bg-darkRed text-white p-1 px-1.5 rounded-full">
                                 <span>{person.known_for_department}</span>
                             </div>
 
@@ -70,9 +70,9 @@ const People = (props: PeopleDataInterface): JSX.Element => {
                                 {/* Gender */}
                                 <div className="group flex items-center justify-center space-x-1 z-10">
                                     {person.gender === 1 ? (
-                                        <CgGenderFemale className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
+                                        <CgGenderFemale className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
                                     ) : (
-                                        <TbGenderMale className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
+                                        <TbGenderMale className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
                                     )}
                                     <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                         <span className=" font-mono font-medium">

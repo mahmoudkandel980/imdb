@@ -1,11 +1,9 @@
+import { useEffect, useState, useContext } from "react";
 import { NextPage, GetServerSideProps } from "next";
-import { useContext } from "react";
 
 import SpecificPerson from "../../components/people/specificPerson";
-import SpecificPersonMovieCastSwiper from "../../components/people/models/specificPersonMovieCastSwiper";
-import SpecificPersonMovieCrewSwiper from "../../components/people/models/specificPersonMovieCrewSwiper";
-import SpecificPersonTvCastSwiper from "../../components/people/models/specificPersonTvCastSwiper";
-import SpecificPersonTvCrewSwiper from "../../components/people/models/specificPersonTvCrewSwiper";
+import SpecificPersonMediaCastSwiper from "../../components/people/models/specificPersonMediaCastSwiper";
+import SpecificPersonMediaCrewSwiper from "../../components/people/models/specificPersonMediaCrewSwiper";
 
 import Footer from "../../components/footer/footer";
 import SpinnerContext from "../../context/spinner-context";
@@ -19,17 +17,25 @@ import {
 
 import { requestPersonIdPage } from "../../libs/requests";
 
+const isSSR = typeof window === "undefined";
+
 const SelectedActor = (
     props: SpecificPersonDetailsDataIntrerface &
         SpecificPersonMovieMediaDataIntrerface &
         SpecificPersonTvMediaDataIntrerface
 ) => {
     const { personDetails, personMovieMedia, personTvMedia } = props;
+
+    const [isSSR, setIsSSR] = useState(true);
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
 
+    useEffect(() => {
+        setIsSSR(false);
+    }, []);
+
     return (
-        <div className="bg-[#141516]">
+        <div className="bg-smothDark">
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />
@@ -37,16 +43,25 @@ const SelectedActor = (
             ) : (
                 <div>
                     <SpecificPerson personDetails={personDetails} />
-                    {/* Movies */}
-                    <SpecificPersonMovieCastSwiper
-                        personMovieMedia={personMovieMedia}
-                    />
-                    <SpecificPersonMovieCrewSwiper
-                        personMovieMedia={personMovieMedia}
-                    />
-                    {/* Tv */}
-                    <SpecificPersonTvCastSwiper personTvMedia={personTvMedia} />
-                    <SpecificPersonTvCrewSwiper personTvMedia={personTvMedia} />
+                    {!isSSR && (
+                        <>
+                            {/* Movies */}
+                            <SpecificPersonMediaCastSwiper
+                                personMedia={personMovieMedia}
+                            />
+                            <SpecificPersonMediaCrewSwiper
+                                personMedia={personMovieMedia}
+                            />
+
+                            {/* Tv */}
+                            <SpecificPersonMediaCastSwiper
+                                personMedia={personTvMedia}
+                            />
+                            <SpecificPersonMediaCrewSwiper
+                                personMedia={personTvMedia}
+                            />
+                        </>
+                    )}
                     {showMedia ? <></> : <Footer total_pages={1} />}
                 </div>
             )}

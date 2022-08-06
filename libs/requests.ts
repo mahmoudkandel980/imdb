@@ -8,7 +8,7 @@ export const requestMoviePage = [
         type: "Trending",
         title: "Trending",
         url: `/trending/all/day?api_key=${API_KEY}&language=en-US`,
-        pages: "one page",
+        pages: "More than one",
     },
     {
         pageName: "movie",
@@ -108,6 +108,49 @@ export const requestPeoplePage = [
         pages: "More than one",
     },
 ];
+
+// Search
+export const requestSearchPage = [
+    {
+        // page query
+        pageName: "multi",
+        type: "Multi",
+        title: "Multi",
+        url: `/search/multi?api_key=${API_KEY}&language=en-US&include_adult=false`,
+        pages: "More than one",
+    },
+    {
+        // page query
+        pageName: "movie",
+        type: "Movie",
+        title: "Movie",
+        url: `/search/movie?api_key=${API_KEY}&language=en-US&include_adult=false`,
+        pages: "More than one",
+    },
+    {
+        // page query
+        pageName: "tv",
+        type: "Tv",
+        title: "Tv",
+        url: `/search/tv?api_key=${API_KEY}&language=en-US&include_adult=false`,
+        pages: "More than one",
+    },
+    {
+        // page query
+        pageName: "People",
+        type: "People",
+        title: "People",
+        url: `/search/person?api_key=${API_KEY}&language=en-US&include_adult=false`,
+        pages: "More than one",
+    },
+];
+
+// Media People
+export const requestMediaPeoplePage = {
+    pageName: "mediaPeople",
+    url: `?api_key=${API_KEY}&language=en-US`,
+    pages: "one page",
+};
 
 export const requestPersonIdPage = {
     pageName: "personId",

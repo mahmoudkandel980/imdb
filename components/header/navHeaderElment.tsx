@@ -16,7 +16,7 @@ const NavElement = (props: NavElInterface): JSX.Element => {
     return (
         <div className="w-full">
             <div
-                className="group hover:text-yellow-400 active:text-yellow-500"
+                className="group hover:text-gray-300 active:text-gray-50"
                 onClick={onClickHandler}
             >
                 <Link href={href}>

@@ -15,7 +15,7 @@ const Header = (): JSX.Element => {
 
     return (
         <div className="fixed w-full z-50 ">
-            <div className="flex justify-between py-2 px-1 sm:p-5 sm:px-2 md:px-10  items-center select-none text-white bg-gradient-to-b from-[#212529]/50 to-[#212529]/0  bg-opacity-80 space-x-3 sm:space-x-10">
+            <div className="flex justify-between py-2 px-1 sm:p-5 sm:px-2 md:px-10  items-center select-none text-white bg-gradient-to-b from-darkGray/50 to-darkGray/0  bg-opacity-80 space-x-3 sm:space-x-10">
                 <nav className="flex items-center justify-start uppercase w-[80%] sm:w-[35%]">
                     <NavElement
                         href="/"
@@ -29,7 +29,7 @@ const Header = (): JSX.Element => {
                         navEl="home"
                     />
                     <NavElement
-                        href="/movie?type=Trending"
+                        href="/movie?type=Trending&page=1"
                         icon={
                             <RiMovie2Fill
                                 className={`w-7 h-7 p-1 rounded-full sm:w-7 sm:h-7 ${

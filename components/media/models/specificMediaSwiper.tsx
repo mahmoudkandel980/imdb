@@ -56,7 +56,6 @@ const SpecificMediaSwiper = (
                         navigation
                         slidesPerGroup={1}
                         pagination={{ clickable: true }}
-                        scrollbar={{ draggable: true }}
                         autoplay={{
                             delay: 3000,
                             disableOnInteraction: false,
@@ -89,7 +88,7 @@ const SpecificMediaSwiper = (
                                                 priority
                                             />
                                             {/* overlay */}
-                                            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b  from-[#212529]/0 to-[#212529]/30 group-hover:from-[#212529]/10 group-hover:to-[#212529]/80 duration-300"></div>
+                                            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b  from-darkGray/0 to-darkGray/30 group-hover:from-darkGray/10 group-hover:to-darkGray/80 duration-300"></div>
 
                                             {/* season name */}
                                             <div
@@ -99,7 +98,7 @@ const SpecificMediaSwiper = (
                                                     "hidden"
                                                 } absolute left-5 top-5`}
                                             >
-                                                <div className="flicker-black bg-[#212529] group-hover:bg-transparent rounded-full p-0.5 px-2 text-[#f8f9fa] bg-opacity-95 text-lg duration-200">
+                                                <div className="flicker-black bg-darkGray group-hover:bg-transparent rounded-full p-0.5 px-2 text-[#f8f9fa] bg-opacity-95 text-lg duration-200">
                                                     {season.name ||
                                                         `Season ${season.season_number}`}
                                                 </div>
@@ -113,7 +112,7 @@ const SpecificMediaSwiper = (
                                                         "hidden"
                                                     } group flex items-center justify-center space-x-1`}
                                                 >
-                                                    <BiPlayCircle className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] group-hover:bg-transparent p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                                    <BiPlayCircle className="flicker-black h-7 w-7 text-gray-300 bg-darkGray group-hover:bg-transparent p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                                     <div className="absolut left-10 text-white translate-x-3 duration-500">
                                                         {season.episode_count}
                                                         {season.episode_count >
@@ -129,7 +128,7 @@ const SpecificMediaSwiper = (
                                                         "hidden"
                                                     } group flex items-center justify-center space-x-1`}
                                                 >
-                                                    <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] group-hover:bg-transparent p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                                    <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-darkGray group-hover:bg-transparent p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                                     <div className="absolut left-10 text-white translate-x-3 duration-500">
                                                         {season.air_date}
                                                     </div>

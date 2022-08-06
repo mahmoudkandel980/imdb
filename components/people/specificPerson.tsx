@@ -16,7 +16,7 @@ const SpecificPerson = (
     const { birthday, gender, name, profile_path } = props.personDetails;
 
     return (
-        <div className="bg-[#212529]">
+        <div className="bg-darkGray">
             <div className="w-full h-screen  relative  mx-auto shadow-xl overflow-hidden">
                 <div className="hidden md:block  relative w-full h-screen">
                     <Image
@@ -42,12 +42,12 @@ const SpecificPerson = (
                         {/* Gender */}
                         <div className="group flex items-center justify-center space-x-1 z-10">
                             {gender === 1 ? (
-                                <CgGenderFemale className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                <CgGenderFemale className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                             ) : (
-                                <TbGenderMale className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                <TbGenderMale className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                             )}
                             <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
-                                <span className="flicker-black font-mono font-medium bg-[#212529] p-4 py-0.5 rounded-md bg-opacity-95">
+                                <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
                                     {gender === 1 ? "Femail" : "Mail"}
                                 </span>
                             </div>
@@ -59,9 +59,9 @@ const SpecificPerson = (
                                 !birthday && "hidden"
                             } group flex items-center justify-center space-x-1 z-10`}
                         >
-                            <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                            <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                             <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
-                                <span className="flicker-black font-mono font-medium bg-[#212529] p-4 py-0.5 rounded-md bg-opacity-95">
+                                <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
                                     {birthday}
                                 </span>
                             </div>
@@ -69,7 +69,7 @@ const SpecificPerson = (
                     </div>
                 </div>
                 {/*overlay*/}
-                <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-[#212529]/30 to-[#212529]/90 "></div>
+                <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-darkGray/30 to-darkGray/90 "></div>
                 <SpecificPersonPoster personDetails={props.personDetails} />
             </div>
         </div>

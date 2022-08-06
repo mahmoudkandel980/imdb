@@ -79,7 +79,7 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
                     {!showMedia ? (
                         <div className="group  flex items-center justify-center space-x-1 z-40">
                             <div onClick={() => onClickHandler(name, id)}>
-                                <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation" />
+                                <BsEye className="w-16 h-16 cursor-pointer flicker-red rounded-full text-iconRed flickerAnimation" />
                             </div>
                         </div>
                     ) : (
@@ -91,9 +91,9 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
                     {/* Gender */}
                     <div className="group flex items-center justify-center space-x-1 z-10">
                         {gender === 1 ? (
-                            <CgGenderFemale className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                            <CgGenderFemale className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                         ) : (
-                            <TbGenderMale className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                            <TbGenderMale className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                         )}
                         <div className="absolut left-10 group-hover:text-white translate-x-2 duration-500">
                             <div className="font-mono font-medium p-4 py-0.5 bg-opacity-95">
@@ -173,13 +173,13 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
                                                                     priority
                                                                 />
                                                             </div>
-                                                            <div className="absolute w-full h-full bg-gradient-to-b from-[#212529]/0 to-[#212529]/70"></div>
+                                                            <div className="absolute w-full h-full bg-gradient-to-b from-darkGray/0 to-darkGray/70"></div>
 
                                                             {/* coming soon */}
                                                             {media.vote_average ===
                                                             0 ? (
                                                                 <>
-                                                                    <div className="flex justify-center items-center absolute bg-[#212529] opacity-80 w-full h-full">
+                                                                    <div className="flex justify-center items-center absolute bg-darkGray opacity-80 w-full h-full">
                                                                         <p className="capitalize text-4xl text-white">
                                                                             coming
                                                                             soon
@@ -228,7 +228,7 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
                                                             {/* rate */}
                                                             {media.vote_average >
                                                                 0 && (
-                                                                <div className="flicker flex items-center justify-center text-sm sm:text-base space-x-1 z-10 text-yellow-400 absolute top-3 -left-14 sm:top-4 sm:-left-12 w-36 h-5 sm:h-7 -rotate-45 bg-[#e03131]">
+                                                                <div className="flicker flex items-center justify-center text-sm sm:text-base space-x-1 z-10 text-yellow-400 absolute top-3 -left-14 sm:top-4 sm:-left-12 w-36 h-5 sm:h-7 -rotate-45 bg-darkRed">
                                                                     <AiFillStar className="h-3 w-3 sm:h-5 sm:w-5 " />
                                                                     <span>
                                                                         {media.vote_average.toFixed(
@@ -239,7 +239,7 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
                                                             )}
 
                                                             {/* language */}
-                                                            <div className="flicker absolute top-1 sm:top-3 z-10 select-none text-sm sm:text-base right-1 sm:right-3 bg-[#e03131] text-white p-0.5 px-1  sm:p-1 sm:px-1.5 rounded-full">
+                                                            <div className="flicker absolute top-1 sm:top-3 z-10 select-none text-sm sm:text-base right-1 sm:right-3 bg-darkRed text-white p-0.5 px-1  sm:p-1 sm:px-1.5 rounded-full">
                                                                 <span>
                                                                     {media.original_language.toLocaleUpperCase()}
                                                                 </span>
@@ -248,7 +248,7 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
                                                             <div className="flex flex-col items-start justify-between space-y-2 sm:space-y-5 p-2.5 px-2 left-0 sm:-left-3 absolute bottom-0 sm:bottom-3  sm:scale-[0.85] text-gray-200 w-full">
                                                                 {/* like */}
                                                                 <div className="group flex items-center justify-center space-x-1 z-10">
-                                                                    <AiFillLike className="flicker-white h-5 w-5 sm:h-7 sm:w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
+                                                                    <AiFillLike className="flicker-white h-5 w-5 sm:h-7 sm:w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
                                                                     <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                                                         <span className="font-mono font-medium text-sm sm:text-base">
                                                                             {
@@ -264,7 +264,7 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
                                                                         "hidden"
                                                                     } group flex items-center justify-center space-x-1 z-10`}
                                                                 >
-                                                                    <GoCalendar className="flicker-white h-5 w-5 sm:h-7 sm:w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
+                                                                    <GoCalendar className="flicker-white h-5 w-5 sm:h-7 sm:w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
                                                                     <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                                                         <span className="font-mono font-medium text-sm sm:text-base">
                                                                             {

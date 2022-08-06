@@ -36,7 +36,7 @@ const PeoplePosterHeader = (props: PeopleDataInterface): JSX.Element => {
     };
 
     return (
-        <div className="bg-[#212529]">
+        <div className="bg-darkGray">
             <div className="w-full h-screen relative mx-auto shadow-xl overflow-hidden">
                 <Swiper
                     spaceBetween={5}
@@ -79,7 +79,7 @@ const PeoplePosterHeader = (props: PeopleDataInterface): JSX.Element => {
                                     </div>
 
                                     {/*overlay*/}
-                                    <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-[#212529]/30 to-[#212529]/90 "></div>
+                                    <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-darkGray/30 to-darkGray/90 "></div>
 
                                     {/* Poster Data */}
                                     {/* Works List */}

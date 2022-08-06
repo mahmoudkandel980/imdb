@@ -38,16 +38,16 @@ const SpecificPersonPoster = (
                             priority
                         />
                         {/*overlay*/}
-                        <div className="absolute flex justify-center items-center top-0 left-0 h-full w-full bg-gradient-to-t from-[#212529]/40 to-[#212529]/0 duration-1000"></div>
+                        <div className="absolute flex justify-center items-center top-0 left-0 h-full w-full bg-gradient-to-t from-darkGray/40 to-darkGray/0 duration-1000"></div>
 
                         {/* Gender and date */}
                         <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute bottom-0 text-gray-200 w-full0">
                             {/* Gender */}
                             <div className="group flex items-center justify-center space-x-1 z-10">
                                 {gender === 1 ? (
-                                    <CgGenderFemale className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                    <CgGenderFemale className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                 ) : (
-                                    <TbGenderMale className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                    <TbGenderMale className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                 )}
                                 <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                     <span className=" font-mono font-medium">
@@ -62,7 +62,7 @@ const SpecificPersonPoster = (
                                     !birthday && "hidden"
                                 } group flex items-center justify-center space-x-1 z-10`}
                             >
-                                <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                 <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                     <span className="font-mono font-medium">
                                         {birthday}
@@ -101,7 +101,7 @@ const SpecificPersonPoster = (
 
                                 <div className="flex items-end justify-start flex-wrap space-x-2 md:space-x-3 lg:space-x-5 space-y-3 ">
                                     {/* categories */}
-                                    <span className="flicker-red  bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                                    <span className="flicker-red  bg-darkRed text-white p-1 px-1.5 rounded-full">
                                         {known_for_department}
                                     </span>
                                 </div>
@@ -111,8 +111,8 @@ const SpecificPersonPoster = (
                                     <span
                                         className={`${
                                             deathday
-                                                ? "bg-[#e03131]"
-                                                : "bg-[#37b24d]"
+                                                ? "bg-darkRed"
+                                                : "bg-success"
                                         } text-white p-1 px-1.5 rounded-full`}
                                     >
                                         {deathday ? "Dead" : "Alive"}

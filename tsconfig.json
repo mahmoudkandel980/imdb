@@ -21,7 +21,8 @@
         "**/*.tsx",
         "libs/requests.ts",
         "components/models/specificMediaSesssonSlider.tssx",
-        "components/people/models/peopleMediaCard.tsx"
+        "components/people/models/peopleMediaCard.tsx",
+        "pages/people/[...slug].jsx"
     ],
     "exclude": ["node_modules"]
 }

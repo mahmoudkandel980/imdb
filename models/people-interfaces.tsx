@@ -102,6 +102,12 @@ export interface SpecificPersonMovieMediaDataIntrerface {
             character: string;
             credit_id: string;
             order: number;
+            // tv
+            origin_country: string[];
+            original_name: string;
+            first_air_date: string;
+            name: string;
+            episode_count: number;
         }[];
         crew: {
             adult: boolean;
@@ -121,6 +127,12 @@ export interface SpecificPersonMovieMediaDataIntrerface {
             credit_id: string;
             department: string;
             job: string;
+            // tv
+            origin_country: string[];
+            original_name: string;
+            first_air_date: string;
+            name: string;
+            episode_count: number;
         }[];
         id: number;
     };
@@ -133,18 +145,24 @@ export interface SpecificPersonTvMediaDataIntrerface {
             backdrop_path: string;
             genre_ids: number[];
             id: number;
-            origin_country: string[];
             original_language: string;
-            original_name: string;
+            original_title: string;
             overview: string;
             popularity: number;
             poster_path: string;
-            first_air_date: string;
-            name: string;
+            release_date: string;
+            title: string;
+            video: boolean;
             vote_average: number;
             vote_count: number;
             character: string;
             credit_id: string;
+            order: number;
+            // tv
+            origin_country: string[];
+            original_name: string;
+            first_air_date: string;
+            name: string;
             episode_count: number;
         }[];
         crew: {
@@ -152,21 +170,99 @@ export interface SpecificPersonTvMediaDataIntrerface {
             backdrop_path: string;
             genre_ids: number[];
             id: number;
-            origin_country: string[];
             original_language: string;
-            original_name: string;
+            original_title: string;
             overview: string;
             popularity: number;
             poster_path: string;
-            first_air_date: string;
-            name: string;
+            release_date: string;
+            title: string;
+            video: boolean;
             vote_average: number;
             vote_count: number;
             credit_id: string;
             department: string;
-            episode_count: number;
             job: string;
+            // tv
+            origin_country: string[];
+            original_name: string;
+            first_air_date: string;
+            name: string;
+            episode_count: number;
         }[];
         id: number;
     };
+}
+
+export interface SpecificPersonMediaDataIntrerface {
+    personMedia: {
+        cast: {
+            adult: boolean;
+            backdrop_path: string;
+            genre_ids: number[];
+            id: number;
+            original_language: string;
+            original_title: string;
+            overview: string;
+            popularity: number;
+            poster_path: string;
+            release_date: string;
+            title: string;
+            video: boolean;
+            vote_average: number;
+            vote_count: number;
+            character: string;
+            credit_id: string;
+            order: number;
+            // tv
+            origin_country: string[];
+            original_name: string;
+            first_air_date: string;
+            name: string;
+            episode_count: number;
+        }[];
+        crew: {
+            adult: boolean;
+            backdrop_path: string;
+            genre_ids: number[];
+            id: number;
+            original_language: string;
+            original_title: string;
+            overview: string;
+            popularity: number;
+            poster_path: string;
+            release_date: string;
+            title: string;
+            video: boolean;
+            vote_average: number;
+            vote_count: number;
+            credit_id: string;
+            department: string;
+            job: string;
+            // tv
+            origin_country: string[];
+            original_name: string;
+            first_air_date: string;
+            name: string;
+            episode_count: number;
+        }[];
+        id: number;
+    };
+}
+
+export interface MediaPeopleInterface {
+    mediaPeople: {
+        adult: boolean;
+        gender: number;
+        id: number;
+        known_for_department: string;
+        name: string;
+        original_name: string;
+        popularity: number;
+        profile_path: string;
+        cast_id: number;
+        character: string;
+        credit_id: string;
+        order: number;
+    }[];
 }

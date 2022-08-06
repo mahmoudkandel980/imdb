@@ -88,10 +88,10 @@ const SpecificMediaPoster = (
                             priority
                         />
                         {/*overlay*/}
-                        <div className="absolute flex justify-center items-center top-0 left-0 h-full w-full bg-gradient-to-t from-[#212529]/40 to-[#212529]/0 duration-1000"></div>
+                        <div className="absolute flex justify-center items-center top-0 left-0 h-full w-full bg-gradient-to-t from-darkGray/40 to-darkGray/0 duration-1000"></div>
                         {/* rate */}
 
-                        <div className="flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-[#e03131]">
+                        <div className="flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-darkRed">
                             <AiFillStar className="h-5 w-5 " />
                             {vote_average ? (
                                 <span>{vote_average.toFixed(1)}</span>
@@ -101,7 +101,7 @@ const SpecificMediaPoster = (
                         </div>
                         {/* language */}
                         {original_language && (
-                            <div className="absolute top-3 z-10 select-none right-3 bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                            <div className="absolute top-3 z-10 select-none right-3 bg-darkRed text-white p-1 px-1.5 rounded-full">
                                 <span>
                                     {original_language.toLocaleUpperCase()}
                                 </span>
@@ -112,7 +112,7 @@ const SpecificMediaPoster = (
                         <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute bottom-0 text-gray-200 w-full0">
                             {/* like */}
                             <div className="group flex items-center justify-center space-x-1 z-10">
-                                <AiFillLike className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                <AiFillLike className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                 <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                     <span className=" font-mono font-medium">
                                         {vote_count}
@@ -122,7 +122,7 @@ const SpecificMediaPoster = (
                             {/* runtime */}
 
                             <div className="group flex items-center justify-center space-x-1 z-10">
-                                <BsEyeFill className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                <BsEyeFill className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                 <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                     <span className="font-mono font-medium">
                                         {runtime || 0}
@@ -136,7 +136,7 @@ const SpecificMediaPoster = (
                                     !release_date && "hidden"
                                 } group flex items-center justify-center space-x-1 z-10`}
                             >
-                                <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
                                 <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                     <span className="font-mono font-medium">
                                         {release_date}
@@ -162,7 +162,7 @@ const SpecificMediaPoster = (
                                                 key={index}
                                                 className="flex items-center justify-start space-x-2 md:space-x-3 lg:space-x-5 mb-2 sm:mb-3 md:mb-5"
                                             >
-                                                <div className="bg-[#e03131] group relative cursor-pointer text-white p-1 px-2 rounded-full duration-150">
+                                                <div className="bg-darkRed group relative cursor-pointer text-white p-1 px-2 rounded-full duration-150">
                                                     <span>
                                                         {lang.iso_639_1.toLocaleUpperCase()}
                                                     </span>
@@ -212,7 +212,7 @@ const SpecificMediaPoster = (
                                     {genres.map((genre) => (
                                         <span
                                             key={genre.id}
-                                            className="flicker-red  bg-[#e03131] text-white p-1 px-1.5 rounded-full"
+                                            className="flicker-red  bg-darkRed text-white p-1 px-1.5 rounded-full"
                                         >
                                             {genre.name}
                                         </span>
@@ -222,7 +222,7 @@ const SpecificMediaPoster = (
                             {/* number_of_seasons  & number_of_episodes */}
                             <div className="flex items-end justify-start flex-wrap space-x-2 md:space-x-3 lg:space-x-5 space-y-3">
                                 {number_of_seasons && (
-                                    <span className="flicker-red  bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                                    <span className="flicker-red  bg-darkRed text-white p-1 px-1.5 rounded-full">
                                         {number_of_seasons}{" "}
                                         {number_of_seasons > 1
                                             ? "Seasons"
@@ -230,7 +230,7 @@ const SpecificMediaPoster = (
                                     </span>
                                 )}
                                 {number_of_episodes && (
-                                    <span className="flicker-red  bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                                    <span className="flicker-red  bg-darkRed text-white p-1 px-1.5 rounded-full">
                                         {number_of_episodes}{" "}
                                         {number_of_episodes > 1
                                             ? "Episodes"
@@ -251,7 +251,7 @@ const SpecificMediaPoster = (
                                                 : status.toLocaleLowerCase() ===
                                                   "post production"
                                                 ? "bg-[#f59f00] flicker-yellow"
-                                                : "bg-[#e03131] flicker-red"
+                                                : "bg-darkRed flicker-red"
                                         } cursor-pointer bg-opacity-80 hover:bg-opacity-100 hover:scale-105 text-white p-1 px-1.5 rounded-full duration-150 mt-5`}
                                     >
                                         {status}

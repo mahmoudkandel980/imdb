@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 
 import PaginationButtons from "./paginationButtons";
 
-import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import {
+    MdOutlineKeyboardArrowLeft,
+    MdOutlineKeyboardArrowRight,
+} from "react-icons/md";
 
 import { TotalPagesInterface } from "../../models/interfaces";
 
@@ -77,14 +79,15 @@ const Pagination = (props: TotalPagesInterface): JSX.Element => {
                             </Link>
                         </div>
                     ))}
-
+                    {currentPage !== total_pages && (
+                        <PaginationButtons
+                            icon={
+                                <MdOutlineKeyboardArrowRight className="h-7 w-7" />
+                            }
+                            target={"next"}
+                        />
+                    )}
                     {/* // Next */}
-                    <PaginationButtons
-                        icon={
-                            <MdOutlineKeyboardArrowRight className="h-7 w-7" />
-                        }
-                        target={"next"}
-                    />
                 </div>
             </div>
         </>

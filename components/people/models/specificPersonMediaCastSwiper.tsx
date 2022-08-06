@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import { GoCalendar } from "react-icons/go";
 
-import { SpecificPersonTvMediaDataIntrerface } from "../../../models/people-interfaces";
+import { SpecificPersonMediaDataIntrerface } from "../../../models/people-interfaces";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
@@ -25,17 +25,28 @@ import "swiper/css/scrollbar";
 
 SwiperCore.use([Navigation, Autoplay]);
 
-const SpecificPersonTvCastSwiper = (
-    props: SpecificPersonTvMediaDataIntrerface
+const SpecificPersonMediaCastSwiper = (
+    props: SpecificPersonMediaDataIntrerface
 ): JSX.Element => {
+    const [isTv, setIsTv] = useState(false);
     const router = useRouter();
-    const { cast } = props.personTvMedia;
+    const { cast } = props.personMedia;
 
     const movieCtx = useContext(MovieContext);
-    const spinnerCtx = useContext(SpinnerContext);
-
     const { getMovieData } = movieCtx;
+
+    const spinnerCtx = useContext(SpinnerContext);
     const { showSpinnerHandler } = spinnerCtx;
+
+    useEffect(() => {
+        cast.forEach((media) => {
+            if (media.episode_count) {
+                setIsTv(true);
+                return;
+            }
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const onClickHandler = (
         title: string,
@@ -47,18 +58,28 @@ const SpecificPersonTvCastSwiper = (
         showSpinnerHandler(true);
         getMovieData(media);
 
-        const page = "tv";
-
-        // title has the first role
-        // Explain : you will get one of title and originalTile undefined
-        if (title) {
-            mediahasVideo
-                ? router.push(`/${page}/${title}?media=${true}&id=${id}`)
-                : router.push(`/${page}/${title}?id=${id}`);
+        if (isTv) {
+            if (title) {
+                mediahasVideo
+                    ? router.push(`/tv/${title}?media=${true}&id=${id}`)
+                    : router.push(`/tv/${title}?id=${id}`);
+            } else {
+                mediahasVideo
+                    ? router.push(`/tv/${originalTile}?media=${true}&id=${id}`)
+                    : router.push(`/tv/${originalTile}?id=${id}`);
+            }
         } else {
-            mediahasVideo
-                ? router.push(`/${page}/${originalTile}?media=${true}&id=${id}`)
-                : router.push(`/${page}/${originalTile}?id=${id}`);
+            if (title) {
+                mediahasVideo
+                    ? router.push(`/movie/${title}?media=${true}&id=${id}`)
+                    : router.push(`/movie/${title}?id=${id}`);
+            } else {
+                mediahasVideo
+                    ? router.push(
+                          `/movie/${originalTile}?media=${true}&id=${id}`
+                      )
+                    : router.push(`/movie/${originalTile}?id=${id}`);
+            }
         }
     };
 
@@ -66,11 +87,11 @@ const SpecificPersonTvCastSwiper = (
         <div className="p-0 2xl:p-20 2xl:pb-0 py-10 sm:py-14 pb-0 sm:pb-0">
             <div className="container mx-auto">
                 <h1 className="flicker-text select-none  w-fit text-white text-xl sm:text-2xl md:text-3xl mb-10">
-                    {router.query.slug} Tv
+                    {router.query.slug} {isTv ? "Tv" : "Movies"}
                 </h1>
-                <h1 className="text-white text-lg sm:text-xl md:text-2xl">
+                <h2 className="text-white text-lg sm:text-xl md:text-2xl">
                     Cast
-                </h1>
+                </h2>
                 <div className="relative px-10">
                     <Swiper
                         breakpoints={{
@@ -123,6 +144,8 @@ const SpecificPersonTvCastSwiper = (
                                                         media.poster_path
                                                     }`}
                                                     alt={
+                                                        media.title ||
+                                                        media.original_title ||
                                                         media.name ||
                                                         media.original_name
                                                     }
@@ -133,12 +156,12 @@ const SpecificPersonTvCastSwiper = (
                                                     priority
                                                 />
                                             </div>
-                                            <div className="absolute w-full h-full bg-gradient-to-b from-[#212529]/0 to-[#212529]/70"></div>
+                                            <div className="absolute w-full h-full bg-gradient-to-b from-darkGray/0 to-darkGray/70"></div>
 
                                             {/* coming soon */}
                                             {media.vote_average === 0 ? (
-                                                <>
-                                                    <div className="flex justify-center items-center absolute bg-[#212529] opacity-80 w-full h-full">
+                                                <div>
+                                                    <div className="flex justify-center items-center absolute bg-darkGray opacity-80 w-full h-full">
                                                         <p className="capitalize text-4xl text-white">
                                                             coming soon
                                                         </p>
@@ -147,8 +170,10 @@ const SpecificPersonTvCastSwiper = (
                                                         <BsEye
                                                             onClick={() => {
                                                                 onClickHandler(
-                                                                    media.name,
-                                                                    media.original_name,
+                                                                    media.title ||
+                                                                        media.name,
+                                                                    media.original_title ||
+                                                                        media.original_name,
                                                                     media.id,
                                                                     media.vote_average ===
                                                                         0
@@ -160,14 +185,16 @@ const SpecificPersonTvCastSwiper = (
                                                             className="vedio-icon"
                                                         />
                                                     </div>
-                                                </>
+                                                </div>
                                             ) : (
                                                 <div className="vedio-icon--parent group">
                                                     <BiPlayCircle
                                                         onClick={() => {
                                                             onClickHandler(
-                                                                media.name,
-                                                                media.original_name,
+                                                                media.title ||
+                                                                    media.name,
+                                                                media.original_title ||
+                                                                    media.original_name,
                                                                 media.id,
                                                                 media.vote_average ===
                                                                     0
@@ -183,7 +210,7 @@ const SpecificPersonTvCastSwiper = (
 
                                             {/* rate */}
                                             {media.vote_average > 0 && (
-                                                <div className="flicker flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-[#e03131]">
+                                                <div className="flicker flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-darkRed">
                                                     <AiFillStar className="h-5 w-5 " />
                                                     <span>
                                                         {media.vote_average.toFixed(
@@ -194,14 +221,14 @@ const SpecificPersonTvCastSwiper = (
                                             )}
 
                                             {/* language */}
-                                            <div className="flicker absolute top-3 z-10 select-none right-3  bg-[#e03131] text-white p-1 px-1.5 rounded-full">
+                                            <div className="flicker absolute top-3 z-10 select-none right-3  bg-darkRed text-white p-1 px-1.5 rounded-full">
                                                 <span>
                                                     {media.original_language.toLocaleUpperCase()}
                                                 </span>
                                             </div>
 
                                             {/* Rating */}
-                                            <div className="flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-[#e03131]">
+                                            <div className="flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-darkRed">
                                                 <AiFillStar className="h-5 w-5 " />
                                                 {media.vote_average ? (
                                                     <span>
@@ -217,7 +244,7 @@ const SpecificPersonTvCastSwiper = (
                                             <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 left-3 sm:-left-2 absolute bottom-0.5 sm:bottom-1  sm:scale-[0.85] text-gray-200 w-full">
                                                 {/* like */}
                                                 <div className="group flex items-center justify-center space-x-1 z-10">
-                                                    <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
+                                                    <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
                                                     <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                                         <span className=" font-mono font-medium">
                                                             {media.vote_count}
@@ -227,16 +254,16 @@ const SpecificPersonTvCastSwiper = (
                                                 {/* date */}
                                                 <div
                                                     className={`${
-                                                        !media.first_air_date &&
+                                                        (!media.release_date ||
+                                                            !media.first_air_date) &&
                                                         "hidden"
                                                     } group flex items-center justify-center space-x-1 z-10`}
                                                 >
-                                                    <GoCalendar className="flicker-white h-7 w-7 text-gray-300 bg-[#212529] p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
+                                                    <GoCalendar className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white duration-300" />
                                                     <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                                         <span className="font-mono font-medium">
-                                                            {
-                                                                media.first_air_date
-                                                            }
+                                                            {media.release_date ||
+                                                                media.first_air_date}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -244,7 +271,9 @@ const SpecificPersonTvCastSwiper = (
                                         </div>
                                         <div>
                                             <h3 className="mt-4 sm:mt-5 text-gray-200">
-                                                {media.name ||
+                                                {media.title ||
+                                                    media.original_title ||
+                                                    media.name ||
                                                     media.original_name}
                                             </h3>
                                         </div>
@@ -258,4 +287,4 @@ const SpecificPersonTvCastSwiper = (
     );
 };
 
-export default SpecificPersonTvCastSwiper;
+export default SpecificPersonMediaCastSwiper;
