@@ -65,7 +65,12 @@ const MoviesPage = (
                 );
             }
         });
-    }, [modifiedSearchMediaData, router.query.searchType, router.query.query]);
+    }, [
+        mediaData,
+        modifiedSearchMediaData,
+        router.query.searchType,
+        router.query.query,
+    ]);
 
     return (
         <div className="bg-smothDark">
