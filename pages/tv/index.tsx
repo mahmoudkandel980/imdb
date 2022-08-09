@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 
 import SearchInput from "../../components/search/searchInput";
@@ -9,6 +10,10 @@ import Footer from "../../components/footer/footer";
 import RouterSpinner from "../../components/ui/routerSpinner";
 import SpinnerContext from "../../context/spinner-context";
 import { requestTvPage, requestSearchPage } from "../../libs/requests";
+import {
+    ForbiddenMedia,
+    ForbiddenSearchMedia,
+} from "../../checks/checkForForbiddenContent";
 
 import { RequestMediaInterface } from "../../models/interfaces";
 import { MediaDataInterface } from "../../models/media-interfaces";
@@ -22,9 +27,42 @@ const TvPage = (
         SearchMediaInterface
 ) => {
     const { mediaData, type, total_pages, searchMedia } = props;
-
+    const router = useRouter();
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
+
+    const [dataSearchWithImage, setDataSearchWithImage] = useState<any[]>([]);
+    // Ignore +18 mediaData
+    const [modifiedMediaData, setModifiedMediaData] = useState(mediaData);
+    // Ignore +18 searchMediaData
+    const [modifiedSearchMediaData, setModifiedSearchMediaData] =
+        useState(searchMedia);
+
+    // check for forbidden mediaData
+    // useEffect(() => {
+    //     ForbiddenMedia(mediaData);
+    // }, [mediaData]);
+    ForbiddenMedia(mediaData);
+    useEffect(() => {
+        setModifiedMediaData(mediaData);
+    }, [mediaData, modifiedMediaData]);
+
+    // check for forbidden searchMediaData
+    ForbiddenSearchMedia(searchMedia);
+    useEffect(() => {
+        setModifiedSearchMediaData(searchMedia);
+    }, [modifiedSearchMediaData, searchMedia]);
+
+    useEffect(() => {
+        setDataSearchWithImage([]);
+        modifiedSearchMediaData?.results.forEach((searchData) => {
+            if (searchData.poster_path || searchData.backdrop_path) {
+                setDataSearchWithImage((prevState) =>
+                    prevState?.concat(searchData)
+                );
+            }
+        });
+    }, [modifiedSearchMediaData, router.query.searchType, router.query.query]);
 
     return (
         <div className="bg-smothDark">
@@ -34,14 +72,17 @@ const TvPage = (
                 </div>
             ) : (
                 <div>
-                    <MediaPosterHeaader mediaData={mediaData} />
+                    <MediaPosterHeaader mediaData={modifiedMediaData} />
                     <SearchInput
+                        className="bg-darkGray"
                         searchFor="tv"
-                        searchMedia={searchMedia}
+                        SearchDataWithImageLength={dataSearchWithImage.length}
+                        searchMedia={modifiedSearchMediaData}
                         searchPeople={null}
+                        multiSearch={null}
                     />
-                    <SearchMedia searchMedia={searchMedia} />
-                    <Media mediaData={mediaData} />
+                    <SearchMedia searchMedia={modifiedSearchMediaData} />
+                    <Media mediaData={modifiedMediaData} />
                     {showMedia ? <></> : <Footer total_pages={total_pages} />}
                 </div>
             )}

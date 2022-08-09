@@ -52,7 +52,7 @@ const SearchPeople = (props: SearchPeopleInterface): JSX.Element => {
                 <div className="container mx-auto">
                     <div className="flex items-center justify-center">
                         <div className="text-white text-sm sm:text-lg">
-                            Sorry we didn`t find any actors have{" "}
+                            Sorry we didn`t find any actor have{" "}
                             <span className="text-darkRed">
                                 {router.query.query}
                             </span>
@@ -109,6 +109,7 @@ const SearchPeople = (props: SearchPeopleInterface): JSX.Element => {
                                 searchPeople.map(
                                     (person, index) =>
                                         person.profile_path && (
+                                            // +18 filter
                                             <SwiperSlide
                                                 key={person.id}
                                                 className="flex flex-col justify-start select-none h-full py-10 pb-0"

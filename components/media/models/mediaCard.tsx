@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { CardInterface } from "../../../models/media-interfaces";
 
@@ -24,6 +25,8 @@ const MediaCard = (props: CardInterface): JSX.Element => {
         media_type,
     } = props.media;
     const { onClickHandler } = props;
+
+    const router = useRouter();
 
     const mediahasVideo = vote_average === 0 ? false : true;
 
@@ -99,6 +102,17 @@ const MediaCard = (props: CardInterface): JSX.Element => {
                         <div className="flicker absolute top-3 z-10 select-none right-3  bg-darkRed text-white p-1 px-1.5 rounded-full">
                             <span>{original_language.toLocaleUpperCase()}</span>
                         </div>
+
+                        {/* media type */}
+                        {router.query.type === "Trending" ? (
+                            <div className="flex justify-center items-center flicker absolute bottom-3 z-10 select-none right-3 flicker-black bg-smothDark text-white w-8 p-1 px-1.5 rounded-full">
+                                <span className="capitalize">
+                                    {media_type === "tv" ? "tv" : "mo"}
+                                </span>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
 
                         {/* Rating */}
                         <div className="flex items-center justify-center space-x-1 z-10 text-yellow-400 absolute top-4 -left-12 w-36 h-7 -rotate-45 bg-darkRed">

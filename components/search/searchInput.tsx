@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
+import FilterMultiSearchContext from "../../context/filterMultiSearch-context";
 
 import { BsSearch } from "react-icons/bs";
 import {
@@ -10,29 +11,70 @@ import {
 interface SearchFor {
     searchFor: string;
 }
+interface className {
+    className: string;
+}
 import {
     SearchMediaInterface,
     SearchPeopleInterface,
+    SearchMultiInterface,
+    SearchDataWithImageLengthInterface,
 } from "../../models/search-interfaces";
 
 const SearchInput = (
-    props: SearchFor & SearchMediaInterface & SearchPeopleInterface
+    props: SearchFor &
+        className &
+        SearchMediaInterface &
+        SearchPeopleInterface &
+        SearchMultiInterface &
+        SearchDataWithImageLengthInterface
 ): JSX.Element => {
-    const { searchFor } = props;
+    const { searchFor, SearchDataWithImageLength, multiSearch, searchMedia } =
+        props;
     const [searchValue, setSearchValue] = useState("");
     const [prevSearchvalue, setPrevSearchValue] = useState("");
     const [isTheSame, setIsTheSame] = useState(false);
+    const [searchDataLength, setSearchDataLength] = useState(0);
 
-    // const [searchPage, setSearchPage] = useState(1);
-    let searchPage = props.searchMedia?.page || props.searchPeople?.page;
+    const multSearchCtx = useContext(FilterMultiSearchContext);
+    const { addMultiSearchData } = multSearchCtx;
+
+    useEffect(() => {
+        addMultiSearchData(props);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [multiSearch]);
+
+    let searchPage =
+        props.searchMedia?.page ||
+        props.searchPeople?.page ||
+        props.multiSearch?.page;
+
     const searchTotal_pages =
-        props.searchMedia?.total_pages || props.searchPeople?.total_pages;
+        props.searchMedia?.total_pages ||
+        props.searchPeople?.total_pages ||
+        props.multiSearch?.total_pages;
 
     const router = useRouter();
     const pathname = router.pathname;
-    const type = router.query.type;
-    const page = router.query.page;
+    const type = router.query.type || "";
+    const page = router.query.page || "";
+    const searchType = router.query.searchType || "all";
     const searchValueModified = searchValue.trim();
+
+    // check if shearch  data has a data after doing forbiddent checks
+    useEffect(() => {
+        if (router.asPath.includes("tv" || "movie" || "people")) {
+            setSearchDataLength(searchMedia?.results.length || 0);
+        } else {
+            setSearchDataLength(SearchDataWithImageLength || 0);
+        }
+    }, [
+        SearchDataWithImageLength,
+        router.asPath,
+        router.query.query,
+        router.query.searchType,
+        searchMedia,
+    ]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -43,8 +85,10 @@ const SearchInput = (
                 setPrevSearchValue(searchValue);
                 if (searchValue.trim() === "") {
                     router.push(
-                        `${pathname}?${type && `type=${type}`}${
-                            page && `&page=${page}`
+                        `${pathname}${type || page || searchType ? "?" : ""}${
+                            type ? `type=${type}` : ""
+                        }${searchType ? `&searchType=${searchType}` : ""}${
+                            page ? `&page=${page}` : ""
                         }`,
                         undefined,
                         { scroll: false }
@@ -63,8 +107,8 @@ const SearchInput = (
         if (isTheSame) {
             router.push(
                 `${pathname}?${type && `type=${type}`}${
-                    page && `&page=${page}`
-                }${`&query=${searchValueModified}`}`,
+                    searchType ? `&searchType=${searchType}` : ""
+                }${page && `&page=${page}`}${`&query=${searchValueModified}`}`,
                 undefined,
                 { scroll: false }
             );
@@ -78,22 +122,18 @@ const SearchInput = (
     };
 
     const nextPageHandler = () => {
-        // setSearchPage((prevState) => prevState + 1);
-
         router.push(
-            `${pathname}?${type && `type=${type}`}${
-                page && `&page=${page}`
+            `${pathname}?${type && `type=${type}`}${page && `&page=${page}`}${
+                searchType ? `&searchType=${searchType}` : ""
             }${`&query=${searchValueModified}&querypage=${searchPage! + 1}`}`,
             undefined,
             { scroll: false }
         );
     };
     const prevPageHandler = () => {
-        // setSearchPage((prevState) => prevState - 1);
-
         router.push(
-            `${pathname}?${type && `type=${type}`}${
-                page && `&page=${page}`
+            `${pathname}?${type && `type=${type}`}${page && `&page=${page}`}${
+                searchType ? `&searchType=${searchType}` : ""
             }${`&query=${searchValueModified}&querypage=${searchPage! - 1}`}`,
             undefined,
             { scroll: false }
@@ -101,45 +141,64 @@ const SearchInput = (
     };
 
     return (
-        <div className="bg-darkGray">
+        <div className={props.className}>
             <div className="container mx-auto py-5 pb-0">
-                <div className="flex flex-col-reverse sm:flex-row justify-center sm:justify-end items-end sm:items-center relative space-x-10 sm:space-x-20">
+                <div className="flex flex-col-reverse justify-center items-end relative ">
                     {searchTotal_pages && searchPage && (
-                        <div className="flex justify-center sm:justify-center items-center max-w-max w-full space-x-5 mt-3 sm:mt-0 sm:mr-5">
-                            <div className="flex flex-col items-end sm:items-center top-3 text-xl h-12 w-12 text-gray-200 relative group cursor-pointer">
-                                {searchPage > 1 && (
-                                    <div
-                                        onClick={prevPageHandler}
-                                        className="inline group-hover:text-gray-400 select-none duration-150"
-                                    >
-                                        <MdOutlineKeyboardArrowLeft className="h-7 w-7" />
-                                        <span className="absolute capitalize opacity-100 text-sm sm:text-base sm:opacity-0 top-6 sm:top-3 sm:group-hover:translate-y-6 sm:group-hover:opacity-100 duration-300">
-                                            prev
-                                        </span>
-                                    </div>
-                                )}
+                        <div
+                            className={`${
+                                router.query.query &&
+                                searchDataLength === 0 &&
+                                "hidden"
+                            } flex justify-center sm:justify-center items-center space-x-10 sm:space-x-0  mt-3 sm:mt-0 sm:mr-5`}
+                        >
+                            <div className="flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4  text-white">
+                                {SearchDataWithImageLength
+                                    ? `${SearchDataWithImageLength}  Result`
+                                    : ""}
                             </div>
-                            <div className="text-white select-none">
-                                {searchPage}
-                            </div>
-                            <div className="flex flex-col items-end sm:items-center top-3 text-xl h-12 w-12 text-gray-200 relative group cursor-pointer">
-                                {searchPage !== searchTotal_pages && (
-                                    <div
-                                        onClick={nextPageHandler}
-                                        className="inline group-hover:text-gray-400 select-none  duration-150"
-                                    >
-                                        <MdOutlineKeyboardArrowRight className="h-7 w-7" />
-                                        <span className="absolute capitalize opacity-100 text-sm sm:text-base sm:opacity-0 top-6 sm:top-3 sm:group-hover:translate-y-6 sm:group-hover:opacity-100 duration-300">
-                                            next
-                                        </span>
-                                    </div>
-                                )}
+                            <div className="flex justify-center items-center w-48 sm:w-52">
+                                <div className="flex flex-col items-end sm:items-center top-3 text-xl h-12 w-12 text-gray-200 relative group cursor-pointer">
+                                    {searchPage > 1 && (
+                                        <div
+                                            onClick={prevPageHandler}
+                                            className="inline group-hover:text-gray-400 select-none duration-150"
+                                        >
+                                            <MdOutlineKeyboardArrowLeft className="h-7 w-7" />
+                                            <span className="absolute capitalize opacity-100 text-sm sm:text-base sm:opacity-0 top-6 sm:top-3 sm:group-hover:translate-y-6 sm:group-hover:opacity-100 duration-300">
+                                                prev
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="text-white select-none">
+                                    {searchPage}
+                                </div>
+                                <div className="flex flex-col items-end sm:items-center top-3 text-xl h-12 w-12 text-gray-200 relative group cursor-pointer">
+                                    {searchPage !== searchTotal_pages && (
+                                        <div
+                                            onClick={nextPageHandler}
+                                            className="inline group-hover:text-gray-400 select-none  duration-150"
+                                        >
+                                            <MdOutlineKeyboardArrowRight className="h-7 w-7" />
+                                            <span className="absolute capitalize opacity-100 text-sm sm:text-base sm:opacity-0 top-6 sm:top-3 sm:group-hover:translate-y-6 sm:group-hover:opacity-100 duration-300">
+                                                next
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     )}
                     <div className="flex items-center justify-center space-x-5">
                         {searchTotal_pages && (
-                            <div className="flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4 text-white">
+                            <div
+                                className={`${
+                                    router.query.query &&
+                                    searchDataLength === 0 &&
+                                    "hidden"
+                                } flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4 text-white`}
+                            >
                                 {searchTotal_pages} Pages
                             </div>
                         )}
@@ -148,10 +207,10 @@ const SearchInput = (
                                 type="search"
                                 value={searchValue}
                                 onChange={changeHandler}
-                                className="focus:outline-none p-1 px-10 pl-3 placeholder:text-darkGray/50 rounded-md w-48 sm:w-52 focus:flicker-white focus:w-48 sm:focus:w-72  duration-300"
+                                className="mr-5 sm:mr-0 focus:outline-none p-1 px-10 pl-3 placeholder:text-darkGray/50 rounded-md w-48 sm:w-52 focus:flicker-white focus:w-48 sm:focus:w-72  duration-300"
                                 placeholder={`Search for ${searchFor}`}
                             />
-                            <BsSearch className="w-5 h-5  absolute ml-3 top-1.5 right-3 text-darkGray/80" />
+                            <BsSearch className="w-5 h-5  absolute ml-3 top-1.5 right-8 sm:right-3 text-darkGray/80" />
                         </div>
                     </div>
                 </div>

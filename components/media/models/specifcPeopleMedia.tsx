@@ -38,7 +38,13 @@ const SpecifcPeopleMedia = (props: MediaPeopleInterface) => {
     };
 
     return (
-        <div className="p-0 2xl:p-20 2xl:pb-0 py-10 sm:py-14 pb-0 sm:pb-0">
+        <div
+            className={`${
+                router.asPath.includes("tv")
+                    ? "p-0 2xl:px-10  2xl:pt-5 2xl:pb-0 py-7 sm:py-10 pb-0 sm:pb-0 "
+                    : "p-0 2xl:px-10  2xl:pt-10 2xl:pb-0 py-7 sm:py-14 pb-0 sm:pb-0"
+            }`}
+        >
             <div className="container mx-auto">
                 <h1 className="flicker-text select-none w-fit text-white text-xl sm:text-2xl md:text-3xl mb-2">
                     {router.query.slug} Actors

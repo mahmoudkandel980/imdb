@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { NextPage } from "next";
-import { GetServerSideProps } from "next";
+import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { GetServerSideProps, NextPage } from "next";
 
 import SearchInput from "../../components/search/searchInput";
 import SearchPeople from "../../components/search/searchPeople";
@@ -18,10 +18,23 @@ import { SearchPeopleInterface } from "../../models/search-interfaces";
 const PeoplePage = (
     props: TotalPagesInterface & PeopleDataInterface & SearchPeopleInterface
 ) => {
+    const [dataSearchWithImage, setDataSearchWithImage] = useState<any[]>([]);
+
+    const router = useRouter();
     const { peopleData, total_pages, searchPeople } = props;
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
 
+    useEffect(() => {
+        setDataSearchWithImage([]);
+        searchPeople?.results.forEach((searchData) => {
+            if (searchData.profile_path) {
+                setDataSearchWithImage((prevState) =>
+                    prevState?.concat(searchData)
+                );
+            }
+        });
+    }, [searchPeople, router.query.searchType, router.query.query]);
     return (
         <div className="bg-smothDark">
             {showMedia ? (
@@ -32,9 +45,12 @@ const PeoplePage = (
                 <div>
                     <PeoplePosterHeader peopleData={peopleData} />
                     <SearchInput
+                        className="bg-darkGray"
                         searchFor="actors"
+                        SearchDataWithImageLength={dataSearchWithImage.length}
                         searchPeople={searchPeople}
                         searchMedia={null}
+                        multiSearch={null}
                     />
                     <SearchPeople searchPeople={searchPeople} />
                     <People peopleData={peopleData} />

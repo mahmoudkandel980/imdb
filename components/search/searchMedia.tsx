@@ -74,13 +74,14 @@ const SearchMedia = (props: SearchMediaInterface): JSX.Element => {
     if (router.query.query && mediaData?.length === 0) {
         return (
             <div className="bg-darkGray">
-                <div className="container mx-auto">
-                    <div className="flex items-center justify-center">
-                        <div className="text-white text-sm sm:text-lg">
+                <div className="container mx-auto ">
+                    <div className="flex items-center justify-center pt-5">
+                        <div className=" sm:text-lg text-white font-mono font-bold">
                             Sorry we didn`t find any {media} have{" "}
                             <span className="text-darkRed">
                                 {router.query.query}
-                            </span>
+                            </span>{" "}
+                            {router.query.query.length > 1 ? "words" : "word"}
                         </div>
                     </div>
                 </div>

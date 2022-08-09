@@ -19,7 +19,7 @@ const SpecificMediaVideo = (
     };
 
     return (
-        <div className="p-0 2xl:p-20 py-20 sm:py-32">
+        <div className="p-0 2xl:p-20 py-20 sm:py-14">
             {mediaVedioData.length > 0 ? (
                 <div className="flex">
                     <div className="container mx-auto">

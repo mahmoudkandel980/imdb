@@ -84,7 +84,7 @@ const SpecificPersonMediaCastSwiper = (
     };
 
     return (
-        <div className="p-0 2xl:p-20 2xl:pb-0 py-10 sm:py-14 pb-0 sm:pb-0">
+        <div className="p-0 2xl:p-10 2xl:pb-0 py-7 sm:py-14 pb-0 sm:pb-0 mx-auto w-full sm:w-[90%] md:w-[80%]">
             <div className="container mx-auto">
                 <h1 className="flicker-text select-none  w-fit text-white text-xl sm:text-2xl md:text-3xl mb-10">
                     {router.query.slug} {isTv ? "Tv" : "Movies"}
@@ -254,8 +254,8 @@ const SpecificPersonMediaCastSwiper = (
                                                 {/* date */}
                                                 <div
                                                     className={`${
-                                                        (!media.release_date ||
-                                                            !media.first_air_date) &&
+                                                        !media.release_date &&
+                                                        !media.first_air_date &&
                                                         "hidden"
                                                     } group flex items-center justify-center space-x-1 z-10`}
                                                 >

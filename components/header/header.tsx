@@ -6,6 +6,7 @@ import { AiFillHome } from "react-icons/ai";
 import { RiMovie2Fill } from "react-icons/ri";
 import { CgScreen } from "react-icons/cg";
 import { BsPeopleFill } from "react-icons/bs";
+import { BiSearch } from "react-icons/bi";
 
 import NavElement from "./navHeaderElment";
 
@@ -60,6 +61,17 @@ const Header = (): JSX.Element => {
                             />
                         }
                         navEl="people"
+                    />
+                    <NavElement
+                        href="/search"
+                        icon={
+                            <BiSearch
+                                className={`w-7 h-7 p-1 rounded-full sm:w-7 sm:h-7 ${
+                                    route === "/search" && "flicker-white"
+                                }`}
+                            />
+                        }
+                        navEl="search"
                     />
                 </nav>
                 <div className="flex items-stretch justify-end w-[30%] ">

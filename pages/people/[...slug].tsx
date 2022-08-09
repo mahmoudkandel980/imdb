@@ -4,6 +4,7 @@ import { NextPage, GetServerSideProps } from "next";
 import SpecificPerson from "../../components/people/specificPerson";
 import SpecificPersonMediaCastSwiper from "../../components/people/models/specificPersonMediaCastSwiper";
 import SpecificPersonMediaCrewSwiper from "../../components/people/models/specificPersonMediaCrewSwiper";
+import { ForbiddenPersonMedia } from "../../checks/checkForForbiddenContent";
 
 import Footer from "../../components/footer/footer";
 import SpinnerContext from "../../context/spinner-context";
@@ -30,6 +31,26 @@ const SelectedActor = (
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
 
+    // filter movies state
+    const [modifiedPersonMovieMedia, setModifiedPersonMovieMedia] =
+        useState(personMovieMedia);
+
+    // filter tv state
+    const [modifiedPersonTvMedia, setModifiedPersonTvMedia] =
+        useState(personTvMedia);
+
+    // filter person movies
+    ForbiddenPersonMedia(personMovieMedia);
+    useEffect(() => {
+        setModifiedPersonMovieMedia(personMovieMedia);
+    }, [personMovieMedia]);
+
+    // filter person tv
+    ForbiddenPersonMedia(personTvMedia);
+    useEffect(() => {
+        setModifiedPersonTvMedia(personTvMedia);
+    }, [personTvMedia]);
+
     useEffect(() => {
         setIsSSR(false);
     }, []);
@@ -47,18 +68,18 @@ const SelectedActor = (
                         <>
                             {/* Movies */}
                             <SpecificPersonMediaCastSwiper
-                                personMedia={personMovieMedia}
+                                personMedia={modifiedPersonMovieMedia}
                             />
                             <SpecificPersonMediaCrewSwiper
-                                personMedia={personMovieMedia}
+                                personMedia={modifiedPersonMovieMedia}
                             />
 
                             {/* Tv */}
                             <SpecificPersonMediaCastSwiper
-                                personMedia={personTvMedia}
+                                personMedia={modifiedPersonTvMedia}
                             />
                             <SpecificPersonMediaCrewSwiper
-                                personMedia={personTvMedia}
+                                personMedia={modifiedPersonTvMedia}
                             />
                         </>
                     )}

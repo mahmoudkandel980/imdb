@@ -88,7 +88,7 @@ const SpecificPersonMediaCrewSwiper = (
     return (
         <>
             {hasImage && (
-                <div className="p-0 2xl:p-20 2xl:pt-0 py-10 pt-0 sm:pb-14 ">
+                <div className="p-0 2xl:p-10 2xl:pt-0 py-10 pt-0 sm:pb-7 mx-auto w-full sm:w-[90%] md:w-[80%]">
                     <div className="container mx-auto">
                         <h1 className="text-white text-lg sm:text-xl md:text-2xl">
                             Crew
@@ -271,8 +271,8 @@ const SpecificPersonMediaCrewSwiper = (
                                                         {/* date */}
                                                         <div
                                                             className={`${
-                                                                (!media.release_date ||
-                                                                    !media.first_air_date) &&
+                                                                !media.release_date &&
+                                                                !media.first_air_date &&
                                                                 "hidden"
                                                             } group flex items-center justify-center space-x-1 z-10`}
                                                         >
