@@ -18,8 +18,3 @@ export interface movieDataInterface {
     vote_count: number;
     name: string;
 }
-
-export interface MovieDataContextInterface {
-    movieData: {};
-    getMovieData: (movieData: movieDataInterface) => {};
-}

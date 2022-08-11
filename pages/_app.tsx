@@ -7,6 +7,7 @@ import Header from "../components/header/header";
 import { MovieContextProvider } from "../context/movieData-context";
 import { SpinnerContextProvider } from "../context/spinner-context";
 import { FilterMultiSearchContextProvider } from "../context/filterMultiSearch-context";
+import { ForbiddenMediaContentContextProvider } from "../context/forbiddenMediaContent-context";
 
 import "../styles/globals.css";
 
@@ -44,13 +45,15 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Head>
 
             <SpinnerContextProvider>
-                <MovieContextProvider>
-                    <FilterMultiSearchContextProvider>
-                        {/* {!router.query.id && <Header />} */}
-                        <Header />
-                        <Component {...pageProps} />
-                    </FilterMultiSearchContextProvider>
-                </MovieContextProvider>
+                <ForbiddenMediaContentContextProvider>
+                    <MovieContextProvider>
+                        <FilterMultiSearchContextProvider>
+                            {/* {!router.query.id && <Header />} */}
+                            <Header />
+                            <Component {...pageProps} />
+                        </FilterMultiSearchContextProvider>
+                    </MovieContextProvider>
+                </ForbiddenMediaContentContextProvider>
             </SpinnerContextProvider>
         </div>
     );

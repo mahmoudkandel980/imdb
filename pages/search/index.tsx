@@ -8,9 +8,9 @@ import MultiSearch from "../../components/search/multiSearch";
 import Footer from "../../components/footer/footer";
 import FilterMultiSearchContext from "../../context/filterMultiSearch-context";
 import SpinnerContext from "../../context/spinner-context";
+import ForbiddenMediaContentContext from "../../context/forbiddenMediaContent-context";
 import SearchFilter from "../../components/search/selectSearchFilter";
 import SelectSearchFilter from "../../components/search/selectType";
-import { ForbiddenMultiSearch } from "../../checks/checkForForbiddenContent";
 
 import { requestSearchPage } from "../../libs/requests";
 import { SearchMultiInterface } from "../../models/search-interfaces";
@@ -18,13 +18,20 @@ import { TotalPagesInterface } from "../../models/interfaces";
 
 const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
     const { multiSearch, total_pages } = props;
-    // Ignore +18 searchMediaData
-    const [modifiedMultiSearchData, setModifiedMultiSearchData] =
-        useState(multiSearch);
-
     const router = useRouter();
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
+
+    const mediaDataCtx = useContext(ForbiddenMediaContentContext);
+    const {
+        multiSearch: modifiedMultiSearch,
+        filterForbiddenContentMultiSearchFun,
+    } = mediaDataCtx;
+
+    useEffect(() => {
+        filterForbiddenContentMultiSearchFun(multiSearch?.results!);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [multiSearch]);
 
     const multSearchCtx = useContext(FilterMultiSearchContext);
     const {
@@ -40,13 +47,9 @@ const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
         ? "all"
         : searchType?.includes("movie")
         ? "movie"
-        : "tv";
-
-    // check for forbidden Data
-    ForbiddenMultiSearch(multiSearch);
-    useEffect(() => {
-        setModifiedMultiSearchData(multiSearch);
-    }, [multiSearch, modifiedMultiSearchData]);
+        : searchType?.includes("tv")
+        ? "tv"
+        : "people";
 
     return (
         <div
@@ -70,18 +73,23 @@ const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
                         searchFor={searchT}
                         searchPeople={null}
                         searchMedia={null}
-                        multiSearch={modifiedMultiSearchData}
+                        modifiedMultiSearch={modifiedMultiSearch}
+                        searchPage={multiSearch?.page || 0}
+                        searchTotal_pages={multiSearch?.total_pages || 0}
                     />
                     <SearchFilter />
                     <MultiSearch
                         modifiedSearch={
-                            selectedType === "movie"
+                            searchType === "movie" ||
+                            searchType === "tv" ||
+                            searchType === "people" ||
+                            selectedType === "all"
+                                ? multiSearchWithImage
+                                : selectedType === "movie"
                                 ? movieSearchWithImage
                                 : selectedType === "tv"
                                 ? tvSearchWithImage
-                                : selectedType === "people"
-                                ? peopleSearchWithImage
-                                : multiSearchWithImage
+                                : peopleSearchWithImage
                         }
                         SearchDataWithImageLength={multiSearchWithImage.length}
                     />
@@ -91,7 +99,6 @@ const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
                         <div
                             className={`${
                                 (!router.query.query ||
-                                    !modifiedMultiSearchData ||
                                     multiSearchWithImage.length === 0) &&
                                 "absolute w-full bottom-0"
                             }`}

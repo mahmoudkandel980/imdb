@@ -23,8 +23,6 @@ const MultiSearch = (
 ): JSX.Element => {
     const { modifiedSearch, SearchDataWithImageLength } = props;
 
-    // console.log(modifiedSearch);
-
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const spinnerCtx = useContext(SpinnerContext);
@@ -185,7 +183,13 @@ const MultiSearch = (
                                                   </span>
                                               </div>
                                               {/* media type */}
-                                              <div className="flex justify-center items-center flicker absolute bottom-3 z-10 select-none right-3 flicker-black bg-smothDark text-white w-8 p-1 px-1.5 rounded-full">
+                                              <div
+                                                  className={`${
+                                                      router.query
+                                                          .searchType !==
+                                                          "all" && "hidden"
+                                                  } flex justify-center items-center flicker absolute bottom-3 z-10 select-none right-3 flicker-black bg-smothDark text-white w-8 p-1 px-1.5 rounded-full`}
+                                              >
                                                   <span className="capitalize">
                                                       {searchData.media_type ===
                                                       "tv"

@@ -1,5 +1,5 @@
+import React, { useContext, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -11,6 +11,7 @@ import { BsEye } from "react-icons/bs";
 import { GoCalendar } from "react-icons/go";
 
 import { SearchMediaInterface } from "../../models/search-interfaces";
+import { ModifiedSearchMediaData } from "../../models/search-interfaces";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
@@ -32,15 +33,30 @@ declare module "framer-motion" {
     }
 }
 
-const SearchMedia = (props: SearchMediaInterface): JSX.Element => {
-    const mediaData = props.searchMedia?.results || null;
-    const router = useRouter();
+const SearchMedia = (props: ModifiedSearchMediaData): JSX.Element => {
+    const mediaData = props.searchMedia || null;
+    const [modifiedSearchMediaLength, setModifiedSearchMediaLength] = useState(
+        mediaData?.length || 0
+    );
 
+    const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const spinnerCtx = useContext(SpinnerContext);
 
     const { getMovieData } = movieCtx;
     const { showSpinnerHandler } = spinnerCtx;
+
+    useEffect(() => {
+        if (mediaData?.length! > 1) {
+            setModifiedSearchMediaLength(mediaData?.length!);
+        } else {
+            mediaData?.forEach((media) => {
+                if (media.id === 0) {
+                    setModifiedSearchMediaLength(0);
+                }
+            });
+        }
+    }, [mediaData]);
 
     const onClickHandler = (
         title: string,
@@ -71,7 +87,7 @@ const SearchMedia = (props: SearchMediaInterface): JSX.Element => {
 
     const media = router.pathname.includes("movie") ? "movie" : "tv";
 
-    if (router.query.query && mediaData?.length === 0) {
+    if (router.query.query && modifiedSearchMediaLength === 0) {
         return (
             <div className="bg-darkGray">
                 <div className="container mx-auto ">

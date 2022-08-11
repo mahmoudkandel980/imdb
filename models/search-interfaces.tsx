@@ -147,3 +147,60 @@ export interface ModifiedSearchMultiInterface {
           }[]
         | null;
 }
+
+export interface ModifiedSearchMediaData {
+    searchMedia:
+        | {
+              adult: boolean;
+              backdrop_path: string;
+              genre_ids: number[];
+              id: number;
+              original_language: string;
+              original_title: string;
+              overview: string;
+              popularity: number;
+              poster_path: string;
+              release_date: string;
+              title: string;
+              video: boolean;
+              vote_average: number;
+              vote_count: number;
+              // tv
+              first_air_date: string;
+              name: string;
+              origin_country: string;
+              original_name: string;
+          }[]
+        | null;
+}
+export interface ModifiedMultiSearch {
+    modifiedMultiSearch:
+        | {
+              adult: boolean;
+              backdrop_path: string;
+              genre_ids: number[];
+              id: number;
+              original_language: string;
+              original_title: string;
+              overview: string;
+              popularity: number;
+              poster_path: string;
+              release_date: string;
+              title: string;
+              video: boolean;
+              vote_average: number;
+              vote_count: number;
+              // tv
+              first_air_date: string;
+              name: string;
+              origin_country: string;
+              original_name: string;
+              //
+              media_type: string;
+              // people
+              gender: number;
+              known_for_department: string;
+              profile_path: string;
+          }[]
+        | null;
+}

@@ -4,10 +4,11 @@ import { NextPage, GetServerSideProps } from "next";
 import SpecificPerson from "../../components/people/specificPerson";
 import SpecificPersonMediaCastSwiper from "../../components/people/models/specificPersonMediaCastSwiper";
 import SpecificPersonMediaCrewSwiper from "../../components/people/models/specificPersonMediaCrewSwiper";
-import { ForbiddenPersonMedia } from "../../checks/checkForForbiddenContent";
 
 import Footer from "../../components/footer/footer";
 import SpinnerContext from "../../context/spinner-context";
+import ForbiddenMediaContentContext from "../../context/forbiddenMediaContent-context";
+
 import RouterSpinner from "../../components/ui/routerSpinner";
 
 import {
@@ -31,25 +32,32 @@ const SelectedActor = (
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
 
-    // filter movies state
-    const [modifiedPersonMovieMedia, setModifiedPersonMovieMedia] =
-        useState(personMovieMedia);
+    const mediaDataCtx = useContext(ForbiddenMediaContentContext);
+    const {
+        // filter person CREW Media
+        personMoviesCrew,
+        personTvCrew,
+        filterForbiddenPersonMoviesCrewFun,
+        filterForbiddenPersonTvCrewFun,
 
-    // filter tv state
-    const [modifiedPersonTvMedia, setModifiedPersonTvMedia] =
-        useState(personTvMedia);
+        // filter person CAST Media
+        personMoviesCast,
+        personTvCast,
+        filterForbiddenPersonMoviesCastFun,
+        filterForbiddenPersonTvCastFun,
+    } = mediaDataCtx;
 
-    // filter person movies
-    ForbiddenPersonMedia(personMovieMedia);
     useEffect(() => {
-        setModifiedPersonMovieMedia(personMovieMedia);
-    }, [personMovieMedia]);
+        filterForbiddenPersonMoviesCastFun(personMovieMedia.cast);
+        filterForbiddenPersonTvCastFun(personTvMedia.cast);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [personMovieMedia, personTvMedia]);
 
-    // filter person tv
-    ForbiddenPersonMedia(personTvMedia);
     useEffect(() => {
-        setModifiedPersonTvMedia(personTvMedia);
-    }, [personTvMedia]);
+        filterForbiddenPersonMoviesCrewFun(personMovieMedia.crew);
+        filterForbiddenPersonTvCrewFun(personTvMedia.crew);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [personMovieMedia, personTvMedia]);
 
     useEffect(() => {
         setIsSSR(false);
@@ -68,18 +76,18 @@ const SelectedActor = (
                         <>
                             {/* Movies */}
                             <SpecificPersonMediaCastSwiper
-                                personMedia={modifiedPersonMovieMedia}
+                                personMedia={personMoviesCast}
                             />
                             <SpecificPersonMediaCrewSwiper
-                                personMedia={modifiedPersonMovieMedia}
+                                personMedia={personMoviesCrew}
                             />
 
                             {/* Tv */}
                             <SpecificPersonMediaCastSwiper
-                                personMedia={modifiedPersonTvMedia}
+                                personMedia={personTvCast}
                             />
                             <SpecificPersonMediaCrewSwiper
-                                personMedia={modifiedPersonTvMedia}
+                                personMedia={personTvCrew}
                             />
                         </>
                     )}

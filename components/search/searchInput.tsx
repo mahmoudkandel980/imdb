@@ -14,45 +14,52 @@ interface SearchFor {
 interface className {
     className: string;
 }
+interface Pages {
+    searchPage: number;
+    searchTotal_pages: number;
+}
+
 import {
-    SearchMediaInterface,
     SearchPeopleInterface,
-    SearchMultiInterface,
     SearchDataWithImageLengthInterface,
+} from "../../models/search-interfaces";
+
+import {
+    ModifiedSearchMediaData,
+    ModifiedMultiSearch,
 } from "../../models/search-interfaces";
 
 const SearchInput = (
     props: SearchFor &
         className &
-        SearchMediaInterface &
         SearchPeopleInterface &
-        SearchMultiInterface &
-        SearchDataWithImageLengthInterface
+        ModifiedMultiSearch &
+        SearchDataWithImageLengthInterface &
+        Pages &
+        ModifiedSearchMediaData
 ): JSX.Element => {
-    const { searchFor, SearchDataWithImageLength, multiSearch, searchMedia } =
-        props;
+    const {
+        searchFor,
+        SearchDataWithImageLength,
+        searchMedia,
+        searchPage,
+        searchTotal_pages,
+        modifiedMultiSearch,
+        searchPeople,
+    } = props;
     const [searchValue, setSearchValue] = useState("");
     const [prevSearchvalue, setPrevSearchValue] = useState("");
     const [isTheSame, setIsTheSame] = useState(false);
     const [searchDataLength, setSearchDataLength] = useState(0);
 
-    const multSearchCtx = useContext(FilterMultiSearchContext);
-    const { addMultiSearchData } = multSearchCtx;
+    const multiSearchCtx = useContext(FilterMultiSearchContext);
+    const { addMultiSearchData } = multiSearchCtx;
 
+    // update multi search after mute +18 content and get the number of tv and movies and actors
     useEffect(() => {
-        addMultiSearchData(props);
+        addMultiSearchData(modifiedMultiSearch!);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [multiSearch]);
-
-    let searchPage =
-        props.searchMedia?.page ||
-        props.searchPeople?.page ||
-        props.multiSearch?.page;
-
-    const searchTotal_pages =
-        props.searchMedia?.total_pages ||
-        props.searchPeople?.total_pages ||
-        props.multiSearch?.total_pages;
+    }, [modifiedMultiSearch]);
 
     const router = useRouter();
     const pathname = router.pathname;
@@ -63,17 +70,27 @@ const SearchInput = (
 
     // check if shearch  data has a data after doing forbiddent checks
     useEffect(() => {
-        if (router.asPath.includes("tv" || "movie" || "people")) {
-            setSearchDataLength(searchMedia?.results.length || 0);
+        if (router.asPath.includes("tv") || router.asPath.includes("movie")) {
+            searchMedia?.forEach((media) => {
+                if (media.id === 0) {
+                    setSearchDataLength(0);
+                } else {
+                    setSearchDataLength(searchMedia?.length || 0);
+                }
+            });
+        } else if (router.asPath.includes("people")) {
+            setSearchDataLength(searchPeople?.results.length || 0);
         } else {
             setSearchDataLength(SearchDataWithImageLength || 0);
         }
     }, [
+        searchDataLength,
         SearchDataWithImageLength,
         router.asPath,
         router.query.query,
         router.query.searchType,
         searchMedia,
+        searchPeople,
     ]);
 
     useEffect(() => {
@@ -144,12 +161,10 @@ const SearchInput = (
         <div className={props.className}>
             <div className="container mx-auto py-5 pb-0">
                 <div className="flex flex-col-reverse justify-center items-end relative ">
-                    {searchTotal_pages && searchPage && (
+                    {searchTotal_pages && searchPage ? (
                         <div
                             className={`${
-                                router.query.query &&
-                                searchDataLength === 0 &&
-                                "hidden"
+                                searchDataLength === 0 && "hidden"
                             } flex justify-center sm:justify-center items-center space-x-10 sm:space-x-0  mt-3 sm:mt-0 sm:mr-5`}
                         >
                             <div className="flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4  text-white">
@@ -158,7 +173,7 @@ const SearchInput = (
                                     : ""}
                             </div>
                             <div className="flex justify-center items-center w-48 sm:w-52">
-                                <div className="flex flex-col items-end sm:items-center top-3 text-xl h-12 w-12 text-gray-200 relative group cursor-pointer">
+                                <div className="flex flex-col items-start sm:items-center top-3 text-xl h-12 w-12 text-gray-200 relative group cursor-pointer">
                                     {searchPage > 1 && (
                                         <div
                                             onClick={prevPageHandler}
@@ -189,20 +204,20 @@ const SearchInput = (
                                 </div>
                             </div>
                         </div>
+                    ) : (
+                        <></>
                     )}
                     <div className="flex items-center justify-center space-x-5">
-                        {searchTotal_pages && (
+                        {searchDataLength > 0 && (
                             <div
                                 className={`${
-                                    router.query.query &&
-                                    searchDataLength === 0 &&
-                                    "hidden"
+                                    searchDataLength === 0 && "hidden"
                                 } flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4 text-white`}
                             >
                                 {searchTotal_pages} Pages
                             </div>
                         )}
-                        <div className="relative flex justify-end items-center">
+                        <div className="relative flex justify-end items-center  flicker-black shadow-2xl">
                             <input
                                 type="search"
                                 value={searchValue}

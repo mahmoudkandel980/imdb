@@ -50,7 +50,9 @@ const PeoplePage = (
                         SearchDataWithImageLength={dataSearchWithImage.length}
                         searchPeople={searchPeople}
                         searchMedia={null}
-                        multiSearch={null}
+                        modifiedMultiSearch={null}
+                        searchPage={searchPeople?.page || 0}
+                        searchTotal_pages={searchPeople?.total_pages || 0}
                     />
                     <SearchPeople searchPeople={searchPeople} />
                     <People peopleData={peopleData} />
@@ -70,7 +72,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     let searchPeopleReq;
     let searchPeopleURL;
-    let searchPages;
 
     const { query } = context;
     const type = query.type || "Popular";
@@ -88,7 +89,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     requestSearchPage.forEach((requestType) => {
         if (requestType.type.toLowerCase() === "people") {
             searchPeopleURL = requestType.url;
-            // searchPages = requestType.pages;
             return;
         }
     });

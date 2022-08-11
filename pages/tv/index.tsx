@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 import { GetServerSideProps } from "next";
 
 import SearchInput from "../../components/search/searchInput";
@@ -9,11 +8,8 @@ import MediaPosterHeaader from "../../components/media/mediaPosterHeader";
 import Footer from "../../components/footer/footer";
 import RouterSpinner from "../../components/ui/routerSpinner";
 import SpinnerContext from "../../context/spinner-context";
+import ForbiddenMediaContentContext from "../../context/forbiddenMediaContent-context";
 import { requestTvPage, requestSearchPage } from "../../libs/requests";
-import {
-    ForbiddenMedia,
-    ForbiddenSearchMedia,
-} from "../../checks/checkForForbiddenContent";
 
 import { RequestMediaInterface } from "../../models/interfaces";
 import { MediaDataInterface } from "../../models/media-interfaces";
@@ -26,43 +22,27 @@ const TvPage = (
         TotalPagesInterface &
         SearchMediaInterface
 ) => {
-    const { mediaData, type, total_pages, searchMedia } = props;
-    const router = useRouter();
+    const { mediaData, total_pages, searchMedia } = props;
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
 
-    const [dataSearchWithImage, setDataSearchWithImage] = useState<any[]>([]);
-    // Ignore +18 mediaData
-    const [modifiedMediaData, setModifiedMediaData] = useState(mediaData);
-    // Ignore +18 searchMediaData
-    const [modifiedSearchMediaData, setModifiedSearchMediaData] =
-        useState(searchMedia);
-
-    // check for forbidden mediaData
-    // useEffect(() => {
-    //     ForbiddenMedia(mediaData);
-    // }, [mediaData]);
-    ForbiddenMedia(mediaData);
-    useEffect(() => {
-        setModifiedMediaData(mediaData);
-    }, [mediaData, modifiedMediaData]);
-
-    // check for forbidden searchMediaData
-    ForbiddenSearchMedia(searchMedia);
-    useEffect(() => {
-        setModifiedSearchMediaData(searchMedia);
-    }, [modifiedSearchMediaData, searchMedia]);
+    const mediaDataCtx = useContext(ForbiddenMediaContentContext);
+    const {
+        mediaData: mediaDataModified,
+        searchMedia: searchMediaModified,
+        filterForbiddenContentMediaDataFun,
+        filterForbiddenContentSearchMediaFun,
+    } = mediaDataCtx;
 
     useEffect(() => {
-        setDataSearchWithImage([]);
-        modifiedSearchMediaData?.results.forEach((searchData) => {
-            if (searchData.poster_path || searchData.backdrop_path) {
-                setDataSearchWithImage((prevState) =>
-                    prevState?.concat(searchData)
-                );
-            }
-        });
-    }, [modifiedSearchMediaData, router.query.searchType, router.query.query]);
+        filterForbiddenContentMediaDataFun(mediaData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mediaData]);
+
+    useEffect(() => {
+        filterForbiddenContentSearchMediaFun(searchMedia?.results!);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchMedia?.results]);
 
     return (
         <div className="bg-smothDark">
@@ -72,17 +52,19 @@ const TvPage = (
                 </div>
             ) : (
                 <div>
-                    <MediaPosterHeaader mediaData={modifiedMediaData} />
+                    <MediaPosterHeaader mediaData={mediaDataModified} />
                     <SearchInput
                         className="bg-darkGray"
                         searchFor="tv"
-                        SearchDataWithImageLength={dataSearchWithImage.length}
-                        searchMedia={modifiedSearchMediaData}
+                        SearchDataWithImageLength={searchMediaModified.length}
+                        searchMedia={searchMediaModified}
                         searchPeople={null}
-                        multiSearch={null}
+                        modifiedMultiSearch={null}
+                        searchPage={searchMedia?.page || 0}
+                        searchTotal_pages={searchMedia?.total_pages || 0}
                     />
-                    <SearchMedia searchMedia={modifiedSearchMediaData} />
-                    <Media mediaData={modifiedMediaData} />
+                    <SearchMedia searchMedia={searchMediaModified} />
+                    <Media mediaData={mediaDataModified} />
                     {showMedia ? <></> : <Footer total_pages={total_pages} />}
                 </div>
             )}
@@ -99,7 +81,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     let searchMediaReq;
     let searchMediaURL;
-    let searchPages;
 
     const { query } = context;
     const type = query.type || "Popular";
@@ -116,7 +97,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     requestSearchPage.forEach((requestType) => {
         if (requestType.type.toLowerCase() === "tv") {
             searchMediaURL = requestType.url;
-            // searchPages = requestType.pages;
             return;
         }
     });

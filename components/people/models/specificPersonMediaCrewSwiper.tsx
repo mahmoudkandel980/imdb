@@ -10,7 +10,7 @@ import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import { GoCalendar } from "react-icons/go";
 
-import { SpecificPersonMediaDataIntrerface } from "../../../models/people-interfaces";
+import { PersonMediaCastAndCrew } from "../../../models/people-interfaces";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
@@ -26,11 +26,11 @@ import "swiper/css/scrollbar";
 SwiperCore.use([Navigation, Autoplay]);
 
 const SpecificPersonMediaCrewSwiper = (
-    props: SpecificPersonMediaDataIntrerface
+    props: PersonMediaCastAndCrew
 ): JSX.Element => {
     const [hasImage, setHasImage] = useState(false);
     const router = useRouter();
-    const { crew } = props.personMedia;
+    const { personMedia } = props;
 
     const movieCtx = useContext(MovieContext);
     const { getMovieData } = movieCtx;
@@ -39,7 +39,7 @@ const SpecificPersonMediaCrewSwiper = (
     const { showSpinnerHandler } = spinnerCtx;
 
     useEffect(() => {
-        crew.forEach((media) => {
+        personMedia.forEach((media) => {
             if (media.backdrop_path || media.poster_path) {
                 setHasImage(true);
                 return;
@@ -87,8 +87,12 @@ const SpecificPersonMediaCrewSwiper = (
 
     return (
         <>
-            {hasImage && (
-                <div className="p-0 2xl:p-10 2xl:pt-0 py-10 pt-0 sm:pb-7 mx-auto w-full sm:w-[90%] md:w-[80%]">
+            {hasImage ? (
+                <div
+                    className={`${
+                        personMedia.length === 0 && "hidden"
+                    } p-0 2xl:p-10 2xl:pt-0 py-10 pt-0 sm:pb-7 mx-auto w-full sm:w-[90%] md:w-[80%]`}
+                >
                     <div className="container mx-auto">
                         <h1 className="text-white text-lg sm:text-xl md:text-2xl">
                             Crew
@@ -130,7 +134,7 @@ const SpecificPersonMediaCrewSwiper = (
                                 parallax={true}
                                 loop={true}
                             >
-                                {crew.map(
+                                {personMedia.map(
                                     (media, index) =>
                                         (media.backdrop_path ||
                                             media.poster_path) && (
@@ -301,6 +305,8 @@ const SpecificPersonMediaCrewSwiper = (
                         </div>
                     </div>
                 </div>
+            ) : (
+                <></>
             )}
         </>
     );
