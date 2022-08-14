@@ -116,7 +116,7 @@ const TopRated = (
                 </div>
                 <div className="bg-transparent">
                     <div className="container mx-auto">
-                        <div className="relative px-16 sm:px-28 md:px-14 lg:px-20 xl:px-24">
+                        <div className="relative px-5 sm:px-28 md:px-14 lg:px-20 xl:px-24">
                             <Swiper
                                 className="tending-swiper"
                                 breakpoints={{

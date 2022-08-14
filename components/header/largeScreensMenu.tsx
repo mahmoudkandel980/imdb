@@ -81,7 +81,7 @@ const LargeScreensMenu = (): JSX.Element => {
                             alt="imdb-logo"
                             width={`75%`}
                             height={`30%`}
-                            className="brightness-0 invert-[1] hover:brightness-100 hover:invert-0 hover:cursor-pointer"
+                            className="hover:cursor-pointer"
                         />
                     </a>
                 </Link>

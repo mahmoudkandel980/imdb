@@ -18,7 +18,7 @@ const FooterContent = (): JSX.Element => {
                                 alt="imdb-logo"
                                 width={`100%`}
                                 height={`35%`}
-                                className="brightness-0 invert-[1] hover:brightness-100 hover:invert-0 hover:cursor-pointer"
+                                className="hover:cursor-pointer"
                             />
                         </a>
                     </Link>

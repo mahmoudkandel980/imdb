@@ -48,7 +48,7 @@ const SpecifcPeopleMedia = (props: MediaPeopleInterface) => {
                 <h1 className="flicker-text select-none w-fit text-white text-xl sm:text-2xl md:text-3xl mb-2">
                     {router.query.slug} Actors
                 </h1>
-                <div className="relative px-16 sm:px-28 md:px-14 lg:px-20 xl:px-24">
+                <div className="relative px-5 sm:px-28 md:px-14 lg:px-20 xl:px-24">
                     <Swiper
                         breakpoints={{
                             0: {

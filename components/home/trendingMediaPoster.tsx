@@ -64,7 +64,7 @@ const TrendingMediaPoster = (props: TrendingMediaInterface): JSX.Element => {
         >
             <div className="bg-transparent">
                 <div className="container mx-auto">
-                    <div className="relative px-16 sm:px-28 md:px-12 lg:px-48 xl:px-52">
+                    <div className="relative px-5 sm:px-28 md:px-12 lg:px-48 xl:px-52">
                         <h2 className="text-white text-xl font-mono font-bold absolute">
                             Trending
                         </h2>

@@ -22,7 +22,7 @@ const SmallScreensMenu = (): JSX.Element => {
 
     return (
         <div className="flex justify-between items-center mx-5 sm:mx-10">
-            <div className="mt-5 z-[1000]">
+            {/* <div className="mt-5 z-[1000]">
                 <Link href={`/`}>
                     <a>
                         <Image
@@ -34,7 +34,7 @@ const SmallScreensMenu = (): JSX.Element => {
                         />
                     </a>
                 </Link>
-            </div>
+            </div> */}
             <div className={classes.navigation}>
                 <input
                     onClick={clickMenueHandler}
@@ -55,6 +55,22 @@ const SmallScreensMenu = (): JSX.Element => {
                 <div className={classes.navigation__background}>&nbsp;</div>
 
                 <nav className={classes.navigation__nav}>
+                    <div
+                        onClick={clickMenueHandler}
+                        className="mt-5 ml-5 z-[1000]"
+                    >
+                        <Link href={`/`}>
+                            <a>
+                                <Image
+                                    src="/images/imdb-logo.png"
+                                    alt="imdb-logo"
+                                    width={`75%`}
+                                    height={`30%`}
+                                    className=" hover:cursor-pointer"
+                                />
+                            </a>
+                        </Link>
+                    </div>
                     <ul
                         className={`h-screen flex flex-col justify-center mx-auto w-full items-center space-y-10 text-gray-400 text-xl`}
                     >

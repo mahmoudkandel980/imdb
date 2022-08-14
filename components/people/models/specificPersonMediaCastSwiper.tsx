@@ -106,7 +106,7 @@ const SpecificPersonMediaCastSwiper = (
                         <h1 className="flicker-text select-none  w-fit text-white text-xl sm:text-2xl md:text-3xl ">
                             {router.query.slug} {isTv ? "Tv" : "Movies"}
                         </h1>
-                        <div className="relative px-16 sm:px-40 md:px-14 lg:px-0 xl:px-0">
+                        <div className="relative px-5 sm:px-40 md:px-14 lg:px-0 xl:px-0">
                             <Swiper
                                 breakpoints={{
                                     0: {

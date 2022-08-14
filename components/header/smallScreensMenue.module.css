@@ -3,8 +3,8 @@
 }
 .navigation__button {
     background-color: #ffffff;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     top: 16px;
     right: 60px;
     position: fixed;
@@ -24,8 +24,8 @@
     }
 }
 .navigation__background {
-    height: 35px;
-    width: 35px;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
     position: fixed;
     top: 18px;
@@ -58,7 +58,7 @@
 }
 
 .navigation__checkbox:checked ~ .navigation__background {
-    transform: scale(80);
+    transform: scale(150);
 }
 .navigation__checkbox:checked ~ .navigation__nav {
     opacity: 1;
@@ -75,7 +75,7 @@
 .navigation__icon::before,
 .navigation__icon::after {
     display: inline-block;
-    width: 20px;
+    width: 18px;
     height: 2px;
     background-color: #333;
     transition: all 0.2s;
@@ -87,10 +87,10 @@
     left: 0;
 }
 .navigation__icon::before {
-    top: -8px;
+    top: -6px;
 }
 .navigation__icon::after {
-    top: 8px;
+    top: 6px;
 }
 .navigation__checkbox:checked ~ .navigation__button .navigation__icon {
     background-color: transparent;
