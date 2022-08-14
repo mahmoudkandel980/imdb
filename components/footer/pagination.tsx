@@ -30,6 +30,12 @@ const Pagination = (props: TotalPagesInterface): JSX.Element => {
     const paginationNumbers =
         currentPage < 5 ? ordinaryPagination : modifiedPagination;
 
+    const onClickpageHandler = (pathName: string, type: any, page: number) => {
+        router.push(`${pathName}?type=${type}&page=${page}`, undefined, {
+            scroll: false,
+        });
+    };
+
     return (
         <>
             <div className="flex w-full items-center justify-center text-lg font-mono">
@@ -58,8 +64,14 @@ const Pagination = (props: TotalPagesInterface): JSX.Element => {
                             }`}
                             key={page}
                         >
-                            <Link
-                                href={`${pathName}?type=${type}&page=${page}`}
+                            <div
+                                onClick={onClickpageHandler.bind(
+                                    null,
+                                    pathName,
+                                    type,
+                                    page
+                                )}
+                                // href={`${pathName}?type=${type}&page=${page}`}
                             >
                                 <p
                                     className={`${
@@ -76,7 +88,7 @@ const Pagination = (props: TotalPagesInterface): JSX.Element => {
                                         {page}
                                     </span>
                                 </p>
-                            </Link>
+                            </div>
                         </div>
                     ))}
                     {currentPage !== total_pages && (

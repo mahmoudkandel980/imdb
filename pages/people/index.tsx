@@ -15,6 +15,7 @@ import { TotalPagesInterface } from "../../models/interfaces";
 import { PeopleDataInterface } from "../../models/people-interfaces";
 import { SearchPeopleInterface } from "../../models/search-interfaces";
 
+const isSSR = typeof window === "undefined";
 const PeoplePage = (
     props: TotalPagesInterface & PeopleDataInterface & SearchPeopleInterface
 ) => {
@@ -24,6 +25,11 @@ const PeoplePage = (
     const { peopleData, total_pages, searchPeople } = props;
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
+    const [isSSR, setIsSSR] = useState(true);
+
+    useEffect(() => {
+        setIsSSR(false);
+    }, []);
 
     useEffect(() => {
         setDataSearchWithImage([]);
@@ -43,20 +49,32 @@ const PeoplePage = (
                 </div>
             ) : (
                 <div>
-                    <PeoplePosterHeader peopleData={peopleData} />
-                    <SearchInput
-                        className="bg-darkGray"
-                        searchFor="actors"
-                        SearchDataWithImageLength={dataSearchWithImage.length}
-                        searchPeople={searchPeople}
-                        searchMedia={null}
-                        modifiedMultiSearch={null}
-                        searchPage={searchPeople?.page || 0}
-                        searchTotal_pages={searchPeople?.total_pages || 0}
-                    />
-                    <SearchPeople searchPeople={searchPeople} />
-                    <People peopleData={peopleData} />
-                    {showMedia ? <></> : <Footer total_pages={total_pages} />}
+                    {!isSSR && (
+                        <>
+                            <PeoplePosterHeader peopleData={peopleData} />
+                            <SearchInput
+                                className="bg-smothDark"
+                                searchFor="actors"
+                                SearchDataWithImageLength={
+                                    dataSearchWithImage.length
+                                }
+                                searchPeople={searchPeople}
+                                searchMedia={null}
+                                modifiedMultiSearch={null}
+                                searchPage={searchPeople?.page || 0}
+                                searchTotal_pages={
+                                    searchPeople?.total_pages || 0
+                                }
+                            />
+                            <SearchPeople searchPeople={searchPeople} />
+                            <People peopleData={peopleData} />
+                            {showMedia ? (
+                                <></>
+                            ) : (
+                                <Footer total_pages={total_pages} />
+                            )}
+                        </>
+                    )}
                 </div>
             )}
         </div>

@@ -20,21 +20,88 @@ const People = (props: PeopleDataInterface): JSX.Element => {
     const { showSpinnerHandler } = spinnerCtx;
 
     const onClickHandler = (name: string, id: number) => {
-        showSpinnerHandler(true);
-
         const type = router.query.type || "Popular";
         const page = router.pathname.toString().substring(1);
-
         router.push(`/${page}/${name}?type=${type}&id=${id}`);
+
+        showSpinnerHandler(true);
     };
 
     return (
-        <div className="bg-darkGray pt-20">
+        <div className="bg-smothDark pt-20">
             <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-6 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {peopleData.map((person) => (
+                {peopleData.map((person, index) => (
                     <div
                         key={person.id}
                         className="flex flex-col justify-start select-none h-full"
+                        data-aos={
+                            window?.innerWidth >= 1280
+                                ? (index + 1) % 5 === 2
+                                    ? "fade-up-right"
+                                    : (index + 1) % 5 === 3
+                                    ? "fade-up"
+                                    : (index + 1) % 5 === 4
+                                    ? "fade-up-left"
+                                    : (index + 1) % 5 === 1
+                                    ? "fade-up-right"
+                                    : "fade-up-left"
+                                : window?.innerWidth >= 1024
+                                ? (index + 1) % 4 === 1
+                                    ? "fade-up-right"
+                                    : (index + 1) % 4 === 2
+                                    ? "fade-up"
+                                    : (index + 1) % 4 === 3
+                                    ? "fade-up"
+                                    : "fade-up-left"
+                                : window?.innerWidth >= 768
+                                ? (index + 1) % 3 === 1
+                                    ? "fade-up-right"
+                                    : (index + 1) % 3 === 2
+                                    ? "fade-up"
+                                    : "fade-up-left"
+                                : window?.innerWidth >= 640
+                                ? (index + 1) % 2 === 1
+                                    ? "fade-up-right"
+                                    : "fade-up-left"
+                                : "fade-up"
+                        }
+                        data-aos-offset="50"
+                        data-aos-delay={
+                            window?.innerWidth >= 1280
+                                ? (index + 1) % 5 === 2
+                                    ? "50"
+                                    : (index + 1) % 5 === 3
+                                    ? "100"
+                                    : (index + 1) % 5 === 4
+                                    ? "50"
+                                    : (index + 1) % 5 === 1
+                                    ? "100"
+                                    : "100"
+                                : window?.innerWidth >= 1024
+                                ? (index + 1) % 4 === 1
+                                    ? "100"
+                                    : (index + 1) % 4 === 2
+                                    ? "50"
+                                    : (index + 1) % 4 === 3
+                                    ? "50"
+                                    : "100"
+                                : window?.innerWidth >= 768
+                                ? (index + 1) % 3 === 1
+                                    ? "100"
+                                    : (index + 1) % 3 === 2
+                                    ? "50"
+                                    : "100"
+                                : window?.innerWidth >= 640
+                                ? (index + 1) % 2 === 1
+                                    ? "100"
+                                    : "100"
+                                : "50"
+                        }
+                        data-aos-duration="1000"
+                        data-aos-easing="ease-in-out"
+                        data-aos-mirror="true"
+                        data-aos-once="true"
+                        data-aos-anchor-placement="top-center"
                     >
                         <div className="group flex flex-col justify-center rounded-lg overflow-hidden mx-auto w-full relative hover:scale-105 sm:hover:scale-110 duration-200">
                             <div>

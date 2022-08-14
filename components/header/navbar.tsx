@@ -8,7 +8,6 @@ import {
     requestPeoplePage,
 } from "../../libs/requests";
 
-
 import { RequestMediaInterface } from "../../models/interfaces";
 
 const Navbar = (props: RequestMediaInterface): JSX.Element => {
@@ -165,7 +164,11 @@ const Navbar = (props: RequestMediaInterface): JSX.Element => {
     };
 
     return (
-        <div className="absolute bottom-0 left-0 z-10 w-full flex justify-center items-end">
+        <div
+            className={`${
+                router.asPath === "/" && "hidden"
+            } absolute bottom-0 left-0 z-10 w-full flex justify-center items-end`}
+        >
             <div className="relative">
                 <div className="flicker-white select-none bg-transparent text-gray-200 p-2 px-0 rounded-full mb-3">
                     <div

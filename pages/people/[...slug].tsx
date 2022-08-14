@@ -63,6 +63,7 @@ const SelectedActor = (
         setIsSSR(false);
     }, []);
 
+    // if (personDetails.place_of_birth.toLocaleLowerCase().includes("france"))
     return (
         <div className="bg-smothDark">
             {showMedia ? (
@@ -78,20 +79,20 @@ const SelectedActor = (
                             <SpecificPersonMediaCastSwiper
                                 personMedia={personMoviesCast}
                             />
-                            <SpecificPersonMediaCrewSwiper
+                            {/* <SpecificPersonMediaCrewSwiper
                                 personMedia={personMoviesCrew}
-                            />
+                            /> */}
 
                             {/* Tv */}
                             <SpecificPersonMediaCastSwiper
                                 personMedia={personTvCast}
                             />
-                            <SpecificPersonMediaCrewSwiper
+                            {/* <SpecificPersonMediaCrewSwiper
                                 personMedia={personTvCrew}
-                            />
+                            /> */}
+                            {showMedia ? <></> : <Footer total_pages={1} />}
                         </>
                     )}
-                    {showMedia ? <></> : <Footer total_pages={1} />}
                 </div>
             )}
         </div>

@@ -30,11 +30,10 @@ const SpecifcPeopleMedia = (props: MediaPeopleInterface) => {
     const { showSpinnerHandler } = spinnerCtx;
 
     const onClickHandler = (name: string, id: number) => {
-        showSpinnerHandler(true);
-
         const type = router.query.type || "Popular";
-
         router.push(`/people/${name}?type=${type}&id=${id}`);
+
+        showSpinnerHandler(true);
     };
 
     return (
@@ -49,7 +48,7 @@ const SpecifcPeopleMedia = (props: MediaPeopleInterface) => {
                 <h1 className="flicker-text select-none w-fit text-white text-xl sm:text-2xl md:text-3xl mb-2">
                     {router.query.slug} Actors
                 </h1>
-                <div className="relative px-10">
+                <div className="relative px-16 sm:px-28 md:px-14 lg:px-20 xl:px-24">
                     <Swiper
                         breakpoints={{
                             0: {
@@ -64,13 +63,17 @@ const SpecifcPeopleMedia = (props: MediaPeopleInterface) => {
                                 spaceBetween: 15,
                                 slidesPerView: 3,
                             },
-                            1280: {
+                            1030: {
                                 spaceBetween: 15,
                                 slidesPerView: 4,
                             },
-                            1536: {
-                                spaceBetween: 15,
+                            1280: {
+                                spaceBetween: 10,
                                 slidesPerView: 5,
+                            },
+                            1536: {
+                                spaceBetween: 10,
+                                slidesPerView: 6,
                             },
                         }}
                         navigation
@@ -93,7 +96,7 @@ const SpecifcPeopleMedia = (props: MediaPeopleInterface) => {
                                         key={`${person.id} ${index}`}
                                         className="flex flex-col justify-start select-none h-full py-10"
                                     >
-                                        <div className="group flex flex-col justify-center rounded-lg overflow-hidden mx-auto w-full relative hover:scale-105 sm:hover:scale-110 duration-200">
+                                        <div className="h-60 w-52 group flex flex-col justify-center rounded-lg overflow-hidden mx-auto  relative hover:scale-105 sm:hover:scale-110 duration-200">
                                             <div>
                                                 <Image
                                                     src={`${srcStartWith}${person.profile_path}`}

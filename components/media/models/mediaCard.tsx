@@ -10,7 +10,11 @@ import { GoCalendar } from "react-icons/go";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
-const MediaCard = (props: CardInterface): JSX.Element => {
+interface IndexInterface {
+    index: number;
+}
+
+const MediaCard = (props: CardInterface & IndexInterface): JSX.Element => {
     const {
         name,
         id,
@@ -24,6 +28,7 @@ const MediaCard = (props: CardInterface): JSX.Element => {
         poster_path,
         media_type,
     } = props.media;
+    const { index } = props;
     const { onClickHandler } = props;
 
     const router = useRouter();
@@ -31,7 +36,78 @@ const MediaCard = (props: CardInterface): JSX.Element => {
     const mediahasVideo = vote_average === 0 ? false : true;
 
     return (
-        <div key={id}>
+        <div
+            key={id}
+            className="card"
+            data-aos={
+                window?.innerWidth >= 1280
+                    ? (index + 1) % 5 === 2
+                        ? "fade-up-right"
+                        : (index + 1) % 5 === 3
+                        ? "fade-up"
+                        : (index + 1) % 5 === 4
+                        ? "fade-up-left"
+                        : (index + 1) % 5 === 1
+                        ? "fade-up-right"
+                        : "fade-up-left"
+                    : window?.innerWidth >= 1024
+                    ? (index + 1) % 4 === 1
+                        ? "fade-up-right"
+                        : (index + 1) % 4 === 2
+                        ? "fade-up"
+                        : (index + 1) % 4 === 3
+                        ? "fade-up"
+                        : "fade-up-left"
+                    : window?.innerWidth >= 768
+                    ? (index + 1) % 3 === 1
+                        ? "fade-up-right"
+                        : (index + 1) % 3 === 2
+                        ? "fade-up"
+                        : "fade-up-left"
+                    : window?.innerWidth >= 640
+                    ? (index + 1) % 2 === 1
+                        ? "fade-up-right"
+                        : "fade-up-left"
+                    : "fade-up"
+            }
+            data-aos-offset="50"
+            data-aos-delay={
+                window?.innerWidth >= 1280
+                    ? (index + 1) % 5 === 2
+                        ? "50"
+                        : (index + 1) % 5 === 3
+                        ? "100"
+                        : (index + 1) % 5 === 4
+                        ? "50"
+                        : (index + 1) % 5 === 1
+                        ? "100"
+                        : "100"
+                    : window?.innerWidth >= 1024
+                    ? (index + 1) % 4 === 1
+                        ? "100"
+                        : (index + 1) % 4 === 2
+                        ? "50"
+                        : (index + 1) % 4 === 3
+                        ? "50"
+                        : "100"
+                    : window?.innerWidth >= 768
+                    ? (index + 1) % 3 === 1
+                        ? "100"
+                        : (index + 1) % 3 === 2
+                        ? "50"
+                        : "100"
+                    : window?.innerWidth >= 640
+                    ? (index + 1) % 2 === 1
+                        ? "100"
+                        : "100"
+                    : "50"
+            }
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="true"
+            data-aos-anchor-placement="top-center"
+        >
             {(backdrop_path || poster_path) && (
                 <div className="flex flex-col justify-start select-none h-full">
                     <div className="group flex flex-col justify-center rounded-lg overflow-hidden mx-auto w-full relative hover:scale-105 sm:hover:scale-110 duration-200">

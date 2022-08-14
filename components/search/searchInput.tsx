@@ -28,6 +28,7 @@ import {
     ModifiedSearchMediaData,
     ModifiedMultiSearch,
 } from "../../models/search-interfaces";
+import Aos from "aos";
 
 const SearchInput = (
     props: SearchFor &
@@ -55,6 +56,10 @@ const SearchInput = (
     const multiSearchCtx = useContext(FilterMultiSearchContext);
     const { addMultiSearchData } = multiSearchCtx;
 
+    useEffect(() => {
+        Aos.init({});
+    }, []);
+
     // update multi search after mute +18 content and get the number of tv and movies and actors
     useEffect(() => {
         addMultiSearchData(modifiedMultiSearch!);
@@ -70,7 +75,10 @@ const SearchInput = (
 
     // check if shearch  data has a data after doing forbiddent checks
     useEffect(() => {
-        if (router.asPath.includes("tv") || router.asPath.includes("movie")) {
+        if (
+            router.pathname.includes("tv") ||
+            router.pathname.includes("movie")
+        ) {
             searchMedia?.forEach((media) => {
                 if (media.id === 0) {
                     setSearchDataLength(0);
@@ -78,7 +86,7 @@ const SearchInput = (
                     setSearchDataLength(searchMedia?.length || 0);
                 }
             });
-        } else if (router.asPath.includes("people")) {
+        } else if (router.pathname.includes("people")) {
             setSearchDataLength(searchPeople?.results.length || 0);
         } else {
             setSearchDataLength(SearchDataWithImageLength || 0);
@@ -86,7 +94,7 @@ const SearchInput = (
     }, [
         searchDataLength,
         SearchDataWithImageLength,
-        router.asPath,
+        router.pathname,
         router.query.query,
         router.query.searchType,
         searchMedia,
@@ -159,7 +167,12 @@ const SearchInput = (
 
     return (
         <div className={props.className}>
-            <div className="container mx-auto py-5 pb-0">
+            <div
+                className="container mx-auto py-5 pb-0"
+                data-aos="fade-left"
+                data-aos-duration="1500"
+                data-aos-delay="500"
+            >
                 <div className="flex flex-col-reverse justify-center items-end relative ">
                     {searchTotal_pages && searchPage ? (
                         <div
@@ -217,7 +230,7 @@ const SearchInput = (
                                 {searchTotal_pages} Pages
                             </div>
                         )}
-                        <div className="relative flex justify-end items-center  flicker-black shadow-2xl">
+                        <div className="relative flex justify-end items-center sm:flicker-black shadow-2xl ">
                             <input
                                 type="search"
                                 value={searchValue}

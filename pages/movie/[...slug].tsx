@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 
 import SpecificMedia from "../../components/media/specificMedia";
 import SpecifcPeopleMedia from "../../components/media/models/specifcPeopleMedia";
 import SpecificMediaVideo from "../../components/media/specificMediaVideo";
 import Footer from "../../components/footer/footer";
+import MovieTvVedio from "../../components/media/movieTvVedio";
 import RouterSpinner from "../../components/ui/routerSpinner";
 import SpinnerContext from "../../context/spinner-context";
 import {
@@ -29,14 +30,18 @@ const SelcetedMovie = (
         MediaPeopleInterface
 ) => {
     const [isSSR, setIsSSR] = useState(true);
-
     const { mediaData, mediaVedioData, initialVideoData, mediaPeople } = props;
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
+    const router = useRouter();
 
     useEffect(() => {
         setIsSSR(false);
     }, []);
+
+    if (mediaData.overview.toLocaleLowerCase().includes("sex")) {
+        router.push(`/`);
+    }
 
     return (
         <div className="bg-smothDark">
@@ -50,13 +55,14 @@ const SelcetedMovie = (
                     {!isSSR && (
                         <>
                             <SpecifcPeopleMedia mediaPeople={mediaPeople} />
+                            <MovieTvVedio />
                             <SpecificMediaVideo
                                 mediaVedioData={mediaVedioData}
                                 initialVideoData={initialVideoData}
                             />
+                            {showMedia ? <></> : <Footer total_pages={1} />}
                         </>
                     )}
-                    {showMedia ? <></> : <Footer total_pages={1} />}
                 </div>
             )}
         </div>

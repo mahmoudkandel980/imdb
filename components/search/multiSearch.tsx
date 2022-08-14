@@ -22,6 +22,7 @@ const MultiSearch = (
     props: SearchDataWithImageLengthInterface & ModifiedSearchMultiInterface
 ): JSX.Element => {
     const { modifiedSearch, SearchDataWithImageLength } = props;
+    console.log(modifiedSearch);
 
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
@@ -30,6 +31,7 @@ const MultiSearch = (
     const { getMovieData } = movieCtx;
     const { showSpinnerHandler } = spinnerCtx;
 
+    const searchType = router.query.searchType;
     const onClickMediaHandler = (
         title: string,
         name: string,
@@ -38,23 +40,31 @@ const MultiSearch = (
         movieData: any,
         media_type: string
     ) => {
-        showSpinnerHandler(true);
-        getMovieData(movieData);
-
         if (name) {
             mediahasVideo
-                ? router.push(`/${media_type}/${name}?media=${true}&id=${id}`)
-                : router.push(`/${media_type}/${name}?id=${id}`);
+                ? router.push(
+                      `/${
+                          media_type || searchType
+                      }/${name}?media=${true}&id=${id}`
+                  )
+                : router.push(`/${media_type || searchType}/${name}?id=${id}`);
         } else {
             mediahasVideo
-                ? router.push(`/${media_type}/${title}?media=${true}&id=${id}`)
-                : router.push(`/${media_type}/${title}?id=${id}`);
+                ? router.push(
+                      `/${
+                          media_type || searchType
+                      }/${title}?media=${true}&id=${id}`
+                  )
+                : router.push(`/${media_type || searchType}/${title}?id=${id}`);
         }
+
+        showSpinnerHandler(true);
+        getMovieData(movieData);
     };
 
     const onClickPersonHandler = (name: string, id: number) => {
-        showSpinnerHandler(true);
         router.push(`/people/${name}?&id=${id}`);
+        showSpinnerHandler(true);
     };
 
     if (
@@ -184,17 +194,18 @@ const MultiSearch = (
                                               </div>
                                               {/* media type */}
                                               <div
-                                                  className={`${
-                                                      router.query
-                                                          .searchType !==
-                                                          "all" && "hidden"
-                                                  } flex justify-center items-center flicker absolute bottom-3 z-10 select-none right-3 flicker-black bg-smothDark text-white w-8 p-1 px-1.5 rounded-full`}
+                                                  className={`flex justify-center items-center flicker absolute bottom-3 z-10 select-none right-3 flicker-black bg-smothDark text-white w-8 p-1 px-1.5 rounded-full`}
                                               >
                                                   <span className="capitalize">
-                                                      {searchData.media_type ===
-                                                      "tv"
-                                                          ? "tv"
-                                                          : "mo"}
+                                                      {searchData.media_type
+                                                          ? searchData.media_type ===
+                                                            "tv"
+                                                              ? "tv"
+                                                              : "mo"
+                                                          : searchType ===
+                                                            "movie"
+                                                          ? "mo"
+                                                          : "tv"}
                                                   </span>
                                               </div>
 

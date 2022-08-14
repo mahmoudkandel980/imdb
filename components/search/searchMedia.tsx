@@ -65,9 +65,6 @@ const SearchMedia = (props: ModifiedSearchMediaData): JSX.Element => {
         mediahasVideo: boolean,
         media: any
     ) => {
-        showSpinnerHandler(true);
-        getMovieData(media);
-
         const pathname = router.pathname;
 
         // title has the first role
@@ -83,13 +80,16 @@ const SearchMedia = (props: ModifiedSearchMediaData): JSX.Element => {
                   )
                 : router.push(`${pathname}/${originalTile}?id=${id}`);
         }
+
+        showSpinnerHandler(true);
+        getMovieData(media);
     };
 
     const media = router.pathname.includes("movie") ? "movie" : "tv";
 
     if (router.query.query && modifiedSearchMediaLength === 0) {
         return (
-            <div className="bg-darkGray">
+            <div className="bg-smothDark">
                 <div className="container mx-auto ">
                     <div className="flex items-center justify-center pt-5">
                         <div className=" sm:text-lg text-white font-mono font-bold">
@@ -106,7 +106,7 @@ const SearchMedia = (props: ModifiedSearchMediaData): JSX.Element => {
     }
 
     return (
-        <div className="bg-darkGray">
+        <div className="bg-smothDark">
             <div className="container mx-auto">
                 <div className="relative px-5 sm:px-10">
                     <Swiper

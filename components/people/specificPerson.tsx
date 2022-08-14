@@ -5,6 +5,7 @@ import SpecificPersonPoster from "./models/specificPersonPoster";
 import { GoCalendar } from "react-icons/go";
 import { TbGenderMale } from "react-icons/tb";
 import { CgGenderFemale } from "react-icons/cg";
+import { FaBirthdayCake } from "react-icons/fa";
 
 import { SpecificPersonDetailsDataIntrerface } from "../../models/people-interfaces";
 
@@ -49,6 +50,22 @@ const SpecificPerson = (
                             <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
                                 <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
                                     {gender === 1 ? "Femail" : "Mail"}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* age */}
+                        <div
+                            className={`${
+                                !birthday && "hidden"
+                            } group flex items-center justify-center space-x-1 z-10`}
+                        >
+                            <FaBirthdayCake className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                            <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
+                                <span className="flicker-black font-mono font-medium bg-darkGray p-4 py-0.5 rounded-md bg-opacity-95">
+                                    {new Date().getFullYear() -
+                                        new Date(birthday).getFullYear()}{" "}
+                                    Year
                                 </span>
                             </div>
                         </div>

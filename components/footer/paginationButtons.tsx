@@ -11,9 +11,17 @@ const PaginationButtons = (props: PaginationButtons): JSX.Element => {
 
     const pageNavHandler = (target: String) => {
         if (target.toLocaleLowerCase() === "next") {
-            router.push(`${pathName}?type=${type}&page=${currentPage + 1}`);
+            router.push(
+                `${pathName}?type=${type}&page=${currentPage + 1}`,
+                undefined,
+                { scroll: false }
+            );
         } else {
-            router.push(`${pathName}?type=${type}&page=${currentPage - 1}`);
+            router.push(
+                `${pathName}?type=${type}&page=${currentPage - 1}`,
+                undefined,
+                { scroll: false }
+            );
         }
     };
 

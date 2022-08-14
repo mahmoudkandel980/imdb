@@ -66,9 +66,6 @@ const SpecificPersonMediaCastSwiper = (
         mediahasVideo: boolean,
         media: any
     ) => {
-        showSpinnerHandler(true);
-        getMovieData(media);
-
         if (isTv) {
             if (title) {
                 mediahasVideo
@@ -92,52 +89,56 @@ const SpecificPersonMediaCastSwiper = (
                     : router.push(`/movie/${originalTile}?id=${id}`);
             }
         }
+
+        showSpinnerHandler(true);
+        getMovieData(media);
     };
 
     return (
         <>
             {hasImage ? (
                 <div
-                    className={`${
-                        personMedia.length === 0 && "hidden"
-                    } p-0 2xl:p-10 2xl:pb-0 py-7 sm:py-14 pb-0 sm:pb-0 mx-auto w-full sm:w-[90%] md:w-[80%]`}
+                    className={`${personMedia.length === 0 && "hidden"} ${
+                        isTv ? "py-0" : "py-7 sm:py-14 "
+                    } p-0  2xl:pb-0 pb-0 sm:pb-0 mx-auto w-full sm:w-[90%] md:w-[80%]`}
                 >
-                    <div className="container mx-auto">
-                        <h1 className="flicker-text select-none  w-fit text-white text-xl sm:text-2xl md:text-3xl mb-10">
+                    <div className="container mx-auto ">
+                        <h1 className="flicker-text select-none  w-fit text-white text-xl sm:text-2xl md:text-3xl ">
                             {router.query.slug} {isTv ? "Tv" : "Movies"}
                         </h1>
-                        <h2 className="text-white text-lg sm:text-xl md:text-2xl">
-                            Cast
-                        </h2>
-                        <div className="relative px-10">
+                        <div className="relative px-16 sm:px-40 md:px-14 lg:px-0 xl:px-0">
                             <Swiper
                                 breakpoints={{
                                     0: {
                                         spaceBetween: 15,
                                         slidesPerView: 1,
                                     },
-                                    640: {
+                                    800: {
                                         spaceBetween: 15,
                                         slidesPerView: 2,
                                     },
-                                    768: {
+                                    868: {
                                         spaceBetween: 15,
                                         slidesPerView: 3,
                                     },
-                                    1280: {
+                                    1030: {
                                         spaceBetween: 15,
                                         slidesPerView: 4,
                                     },
-                                    1536: {
-                                        spaceBetween: 15,
+                                    1280: {
+                                        spaceBetween: 10,
                                         slidesPerView: 5,
+                                    },
+                                    1536: {
+                                        spaceBetween: 10,
+                                        slidesPerView: 6,
                                     },
                                 }}
                                 navigation
                                 slidesPerGroup={1}
                                 pagination={{ clickable: true }}
                                 autoplay={{
-                                    delay: 3000,
+                                    delay: isTv ? 3500 : 3000,
                                     disableOnInteraction: false,
                                 }}
                                 speed={800}
@@ -149,12 +150,17 @@ const SpecificPersonMediaCastSwiper = (
                                 {personMedia.map(
                                     (media, index) =>
                                         (media.backdrop_path ||
-                                            media.poster_path) && (
+                                            media.poster_path) &&
+                                        // those languges can filter +18 media only by this way
+                                        media.original_language !== "fr" &&
+                                        media.original_language !== "it" &&
+                                        media.original_language !== "ru" &&
+                                        media.original_language !== "de" && (
                                             <SwiperSlide
                                                 key={`${media.id} ${index}`}
                                                 className="flex flex-col justify-start select-none h-full py-10"
                                             >
-                                                <div className="group flex flex-col justify-center rounded-lg overflow-hidden mx-auto w-full relative hover:scale-105 sm:hover:scale-110 duration-200">
+                                                <div className="h-60 w-52  group flex flex-col justify-center rounded-lg overflow-hidden mx-auto relative hover:scale-105 sm:hover:scale-110 duration-200">
                                                     <div>
                                                         <Image
                                                             src={`${srcStartWith}${

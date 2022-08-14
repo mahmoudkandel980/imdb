@@ -1,186 +1,87 @@
-.powerSwitch {
-    --color-invert: #ffffff;
-    --width: 150px;
-    --height: 150px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: var(--width);
-    height: var(--height);
-}
-.powerSwitch .button {
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+.no_freeze_spinner_id {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-.powerSwitch .button:after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: radial-gradient(
-        circle closest-side,
-        var(--color-invert),
-        transparent
-    );
-    filter: blur(20px);
+    transition: all 0.1s linear;
     opacity: 0;
-    transition: opacity 1s ease, transform 1s ease;
-    transform: perspective(1px) translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    height: 100vh;
+    transform: scale(10);
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.8);
 }
-.powerSwitch .button .powerOn {
-    height: 100%;
+
+.no_freeze_spinner .no_freeze_spinner_id {
+    z-index: 9999;
+    opacity: 0.5;
+    transform: scale(1);
+}
+
+.no_freeze_spinner_id > div > div {
+    animation-play-state: paused;
+    border: 5px solid #c8c8c8;
+    border-radius: 50%;
+    animation: rotate 1s infinite linear;
+    border-left-color: rgba(200, 200, 200, 0.4);
     width: 100%;
-    position: absolute;
-    z-index: 1;
-    fill: none;
-    stroke: var(--color-invert);
-    stroke-width: 8px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-.powerSwitch .button .powerOn .line {
-    opacity: 0.2;
-}
-.powerSwitch .button .powerOn .circle {
-    opacity: 0.2;
-    transform: rotate(-58deg);
-    transform-origin: center 80px;
-    stroke-dasharray: 220;
-    stroke-dashoffset: 40;
-}
-.powerSwitch .button .powerOn {
-    filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.8));
-}
-.powerSwitch .button .powerOn .line {
-    opacity: 0;
-    transition: opacity 0.3s ease 1s;
-}
-.powerSwitch .button .powerOn .circle {
-    opacity: 1;
-    stroke-dashoffset: 220;
-    transition: transform 1s ease, stroke-dashoffset 1s ease 0s;
-}
-.powerSwitch input {
-    position: absolute;
     height: 100%;
-    width: 100%;
-    z-index: 2;
-    opacity: 0;
-}
-.powerSwitch input + .button:after {
-    -webkit-animation: powerSwitchButtonAfter 1.5s ease-in forwards;
-    animation: powerSwitchButtonAfter 1.5s ease-in forwards;
 }
 
-.powerSwitch input + .button .powerOn .line {
-    -webkit-animation: line-animation 1s ease-in forwards;
-    animation: line-animation 1s ease-in forwards;
-}
-.powerSwitch input + .button .powerOn .circle {
-    -webkit-animation: powerSwitchCircle 1s ease-in forwards;
-    animation: powerSwitchCircle 1s ease-in forwards;
-    transition: transform 0.4s ease 0.2s, stroke-dashoffset 0.4s ease 0.2s;
-}
-
-@keyframes powerSwitchButtonAfter {
-    0% {
-    }
-    100% {
-        opacity: 0.15;
-        transform: scale(2) perspective(1px) translateZ(0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-}
-@-webkit-keyframes powerSwitchButtonAfter {
-    0% {
-    }
-    100% {
-        opacity: 0.15;
-        transform: scale(2) perspective(1px) translateZ(0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        transition: opacity 0.5s ease, transform 0.5s ease;
-    }
+.no_freeze_spinner_id > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.8);
+    width: 60px;
+    height: 60px;
+    padding: 5px;
 }
 
-@keyframes powerSwitchCircle {
-    0% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-    20% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-    40% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-    60% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-    100% {
-        transform: rotate(302deg);
-        stroke-dashoffset: 40;
-    }
-}
-@-webkit-keyframes powerSwitchCircle {
-    0% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-    20% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-    40% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-    60% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-    60% {
-        stroke-dashoffset: 0;
-        opacity: 0.5;
-    }
-    100% {
-        transform: rotate(302deg);
-        stroke-dashoffset: 40;
-    }
+.no_freeze_spinner .no_freeze_spinner_id div div {
+    animation-play-state: running;
 }
 
-@keyframes line-animation {
+@keyframes loadicons {
     0% {
-        opacity: 0;
+        transform: scale(0) translate3d(0, 0, 0);
     }
-    95% {
-        opacity: 0;
+    11% {
+        transform: scale(1.2) translate3d(0, 0, 0);
     }
-    100% {
-        opacity: 1;
+    22% {
+        transform: scale(1) translate3d(0, 0, 0);
+    }
+    33% {
+        transform: scale(0) translate3d(0, 0, 0);
     }
 }
-
-@-webkit-keyframes line-animation {
-    0% {
-        opacity: 0;
-    }
-    95% {
-        opacity: 0;
-    }
+@keyframes rotate {
     100% {
-        opacity: 1;
+        transform: rotate(360deg);
     }
+}
+.no_freeze_spinner .no_freeze_spinner_id span {
+    font-size: 24px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+    transform: scale(0) translate3d(0, 0, 0);
+}
+
+.no_freeze_spinner .no_freeze_spinner_id span:nth-of-type(1) {
+    animation: loadicons 5s 1s infinite ease-in-out;
+    animation-delay: 0.9s;
 }

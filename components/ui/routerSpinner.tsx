@@ -1,34 +1,36 @@
 import classes from "./routerSpinner.module.css";
+import { useRouter } from "next/router";
+
+import { AiFillHome } from "react-icons/ai";
+import { RiMovie2Fill } from "react-icons/ri";
+import { CgScreen } from "react-icons/cg";
+import { BsPeopleFill } from "react-icons/bs";
+import { BiSearch } from "react-icons/bi";
 
 const RouterSpinner = (): JSX.Element => {
+    const router = useRouter();
+    const pathname = router.pathname.toLowerCase();
+
     return (
-        <div>
-            <div className={classes.powerSwitch}>
-                <input type="checkbox" />
-                <div className={classes.button}>
-                    <svg className={classes.powerOn}>
-                        <use xlinkHref="#line" className={classes.line} />
-                        <use xlinkHref="#circle" className={classes.circle} />
-                    </svg>
+        <div className={classes.no_freeze_spinner}>
+            <div className={classes.no_freeze_spinner_id}>
+                <div>
+                    <span className={classes.material_icons}>
+                        {pathname.includes("search") ? (
+                            <BiSearch />
+                        ) : pathname.includes("movie") ? (
+                            <RiMovie2Fill />
+                        ) : pathname.includes("tv") ? (
+                            <CgScreen />
+                        ) : pathname.includes("people") ? (
+                            <BsPeopleFill />
+                        ) : (
+                            <AiFillHome />
+                        )}
+                    </span>
+                    <div></div>
                 </div>
             </div>
-
-            <svg xlinkHref="http://www.w3.org/2000/svg" className="hidden">
-                <symbol
-                    xlinkHref="http://www.w3.org/2000/svg"
-                    viewBox="0 0 150 150"
-                    id="line"
-                >
-                    <line x1="75" y1="34" x2="75" y2="58" />
-                </symbol>
-                <symbol
-                    xlinkHref="http://www.w3.org/2000/svg"
-                    viewBox="0 0 150 150"
-                    id="circle"
-                >
-                    <circle cx="75" cy="80" r="35" />
-                </symbol>
-            </svg>
         </div>
     );
 };

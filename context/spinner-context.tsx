@@ -15,7 +15,7 @@ export const SpinnerContextProvider = (props: Props): JSX.Element => {
         if (showMedia) {
             const timer = setTimeout(() => {
                 setShowMedia(false);
-            }, 2000);
+            }, 2500);
             return () => {
                 clearTimeout(timer);
             };

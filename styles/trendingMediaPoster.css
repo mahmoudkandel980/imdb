@@ -1,0 +1,6 @@
+.tending-swiper .swiper-button-next,
+.tending-swiper .swiper-button-prev {
+    transform: translateY(-40px) scale(0.35);
+    margin: 0;
+    padding: 5;
+}

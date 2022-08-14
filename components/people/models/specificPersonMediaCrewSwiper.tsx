@@ -57,9 +57,6 @@ const SpecificPersonMediaCrewSwiper = (
         media: any,
         isTv: boolean
     ) => {
-        showSpinnerHandler(true);
-        getMovieData(media);
-
         if (isTv) {
             if (title) {
                 mediahasVideo
@@ -83,6 +80,9 @@ const SpecificPersonMediaCrewSwiper = (
                     : router.push(`/movie/${originalTile}?id=${id}`);
             }
         }
+
+        showSpinnerHandler(true);
+        getMovieData(media);
     };
 
     return (
@@ -91,7 +91,7 @@ const SpecificPersonMediaCrewSwiper = (
                 <div
                     className={`${
                         personMedia.length === 0 && "hidden"
-                    } p-0 2xl:p-10 2xl:pt-0 py-10 pt-0 sm:pb-7 mx-auto w-full sm:w-[90%] md:w-[80%]`}
+                    } p-0 2xl:p-10 2xl:pt-0 py-10 pt-0 sm:pb-7 mx-auto w-full sm:w-[90%] md:w-[80%] -mt-10`}
                 >
                     <div className="container mx-auto">
                         <h1 className="text-white text-lg sm:text-xl md:text-2xl">
@@ -137,7 +137,11 @@ const SpecificPersonMediaCrewSwiper = (
                                 {personMedia.map(
                                     (media, index) =>
                                         (media.backdrop_path ||
-                                            media.poster_path) && (
+                                            media.poster_path) &&
+                                        media.original_language !== "fr" &&
+                                        media.original_language !== "it" &&
+                                        media.original_language !== "ru" &&
+                                        media.original_language !== "de" && (
                                             <SwiperSlide
                                                 key={`${media.id} ${index}`}
                                                 className="flex flex-col justify-start select-none h-full py-10"

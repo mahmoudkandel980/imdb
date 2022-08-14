@@ -17,9 +17,14 @@ const SpecificMediaVideo = (
         setMediaData({ key: mediaKey, name: mediaName });
         setIsMediaClicked(true);
     };
+    console.log(mediaVedioData.length);
 
     return (
-        <div className="p-0 2xl:p-20 py-20 sm:py-14">
+        <div
+            className={`${
+                mediaVedioData.length > 0 && "p-0 2xl:p-20 py-20 sm:py-14"
+            }`}
+        >
             {mediaVedioData.length > 0 ? (
                 <div className="flex">
                     <div className="container mx-auto">
@@ -45,24 +50,7 @@ const SpecificMediaVideo = (
                     </div>
                 </div>
             ) : (
-                <div className="flex ">
-                    <div className="container mx-auto">
-                        <div className="flex flex-col items-center justify-center ">
-                            <h2 className="self-start text-darkRed lg:ml-15 text-sm md:text-xl mb-5 font-bold font-mono">
-                                No Media To Show
-                            </h2>
-                            <div className="w-full h-full">
-                                <iframe
-                                    className="sm:w-[100%] sm:h-[600px] mx-auto md:w-[768px] md:h-[432px] lg:w-[1024px] lg:h-[576px] xl:w-[1024px] xl:h-[576px] rounded-md"
-                                    src={`https://www.youtube.com/embed/`}
-                                    title="YouTube video player"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                ></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <></>
             )}
 
             {mediaVedioData.length > 0 && (

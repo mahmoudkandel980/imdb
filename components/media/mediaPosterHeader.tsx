@@ -5,6 +5,7 @@ import Image from "next/image";
 import MovieContext from "../../context/movieData-context";
 import SpinnerContext from "../../context/spinner-context";
 import Navbar from "../header/navbar";
+import TrendingMediaPoster from "../home/trendingMediaPoster";
 
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { GoCalendar } from "react-icons/go";
@@ -13,7 +14,7 @@ import { BsEye } from "react-icons/bs";
 
 import { MediaDataInterface } from "../../models/media-interfaces";
 import { movieDataInterface } from "../../models/context-interfaces";
-
+import { TrendingMediaInterface } from "../../models/home-interfaces";
 // swiperJs
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -26,8 +27,10 @@ import "swiper/css/scrollbar";
 SwiperCore.use([Navigation, Autoplay]);
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
-const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
-    const { mediaData } = props;
+const MediaPosterHeaader = (
+    props: MediaDataInterface & TrendingMediaInterface
+): JSX.Element => {
+    const { mediaData, trendingMedia } = props;
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const spinnerCtx = useContext(SpinnerContext);
@@ -59,31 +62,40 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
         mediahasVideo: number,
         movieData: movieDataInterface
     ) => {
-        showSpinnerHandler(true);
-        getMovieData(movieData);
-
         const type = router.query.type || "Trending";
         const page = router.pathname.toString().substring(1);
         // Name has the first role
         // Explain : you will get one of name and title undefined
-        if (name) {
-            mediahasVideo > 0
-                ? router.push(
-                      `/${page}/${name}?type=${type}&media=${true}&id=${id}`
-                  )
-                : router.push(`/${page}/${name}?type=${type}&id=${id}`);
+
+        if (router.pathname === "/") {
+            router.push(`/movie/${name || title}?id=${id}`);
         } else {
-            mediahasVideo > 0
-                ? router.push(
-                      `/${page}/${title}?type=${type}&media=${true}&id=${id}`
-                  )
-                : router.push(`/${page}/${title}?type=${type}&id=${id}`);
+            if (name) {
+                mediahasVideo > 0
+                    ? router.push(
+                          `/${page}/${name}?type=${type}&media=${true}&id=${id}`
+                      )
+                    : router.push(`/${page}/${name}?type=${type}&id=${id}`);
+            } else {
+                mediahasVideo > 0
+                    ? router.push(
+                          `/${page}/${title}?type=${type}&media=${true}&id=${id}`
+                      )
+                    : router.push(`/${page}/${title}?type=${type}&id=${id}`);
+            }
         }
+
+        getMovieData(movieData);
+        showSpinnerHandler(true);
     };
 
     return (
         <div className="bg-darkGray">
-            <div className="w-full h-screen md:h-[800px] relative mx-auto shadow-xl overflow-hidden">
+            <div
+                className={`${
+                    router.pathname !== "/" && "md:h-[800px]"
+                } w-full h-screen relative mx-auto shadow-xl overflow-hidden`}
+            >
                 <Swiper
                     spaceBetween={5}
                     slidesPerView={1}
@@ -94,7 +106,7 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                         delay: 4000,
                         disableOnInteraction: false,
                     }}
-                    speed={1500}
+                    speed={2500}
                     grabCursor={true}
                     mousewheel={true}
                     loop={true}
@@ -105,7 +117,12 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                         (media) =>
                             (media.backdrop_path || media.poster_path) && (
                                 <SwiperSlide key={media.id}>
-                                    <div className="hidden md:block relative w-full h-screen md:h-[800px]">
+                                    <div
+                                        className={`${
+                                            router.pathname !== "/" &&
+                                            "md:h-[800px]"
+                                        } hidden md:block relative w-full h-screen`}
+                                    >
                                         <Image
                                             src={`${srcStartWith}${
                                                 media.backdrop_path ||
@@ -172,7 +189,13 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                                             </div>
                                         </div>
                                         {/* votes and date */}
-                                        <div className="flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute left-0 bottom-20 text-gray-200 w-full0">
+                                        <div
+                                            className={`${
+                                                router.pathname === "/"
+                                                    ? "bottom-0 hidden sm:block"
+                                                    : "bottom-20"
+                                            } flex flex-col items-start justify-between space-y-5 p-2.5 px-2 absolute left-0 text-gray-200 w-full`}
+                                        >
                                             {/* like */}
                                             <div className="group flex items-center justify-center space-x-1 z-10">
                                                 <AiFillLike className="flicker-white h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
@@ -220,10 +243,10 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
 
                                     {/* Large Screen */}
                                     {/* Poster Data */}
-                                    <div className="absolute top-0 left-0 w-full h-full">
+                                    <div className="absolute -top-10 left-0 w-full h-full">
                                         <div className="flex flex-col select-none justify-center mx-auto w-[95%] xl:w-[85%] relative top-[12%] md:top-[18%] ">
                                             <div className="flex justify-start items-start  space-x-2 sm:space-x-5 md:space-x-10">
-                                                <div className="flex-1 md:flex-[2] lg:flex-[2] xl:flex-[1] 2xl:flex-1 shadow-2xl relative rounded-xl hidden md:block overflow-hidden">
+                                                <div className=" flex-1 md:flex-[2] lg:flex-[2] xl:flex-[1] 2xl:flex-1 shadow-2xl relative rounded-xl hidden md:block overflow-hidden">
                                                     <Image
                                                         src={`${srcStartWith}${
                                                             media.poster_path ||
@@ -359,6 +382,12 @@ const MediaPosterHeaader = (props: MediaDataInterface): JSX.Element => {
                 </Swiper>
                 {/* NavBar */}
                 <Navbar type={type} mediaType={mediaType} />
+                {/* trending media */}
+                {trendingMedia && (
+                    <div>
+                        <TrendingMediaPoster trendingMedia={trendingMedia} />
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 
 import SearchInput from "../../components/search/searchInput";
@@ -19,6 +19,7 @@ import {
 import { MediaDataInterface } from "../../models/media-interfaces";
 import { SearchMediaInterface } from "../../models/search-interfaces";
 
+const isSSR = typeof window === "undefined";
 const MoviesPage = (
     props: RequestMediaInterface &
         TotalPagesInterface &
@@ -28,6 +29,7 @@ const MoviesPage = (
     const { mediaData, total_pages, searchMedia } = props;
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
+    const [isSSR, setIsSSR] = useState(true);
 
     const mediaDataCtx = useContext(ForbiddenMediaContentContext);
     const {
@@ -36,6 +38,10 @@ const MoviesPage = (
         filterForbiddenContentMediaDataFun,
         filterForbiddenContentSearchMediaFun,
     } = mediaDataCtx;
+
+    useEffect(() => {
+        setIsSSR(false);
+    }, []);
 
     useEffect(() => {
         filterForbiddenContentMediaDataFun(mediaData);
@@ -55,18 +61,29 @@ const MoviesPage = (
                 </div>
             ) : (
                 <div>
-                    <MediaPosterHeaader mediaData={mediaDataModified} />
-                    <SearchInput
-                        className="bg-darkGray"
-                        searchFor="movies"
-                        SearchDataWithImageLength={searchMediaModified.length}
-                        searchMedia={searchMediaModified}
-                        searchPeople={null}
-                        modifiedMultiSearch={null}
-                        searchPage={searchMedia?.page || 0}
-                        searchTotal_pages={searchMedia?.total_pages || 0}
-                    />
-                    <SearchMedia searchMedia={searchMediaModified} />
+                    {!isSSR && (
+                        <>
+                            <MediaPosterHeaader
+                                mediaData={mediaDataModified}
+                                trendingMedia={null}
+                            />
+                            <SearchInput
+                                className="bg-smothDark"
+                                searchFor="movies"
+                                SearchDataWithImageLength={
+                                    searchMediaModified.length
+                                }
+                                searchMedia={searchMediaModified}
+                                searchPeople={null}
+                                modifiedMultiSearch={null}
+                                searchPage={searchMedia?.page || 0}
+                                searchTotal_pages={
+                                    searchMedia?.total_pages || 0
+                                }
+                            />
+                            <SearchMedia searchMedia={searchMediaModified} />
+                        </>
+                    )}
                     <Media mediaData={mediaDataModified} />
                     {showMedia ? <></> : <Footer total_pages={total_pages} />}
                 </div>

@@ -25,9 +25,6 @@ const Media = (props: MediaDataInterface): JSX.Element => {
         movieData: movieDataInterface,
         media_type: string
     ) => {
-        showSpinnerHandler(true);
-        getMovieData(movieData);
-
         const type = router.query.type || "Trending";
         const page = router.pathname.toString().substring(1);
         // Name has the first role
@@ -53,13 +50,17 @@ const Media = (props: MediaDataInterface): JSX.Element => {
                       `/${media_type || page}/${title}?type=${type}&id=${id}`
                   );
         }
+
+        getMovieData(movieData);
+        showSpinnerHandler(true);
     };
 
     return (
-        <div className="bg-darkGray pt-20">
+        <div className="bg-smothDark pt-20">
             <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-0 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {mediaData.map((media) => (
+                {mediaData.map((media, index) => (
                     <MediaCard
+                        index={index}
                         media={media}
                         key={media.id}
                         onClickHandler={onClickHandler}

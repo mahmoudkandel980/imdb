@@ -56,9 +56,6 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
         mediaType: string,
         media: any
     ) => {
-        showSpinnerHandler(true);
-        getMovieData(media);
-
         if (name) {
             mediahasVideo
                 ? router.push(`/${mediaType}/${name}?id=${id}`)
@@ -68,6 +65,9 @@ const PeopleMediaCard = (props: PeopleMediaDataIntrerface): JSX.Element => {
                 ? router.push(`/${mediaType}/${title}?id=${id}`)
                 : router.push(`/${mediaType}/${title}?&id=${id}`);
         }
+
+        showSpinnerHandler(true);
+        getMovieData(media);
     };
 
     return (

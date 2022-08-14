@@ -26,8 +26,6 @@ const SelectSearchFilter = (): JSX.Element => {
     const path = router.asPath;
     const query = path.split("query=").pop() || "";
 
-    console.log(prevQuery, query);
-
     useEffect(() => {
         if (prevQuery !== query) {
             /* when you select something and change value of search make sure you in the all select 

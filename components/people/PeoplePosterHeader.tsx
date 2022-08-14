@@ -27,12 +27,11 @@ const PeoplePosterHeader = (props: PeopleDataInterface): JSX.Element => {
     const { showSpinnerHandler } = spinnerCtx;
 
     const onClickHandler = (name: string, id: number) => {
-        showSpinnerHandler(true);
-
         const type = router.query.type || "Trending";
         const page = router.pathname.toString().substring(1);
-
         router.push(`/${page}/${name}?type=${type}&id=${id}`);
+
+        showSpinnerHandler(true);
     };
 
     return (

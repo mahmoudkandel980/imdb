@@ -9,6 +9,9 @@
     .vedio-icon {
         @apply w-12 h-12 cursor-pointer flicker-red rounded-full text-[#f03e3e] flickerAnimation;
     }
+    .social-icon {
+        @apply rounded-full w-7 h-7 brightness-75 hover:brightness-100 hover:scale-105 duration-300;
+    }
 }
 
 /* Built in css */
@@ -19,6 +22,44 @@ html {
 }
 body {
     overflow-x: hidden;
+}
+
+/* scroll bar */
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #fff;
+    display: flex;
+    justify-content: center;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #141516;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #141516;
+    box-shadow: 1px 1px 10px #fff;
+}
+
+/* INSTAGRAM ICON */
+.instagram-icon {
+    background-image: linear-gradient(
+        to left bottom,
+        #405de6,
+        #5851d8,
+        #833ab4,
+        #c13584,
+        #fd1d1d,
+        #f77737,
+        #ffdc80
+    );
 }
 
 .flicker {

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { GoCalendar } from "react-icons/go";
 import { TbGenderMale } from "react-icons/tb";
 import { CgGenderFemale } from "react-icons/cg";
+import { FaBirthdayCake } from "react-icons/fa";
 
 import { SpecificPersonDetailsDataIntrerface } from "../../../models/people-interfaces";
 
@@ -56,6 +57,24 @@ const SpecificPersonPoster = (
                                 </div>
                             </div>
 
+                            {/* age */}
+                            <div
+                                className={`${
+                                    !birthday && "hidden"
+                                } group flex items-center justify-center space-x-1 z-10`}
+                            >
+                                <FaBirthdayCake className="flicker-black h-7 w-7 text-gray-300 bg-darkGray p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
+                                <div className="absolut opacity-0 left-10 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-3 duration-500">
+                                    <span className="font-mono font-medium">
+                                        {new Date().getFullYear() -
+                                            new Date(
+                                                birthday
+                                            ).getFullYear()}{" "}
+                                        Year
+                                    </span>
+                                </div>
+                            </div>
+
                             {/* date */}
                             <div
                                 className={`${
@@ -81,24 +100,6 @@ const SpecificPersonPoster = (
                         <div className="ml-2 sm:ml-3 md:ml-5">
                             {/* Others Names*/}
                             <div className="flex flex-col space-y-4 sm:space-y-3 md:space-y-4 lg:space-y-5 mt-12 md:mt-0">
-                                {/* <div className="flex justify-center items-start space-x-3">
-                                    <div className="flex-1  text-xs sm:text-base">
-                                        Others names
-                                    </div>
-                                    <div className="flex flex-[1.8]  sm:flex-[3]   md:flex-[2] lg:flex-[5] flex-wrap space-x-2 md:space-x-3 lg:space-x-5">
-                                        {also_known_as.map((name, index) => (
-                                            <div
-                                                key={index}
-                                                className="flex items-center justify-start space-x-2 md:space-x-3 lg:space-x-5 mb-2 sm:mb-3 md:mb-5"
-                                            >
-                                                <div className="flicker-white bg-black text-xs sm:text-sm xl:text-base relative cursor-pointer text-white p-1 px-2 rounded-full">
-                                                    <span>{name}</span>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div> */}
-
                                 <div className="flex items-end justify-start flex-wrap space-x-2 md:space-x-3 lg:space-x-5 space-y-3 ">
                                     {/* categories */}
                                     <span className="flicker-red  bg-darkRed text-white p-1 px-1.5 rounded-full">

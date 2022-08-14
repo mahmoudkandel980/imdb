@@ -38,17 +38,16 @@ const SearchPeople = (props: SearchPeopleInterface): JSX.Element => {
     const { showSpinnerHandler } = spinnerCtx;
 
     const onClickHandler = (name: string, id: number) => {
-        showSpinnerHandler(true);
-
         const type = router.query.type || "Popular";
         const page = router.pathname.toString().substring(1);
-
         router.push(`/${page}/${name}?type=${type}&id=${id}`);
+
+        showSpinnerHandler(true);
     };
 
     if (router.query.query && searchPeople?.length === 0) {
         return (
-            <div className="bg-darkGray">
+            <div className="bg-smothDark">
                 <div className="container mx-auto">
                     <div className="flex items-center justify-center">
                         <div className="text-white text-sm sm:text-lg">
@@ -65,7 +64,7 @@ const SearchPeople = (props: SearchPeopleInterface): JSX.Element => {
     }
 
     return (
-        <div className="bg-darkGray">
+        <div className="bg-smothDark">
             <div className="container mx-auto">
                 <div className="relative px-5 sm:px-10">
                     <Swiper

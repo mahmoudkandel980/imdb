@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 
 import SearchInput from "../../components/search/searchInput";
@@ -16,12 +16,15 @@ import { MediaDataInterface } from "../../models/media-interfaces";
 import { TotalPagesInterface } from "../../models/interfaces";
 import { SearchMediaInterface } from "../../models/search-interfaces";
 
+const isSSR = typeof window === "undefined";
+
 const TvPage = (
     props: MediaDataInterface &
         RequestMediaInterface &
         TotalPagesInterface &
         SearchMediaInterface
-) => {
+): JSX.Element => {
+    const [isSSR, setIsSSR] = useState(true);
     const { mediaData, total_pages, searchMedia } = props;
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
@@ -33,6 +36,10 @@ const TvPage = (
         filterForbiddenContentMediaDataFun,
         filterForbiddenContentSearchMediaFun,
     } = mediaDataCtx;
+
+    useEffect(() => {
+        setIsSSR(false);
+    }, []);
 
     useEffect(() => {
         filterForbiddenContentMediaDataFun(mediaData);
@@ -52,20 +59,35 @@ const TvPage = (
                 </div>
             ) : (
                 <div>
-                    <MediaPosterHeaader mediaData={mediaDataModified} />
-                    <SearchInput
-                        className="bg-darkGray"
-                        searchFor="tv"
-                        SearchDataWithImageLength={searchMediaModified.length}
-                        searchMedia={searchMediaModified}
-                        searchPeople={null}
-                        modifiedMultiSearch={null}
-                        searchPage={searchMedia?.page || 0}
-                        searchTotal_pages={searchMedia?.total_pages || 0}
-                    />
-                    <SearchMedia searchMedia={searchMediaModified} />
-                    <Media mediaData={mediaDataModified} />
-                    {showMedia ? <></> : <Footer total_pages={total_pages} />}
+                    {!isSSR && (
+                        <>
+                            <MediaPosterHeaader
+                                mediaData={mediaDataModified}
+                                trendingMedia={null}
+                            />
+                            <SearchInput
+                                className="bg-smothDark"
+                                searchFor="tv"
+                                SearchDataWithImageLength={
+                                    searchMediaModified.length
+                                }
+                                searchMedia={searchMediaModified}
+                                searchPeople={null}
+                                modifiedMultiSearch={null}
+                                searchPage={searchMedia?.page || 0}
+                                searchTotal_pages={
+                                    searchMedia?.total_pages || 0
+                                }
+                            />
+                            <SearchMedia searchMedia={searchMediaModified} />
+                            <Media mediaData={mediaDataModified} />
+                            {showMedia ? (
+                                <></>
+                            ) : (
+                                <Footer total_pages={total_pages} />
+                            )}
+                        </>
+                    )}
                 </div>
             )}
         </div>
