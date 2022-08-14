@@ -22,7 +22,8 @@ const SpecificMediaVideo = (
     return (
         <div
             className={`${
-                mediaVedioData.length > 0 && "p-0 2xl:p-20 py-20 sm:py-14"
+                mediaVedioData.length > 0 &&
+                "p-0 2xl:p-20  py-14 pb-0 sm:py-14 sm:pb-0 "
             }`}
         >
             {mediaVedioData.length > 0 ? (
@@ -54,32 +55,38 @@ const SpecificMediaVideo = (
             )}
 
             {mediaVedioData.length > 0 && (
-                <div className="flex justify-center items-end flex-wrap space-x-1 space-y-1 sm:space-x-2 sm:space-y-3 md:space-x-4 md:space-y-3 mt-14">
-                    {mediaVedioData.map((mediaVedio) =>
-                        mediaVedio.key.length > 0 &&
-                        mediaVedio.name.length > 0 ? (
-                            <div
-                                className=""
-                                key={mediaVedio.published_at + mediaVedio.name}
-                            >
+                <div className="container mx-auto">
+                    <div className="overflow-x-auto flex  justify-start  items-end space-x-1 sm:space-x-2 md:space-x-4 md:space-y-3 ">
+                        {mediaVedioData.map((mediaVedio) =>
+                            mediaVedio.key.length > 0 &&
+                            mediaVedio.name.length > 0 ? (
                                 <div
-                                    onClick={onClickHandler.bind(
-                                        null,
-                                        mediaVedio.key,
+                                    className="py-3"
+                                    key={
+                                        mediaVedio.published_at +
                                         mediaVedio.name
-                                    )}
-                                    className={`${
-                                        mediaData.name === mediaVedio.name &&
-                                        "sm-flicker text-white bg-black scale-[1.03] font-normal shadow-2xl cursor-not-allowed"
-                                    } text-gray-700 text-xs sm:text-sm rounded-md cursor-pointer hover:scale-x-105 select-none p-1 px-3  truncate bg-white duration-200`}
+                                    }
                                 >
-                                    {mediaVedio.name}
+                                    <div
+                                        onClick={onClickHandler.bind(
+                                            null,
+                                            mediaVedio.key,
+                                            mediaVedio.name
+                                        )}
+                                        className={`${
+                                            mediaData.name ===
+                                                mediaVedio.name &&
+                                            "sm-flicker text-white bg-black scale-[1.03] font-normal shadow-2xl"
+                                        } text-gray-700 text-xs sm:text-sm rounded-md cursor-pointer hover:scale-x-105 select-none p-1 px-3 truncate bg-white duration-200`}
+                                    >
+                                        {mediaVedio.name}
+                                    </div>
                                 </div>
-                            </div>
-                        ) : (
-                            <></>
-                        )
-                    )}
+                            ) : (
+                                <></>
+                            )
+                        )}
+                    </div>
                 </div>
             )}
         </div>

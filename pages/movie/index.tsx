@@ -82,10 +82,14 @@ const MoviesPage = (
                                 }
                             />
                             <SearchMedia searchMedia={searchMediaModified} />
+                            <Media mediaData={mediaDataModified} />
+                            {showMedia ? (
+                                <></>
+                            ) : (
+                                <Footer total_pages={total_pages} />
+                            )}
                         </>
                     )}
-                    <Media mediaData={mediaDataModified} />
-                    {showMedia ? <></> : <Footer total_pages={total_pages} />}
                 </div>
             )}
         </div>

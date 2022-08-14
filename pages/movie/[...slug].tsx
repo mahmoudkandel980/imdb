@@ -51,15 +51,15 @@ const SelcetedMovie = (
                 </div>
             ) : (
                 <div>
-                    <SpecificMedia mediaData={mediaData} />
                     {!isSSR && (
                         <>
+                            <SpecificMedia mediaData={mediaData} />
                             <SpecifcPeopleMedia mediaPeople={mediaPeople} />
-                            <MovieTvVedio />
                             <SpecificMediaVideo
                                 mediaVedioData={mediaVedioData}
                                 initialVideoData={initialVideoData}
                             />
+                            <MovieTvVedio />
                             {showMedia ? <></> : <Footer total_pages={1} />}
                         </>
                     )}

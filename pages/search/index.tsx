@@ -100,7 +100,7 @@ const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
                             className={`${
                                 (!router.query.query ||
                                     multiSearchWithImage.length === 0) &&
-                                "absolute w-full bottom-0"
+                                "absolute w-full  md:bottom-0"
                             }`}
                         >
                             <Footer total_pages={1} />

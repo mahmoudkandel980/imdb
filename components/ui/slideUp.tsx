@@ -24,7 +24,7 @@ const SlideUp = (): JSX.Element => {
         <>
             {showSlideupButton && (
                 <div
-                    className={`fixed w-10 h-10 bg-transparent flicker-white bottom-10 right-5 sm:right-16  z-[1000] flex justify-center items-center rounded-full hover:-translate-y-1 hover:scale-110 duration-200`}
+                    className={`fixed w-10 h-10 bg-transparent flicker-white bottom-10 right-5 sm:right-16  z-50 flex justify-center items-center rounded-full hover:-translate-y-1 hover:scale-110 duration-200`}
                 >
                     <div className="flex justify-center items-center ">
                         <button onClick={slideupHandler}>

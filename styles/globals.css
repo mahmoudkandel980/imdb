@@ -27,25 +27,36 @@ body {
 /* scroll bar */
 
 ::-webkit-scrollbar {
-    width: 15px;
+    width: 12px;
+}
+@media (max-width: 1280px) {
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+}
+@media (max-width: 640px) {
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
 }
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #fff;
+    background: #141516;
     display: flex;
     justify-content: center;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #141516;
+    background: #fff;
     border-radius: 10px;
-    border: 3px solid transparent;
+    border: 1px solid transparent;
     background-clip: content-box;
 }
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #141516;
-    box-shadow: 1px 1px 10px #fff;
+
+@media (max-width: 1280px) {
+    ::-webkit-scrollbar {
+        border: 1px solid transparent;
+    }
 }
 
 /* INSTAGRAM ICON */
@@ -74,12 +85,12 @@ body {
 
 .sm-flicker {
     opacity: 1;
-    -webkit-box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.45), 0 0 5px rgba(255, 255, 255, 0.25),
-        0 0 50px rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.45), 0 0 5px rgba(255, 255, 255, 0.25),
-        0 0 50px rgba(255, 255, 255, 0.1);
+    -webkit-box-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
+        0 0 7px rgba(255, 255, 255, 0.45), 0 0 1px rgba(255, 255, 255, 0.25),
+        0 0 13px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 7px rgba(255, 255, 255, 0.6),
+        0 0 7px rgba(255, 255, 255, 0.45), 0 0 1px rgba(255, 255, 255, 0.25),
+        0 0 13px rgba(255, 255, 255, 0.1);
 }
 
 .flicker-text {
