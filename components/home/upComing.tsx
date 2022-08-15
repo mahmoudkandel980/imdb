@@ -91,8 +91,8 @@ const UpComing = (
                 </h2>
                 <div
                     className={`${
-                        mode === "dark" ? "text-white" : "text-smothDark"
-                    } relative w-56 sm:w-80 flicker-black select-none bg-transparent font-mono font-semibold p-2 px-0 rounded-full mb-3`}
+                        mode === "dark" ? "text-gray-200" : "text-smothDark"
+                    } relative w-40 sm:w-56 flicker-black select-none bg-transparent font-mono font-semibold p-2 px-0 rounded-full mb-3`}
                 >
                     <div
                         className={`${

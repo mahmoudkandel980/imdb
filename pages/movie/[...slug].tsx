@@ -9,6 +9,7 @@ import Footer from "../../components/footer/footer";
 import MovieTvVedio from "../../components/media/movieTvVedio";
 import RouterSpinner from "../../components/ui/routerSpinner";
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 import {
     requestMovieIdPage,
     requestMediaPeoplePage,
@@ -35,6 +36,10 @@ const SelcetedMovie = (
     const { showMedia } = spinnerCtx;
     const router = useRouter();
 
+    const modeCtx = useContext(ToggleMode);
+
+    const { mode } = modeCtx;
+
     useEffect(() => {
         setIsSSR(false);
     }, []);
@@ -44,7 +49,7 @@ const SelcetedMovie = (
     }
 
     return (
-        <div className="bg-white dark:bg-smothDark">
+        <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />
