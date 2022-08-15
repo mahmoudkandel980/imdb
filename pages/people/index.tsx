@@ -8,6 +8,7 @@ import PeoplePosterHeader from "../../components/people/PeoplePosterHeader";
 import RouterSpinner from "../../components/ui/routerSpinner";
 import Footer from "../../components/footer/footer";
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 import People from "../../components/people/people";
 import { requestPeoplePage, requestSearchPage } from "../../libs/requests";
 
@@ -27,6 +28,9 @@ const PeoplePage = (
     const { showMedia } = spinnerCtx;
     const [isSSR, setIsSSR] = useState(true);
 
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
+
     useEffect(() => {
         setIsSSR(false);
     }, []);
@@ -42,7 +46,7 @@ const PeoplePage = (
         });
     }, [searchPeople, router.query.searchType, router.query.query]);
     return (
-        <div className="bg-smothDark">
+        <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />
@@ -53,7 +57,11 @@ const PeoplePage = (
                         <>
                             <PeoplePosterHeader peopleData={peopleData} />
                             <SearchInput
-                                className="bg-smothDark"
+                                className={`${
+                                    mode === "dark"
+                                        ? "bg-smothDark"
+                                        : "bg-white"
+                                }`}
                                 searchFor="actors"
                                 SearchDataWithImageLength={
                                     dataSearchWithImage.length

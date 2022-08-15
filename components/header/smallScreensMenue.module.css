@@ -29,19 +29,19 @@
     border-radius: 50%;
     position: fixed;
     top: 18px;
-    right: 60px;
+    right: 63px;
     z-index: 999;
     background-image: radial-gradient(#141516, rgba(31, 34, 36, 0.9));
     transition: all 0.8s cubic-bezier(0.7, 0, 0.84, 0);
 }
 @media (max-width: 56.25em) {
     .navigation__background {
-        top: 18px;
+        top: 19px;
     }
 }
 @media (max-width: 37.5em) {
     .navigation__background {
-        right: 20px;
+        right: 22px;
     }
 }
 .navigation__nav {

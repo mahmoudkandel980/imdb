@@ -246,7 +246,7 @@ const MediaPosterHeaader = (
                                     <div className="absolute -top-10 left-0 w-full h-full">
                                         <div className="flex flex-col select-none justify-center mx-auto w-[95%] xl:w-[85%] relative top-[12%] md:top-[18%] ">
                                             <div className="flex justify-start items-start  space-x-2 sm:space-x-5 md:space-x-10">
-                                                <div className=" flex-1 md:flex-[2] lg:flex-[2] xl:flex-[1] 2xl:flex-1 shadow-2xl relative rounded-xl hidden md:block overflow-hidden">
+                                                <div className=" flex-1 md:flex-[1.5] lg:flex-[1.5] xl:flex-[1] 2xl:flex-1 shadow-2xl relative rounded-xl hidden md:block overflow-hidden">
                                                     <Image
                                                         src={`${srcStartWith}${
                                                             media.poster_path ||

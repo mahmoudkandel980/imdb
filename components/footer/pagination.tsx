@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 
 import PaginationButtons from "./paginationButtons";
+import ToggleMode from "../../context/darkMode";
 
 import {
     MdOutlineKeyboardArrowLeft,
@@ -18,6 +19,9 @@ const Pagination = (props: TotalPagesInterface): JSX.Element => {
 
     const currentPage = Number(page);
     const pathName = router.pathname;
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     // when pages less than 6 will use this array of numbers for pagination
     const ordinaryPagination = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -53,14 +57,19 @@ const Pagination = (props: TotalPagesInterface): JSX.Element => {
                     {/* Pages */}
                     {paginationNumbers.map((page) => (
                         <div
-                            className={`text-gray-200 ${
-                                currentPage === page && "w-10 sm:w-12"
-                            } ${
+                            className={`${
+                                mode === "dark" ? "smothDark" : "text-smothDark"
+                            }  ${currentPage === page && "w-10 sm:w-12"} ${
                                 (currentPage - 1 > page ||
                                     currentPage + 1 < page) &&
                                 "hidden"
                             } cursor-pointer overflow-hidden sm:block ${
-                                page - 1 === page * 10 && "text-gray-200"
+                                page - 1 === page * 10 &&
+                                `${
+                                    mode === "dark"
+                                        ? "text-gray-200"
+                                        : "text-smothDark"
+                                } `
                             }`}
                             key={page}
                         >
@@ -81,9 +90,21 @@ const Pagination = (props: TotalPagesInterface): JSX.Element => {
                                     <span
                                         className={`m-0 flex items-center justify-center w-full h-full rounded-full ${
                                             currentPage === page
-                                                ? "bg-gray-700 bg-opacity-10 border-[1px] border-gray-700 scale-75 flex-1 text-lg sm:text-xl shadow-2xl text-white hover:bg-gray-700 hover:bg-opacity-30 hover:border-transparent duration-300"
-                                                : "text-gray-400"
-                                        }   duration-200 hover:text-white`}
+                                                ? `${
+                                                      mode === "dark"
+                                                          ? "bg-gray-700 border-gray-700 text-white hover:bg-gray-700"
+                                                          : "bg-black border-gray-300 text-black hover:bg-white"
+                                                  }  bg-opacity-10 border-[1px] scale-75 flex-1 text-lg sm:text-xl shadow-2xl hover:bg-opacity-30 hover:border-transparent duration-300`
+                                                : `${
+                                                      mode === "dark"
+                                                          ? "text-gray-400"
+                                                          : "text-smothDark"
+                                                  } `
+                                        }  ${
+                                            mode === "dark"
+                                                ? "hover:text-white"
+                                                : "hover:text-black"
+                                        } duration-200 `}
                                     >
                                         {page}
                                     </span>

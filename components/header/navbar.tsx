@@ -1,6 +1,9 @@
+import { useState, useEffect, useContext } from "react";
 import { useMediaPredicate } from "react-media-hook";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router.js";
+
+import ToggleMode from "../../context/darkMode";
+
 import {
     requestHomePage,
     requestMoviePage,
@@ -15,6 +18,9 @@ const Navbar = (props: RequestMediaInterface): JSX.Element => {
 
     const router = useRouter();
     const { type: queryType, mediaType } = props;
+
+    const toggleModeCtx = useContext(ToggleMode);
+    const { mode } = toggleModeCtx;
 
     const [translateVale, SetTranslateValue] = useState(0);
     const [smTranslateVale, SetSmTranslateValue] = useState(0);
@@ -172,7 +178,11 @@ const Navbar = (props: RequestMediaInterface): JSX.Element => {
             <div className="relative">
                 <div className="flicker-white select-none bg-transparent text-gray-200 p-2 px-0 rounded-full mb-3">
                     <div
-                        className={`flicker-black z-20 flex justify-center items-center absolute w-[75px] h-8 sm:w-[110px] sm:h-11 bg-black top-0 p-2 px-0 rounded-full duration-700
+                        className={`${
+                            mode === "dark"
+                                ? "flicker-white bg-black"
+                                : "flicker-black bg-white"
+                        } z-20 flex justify-center items-center absolute w-[75px] h-8 sm:w-[110px] sm:h-11 top-0 p-2 px-0 rounded-full duration-700
                         `}
                         style={{
                             transform: `translateX(${
@@ -180,7 +190,13 @@ const Navbar = (props: RequestMediaInterface): JSX.Element => {
                             }px)`,
                         }}
                     >
-                        <span className="text-xs sm:text-base text-white">
+                        <span
+                            className={`${
+                                mode === "dark"
+                                    ? "text-white"
+                                    : "text-smothDark"
+                            } text-xs sm:text-lg`}
+                        >
                             {sliderContent}
                         </span>
                     </div>

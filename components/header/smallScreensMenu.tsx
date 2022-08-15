@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
+import DarkModeButton from "./darkModeButton";
+
 import { AiFillHome } from "react-icons/ai";
 import { RiMovie2Fill } from "react-icons/ri";
 import { CgScreen } from "react-icons/cg";
@@ -21,7 +23,7 @@ const SmallScreensMenu = (): JSX.Element => {
     };
 
     return (
-        <div className="flex justify-between items-center mx-5 sm:mx-10">
+        <div className="flex justify-between items-center mx-5 sm:mx-10 relative">
             {/* <div className="mt-5 z-[1000]">
                 <Link href={`/`}>
                     <a>
@@ -55,13 +57,11 @@ const SmallScreensMenu = (): JSX.Element => {
                 <div className={classes.navigation__background}>&nbsp;</div>
 
                 <nav className={classes.navigation__nav}>
-                    <div
-                        onClick={clickMenueHandler}
-                        className="mt-5 ml-5 z-[1000]"
-                    >
+                    <div className="mt-5 ml-5 z-[1000] relative">
                         <Link href={`/`}>
                             <a>
                                 <Image
+                                    onClick={clickMenueHandler}
                                     src="/images/imdb-logo.png"
                                     alt="imdb-logo"
                                     width={`75%`}
@@ -70,6 +70,9 @@ const SmallScreensMenu = (): JSX.Element => {
                                 />
                             </a>
                         </Link>
+                        <div className="absolute -top-2 left-28">
+                            <DarkModeButton />
+                        </div>
                     </div>
                     <ul
                         className={`h-screen flex flex-col justify-center mx-auto w-full items-center space-y-10 text-gray-400 text-xl`}

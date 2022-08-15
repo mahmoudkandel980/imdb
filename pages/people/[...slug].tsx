@@ -7,6 +7,7 @@ import SpecificPersonMediaCrewSwiper from "../../components/people/models/specif
 
 import Footer from "../../components/footer/footer";
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 import ForbiddenMediaContentContext from "../../context/forbiddenMediaContent-context";
 
 import RouterSpinner from "../../components/ui/routerSpinner";
@@ -31,6 +32,9 @@ const SelectedActor = (
     const [isSSR, setIsSSR] = useState(true);
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     const mediaDataCtx = useContext(ForbiddenMediaContentContext);
     const {
@@ -65,7 +69,7 @@ const SelectedActor = (
 
     // if (personDetails.place_of_birth.toLocaleLowerCase().includes("france"))
     return (
-        <div className="bg-smothDark">
+        <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />

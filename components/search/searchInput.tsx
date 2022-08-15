@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import FilterMultiSearchContext from "../../context/filterMultiSearch-context";
+import ToggleMode from "../../context/darkMode";
 
 import { BsSearch } from "react-icons/bs";
 import {
@@ -55,6 +56,9 @@ const SearchInput = (
 
     const multiSearchCtx = useContext(FilterMultiSearchContext);
     const { addMultiSearchData } = multiSearchCtx;
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     useEffect(() => {
         Aos.init({});
@@ -180,13 +184,25 @@ const SearchInput = (
                                 searchDataLength === 0 && "hidden"
                             } flex justify-center sm:justify-center items-center space-x-10 sm:space-x-0  mt-3 sm:mt-0 sm:mr-5`}
                         >
-                            <div className="flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4  text-white">
+                            <div
+                                className={`${
+                                    mode === "dark"
+                                        ? "text-white"
+                                        : "text-smothDark"
+                                } flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4`}
+                            >
                                 {SearchDataWithImageLength
                                     ? `${SearchDataWithImageLength}  Result`
                                     : ""}
                             </div>
                             <div className="flex justify-center items-center w-48 sm:w-52">
-                                <div className="flex flex-col items-start sm:items-center top-3 text-xl h-12 w-12 text-gray-200 relative group cursor-pointer">
+                                <div
+                                    className={`${
+                                        mode === "dark"
+                                            ? "text-gray-200"
+                                            : "text-smothDark"
+                                    }flex flex-col items-start sm:items-center top-3 text-xl h-12 w-12 relative group cursor-pointer`}
+                                >
                                     {searchPage > 1 && (
                                         <div
                                             onClick={prevPageHandler}
@@ -199,14 +215,30 @@ const SearchInput = (
                                         </div>
                                     )}
                                 </div>
-                                <div className="text-white select-none">
+                                <div
+                                    className={`${
+                                        mode === "dark"
+                                            ? "text-white"
+                                            : "text-smothDark"
+                                    }   select-none`}
+                                >
                                     {searchPage}
                                 </div>
-                                <div className="flex flex-col items-end sm:items-center top-3 text-xl h-12 w-12 text-gray-200 relative group cursor-pointer">
+                                <div
+                                    className={`${
+                                        mode === "dark"
+                                            ? "text-gray-200"
+                                            : "text-gray-700"
+                                    } flex flex-col items-end sm:items-center top-3 text-xl h-12 w-12 relative group cursor-pointer`}
+                                >
                                     {searchPage !== searchTotal_pages && (
                                         <div
                                             onClick={nextPageHandler}
-                                            className="inline group-hover:text-gray-400 select-none  duration-150"
+                                            className={`${
+                                                mode === "dark"
+                                                    ? "group-hover:text-gray-400"
+                                                    : "group-hover:text-smothDark"
+                                            } inline select-none duration-150`}
                                         >
                                             <MdOutlineKeyboardArrowRight className="h-7 w-7" />
                                             <span className="absolute capitalize opacity-100 text-sm sm:text-base sm:opacity-0 top-6 sm:top-3 sm:group-hover:translate-y-6 sm:group-hover:opacity-100 duration-300">
@@ -225,7 +257,11 @@ const SearchInput = (
                             <div
                                 className={`${
                                     searchDataLength === 0 && "hidden"
-                                } flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4 text-white`}
+                                } ${
+                                    mode === "dark"
+                                        ? "text-white"
+                                        : "text-smothDark"
+                                } flicker-black p-1 select-none min-w-max rounded-md px-2 sm:px-4`}
                             >
                                 {searchTotal_pages} Pages
                             </div>
@@ -235,7 +271,11 @@ const SearchInput = (
                                 type="search"
                                 value={searchValue}
                                 onChange={changeHandler}
-                                className="mr-5 sm:mr-0 focus:outline-none p-1 px-10 pl-3 placeholder:text-darkGray/50 rounded-md w-48 sm:w-52 focus:flicker-white focus:w-48 sm:focus:w-72  duration-300"
+                                className={`${
+                                    mode === "dark"
+                                        ? "border-none"
+                                        : "border-[1px]"
+                                } mr-5 sm:mr-0 focus:outline-none p-1 px-10 pl-3  placeholder:text-darkGray/50 rounded-md w-48 sm:w-52 focus:flicker-white focus:w-48 sm:focus:w-72  duration-300`}
                                 placeholder={`Search for ${searchFor}`}
                             />
                             <BsSearch className="w-5 h-5  absolute ml-3 top-1.5 right-8 sm:right-3 text-darkGray/80" />

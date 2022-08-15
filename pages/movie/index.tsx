@@ -9,6 +9,7 @@ import SearchMedia from "../../components/search/searchMedia";
 
 import RouterSpinner from "../../components/ui/routerSpinner";
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 import ForbiddenMediaContentContext from "../../context/forbiddenMediaContent-context";
 import { requestMoviePage, requestSearchPage } from "../../libs/requests";
 
@@ -30,6 +31,9 @@ const MoviesPage = (
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
     const [isSSR, setIsSSR] = useState(true);
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     const mediaDataCtx = useContext(ForbiddenMediaContentContext);
     const {
@@ -54,7 +58,7 @@ const MoviesPage = (
     }, [searchMedia?.results]);
 
     return (
-        <div className="bg-smothDark">
+        <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />
@@ -68,7 +72,11 @@ const MoviesPage = (
                                 trendingMedia={null}
                             />
                             <SearchInput
-                                className="bg-smothDark"
+                                className={`${
+                                    mode === "dark"
+                                        ? "bg-smothDark"
+                                        : "bg-white"
+                                }`}
                                 searchFor="movies"
                                 SearchDataWithImageLength={
                                     searchMediaModified.length

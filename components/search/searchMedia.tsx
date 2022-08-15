@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import SpinnerContext from "../../context/spinner-context";
 import MovieContext from "../../context/movieData-context";
+import ToggleMode from "../../context/darkMode";
 import { BiPlayCircle } from "react-icons/bi";
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
@@ -42,9 +43,11 @@ const SearchMedia = (props: ModifiedSearchMediaData): JSX.Element => {
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const spinnerCtx = useContext(SpinnerContext);
+    const modeCtx = useContext(ToggleMode);
 
     const { getMovieData } = movieCtx;
     const { showSpinnerHandler } = spinnerCtx;
+    const { mode } = modeCtx;
 
     useEffect(() => {
         if (mediaData?.length! > 1) {
@@ -89,10 +92,16 @@ const SearchMedia = (props: ModifiedSearchMediaData): JSX.Element => {
 
     if (router.query.query && modifiedSearchMediaLength === 0) {
         return (
-            <div className="bg-smothDark">
+            <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
                 <div className="container mx-auto ">
                     <div className="flex items-center justify-center pt-5">
-                        <div className=" sm:text-lg text-white font-mono font-bold">
+                        <div
+                            className={`${
+                                mode === "dark"
+                                    ? "text-white"
+                                    : "text-smothDark"
+                            } sm:text-lg font-mono font-bold`}
+                        >
                             Sorry we didn`t find any {media} have{" "}
                             <span className="text-darkRed">
                                 {router.query.query}
@@ -106,7 +115,7 @@ const SearchMedia = (props: ModifiedSearchMediaData): JSX.Element => {
     }
 
     return (
-        <div className="bg-smothDark">
+        <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
             <div className="container mx-auto">
                 <div className="relative px-5 sm:px-10">
                     <Swiper
@@ -308,7 +317,13 @@ const SearchMedia = (props: ModifiedSearchMediaData): JSX.Element => {
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <h3 className="mt-4 sm:mt-5 text-gray-200">
+                                                        <h3
+                                                            className={`${
+                                                                mode === "dark"
+                                                                    ? "text-gray-200"
+                                                                    : "text-smothDark"
+                                                            } mt-4 sm:mt-5 `}
+                                                        >
                                                             {media.title ||
                                                                 media.original_title ||
                                                                 media.name ||

@@ -8,6 +8,7 @@ import MultiSearch from "../../components/search/multiSearch";
 import Footer from "../../components/footer/footer";
 import FilterMultiSearchContext from "../../context/filterMultiSearch-context";
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 import ForbiddenMediaContentContext from "../../context/forbiddenMediaContent-context";
 import SearchFilter from "../../components/search/selectSearchFilter";
 import SelectSearchFilter from "../../components/search/selectType";
@@ -21,6 +22,9 @@ const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
     const router = useRouter();
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     const mediaDataCtx = useContext(ForbiddenMediaContentContext);
     const {
@@ -58,7 +62,7 @@ const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
                     !multiSearch ||
                     multiSearchWithImage.length === 0) &&
                 "relative h-screen"
-            } bg-smothDark h-screen w-full`}
+            }${mode === "dark" ? "bg-smothDark" : "bg-white"} h-screen w-full`}
         >
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
@@ -68,7 +72,9 @@ const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
                 <div className="pt-32">
                     <SelectSearchFilter />
                     <SearchInput
-                        className="bg-smothDark"
+                        className={`${
+                            mode === "dark" ? "bg-smothDark" : "bg-white"
+                        }`}
                         SearchDataWithImageLength={multiSearchWithImage.length}
                         searchFor={searchT}
                         searchPeople={null}

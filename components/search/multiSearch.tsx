@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import MovieContext from "../../context/movieData-context";
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 
 import { AiFillStar, AiFillLike } from "react-icons/ai";
 import { BiPlayCircle } from "react-icons/bi";
@@ -27,9 +28,11 @@ const MultiSearch = (
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const spinnerCtx = useContext(SpinnerContext);
+    const modeCtx = useContext(ToggleMode);
 
     const { getMovieData } = movieCtx;
     const { showSpinnerHandler } = spinnerCtx;
+    const { mode } = modeCtx;
 
     const searchType = router.query.searchType;
     const onClickMediaHandler = (
@@ -74,7 +77,11 @@ const MultiSearch = (
     ) {
         return (
             <div className="container mx-3 sm:mx-auto">
-                <div className="flex  justify-center items-center my-10 mt-20 text-base sm:text-lg text-white font-mono font-bold">
+                <div
+                    className={`${
+                        mode === "dark" ? "text-white" : "text-smothDark"
+                    } flex justify-center items-center my-10 mt-20 text-base sm:text-lg font-mono font-bold`}
+                >
                     <div>
                         Sorry we didn`t find any{" "}
                         {router.query.searchType === "all"
@@ -92,7 +99,11 @@ const MultiSearch = (
     }
 
     return (
-        <div className="bg-smothDark pt-20">
+        <div
+            className={`${
+                mode === "dark" ? "bg-smothDark" : "bg-white"
+            }   pt-20`}
+        >
             <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-0 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {modifiedSearch &&
                     modifiedSearch.map((searchData) =>
@@ -254,7 +265,13 @@ const MultiSearch = (
                                               </div>
                                           </div>
                                           <div>
-                                              <h3 className="mt-4 sm:mt-3 text-gray-200">
+                                              <h3
+                                                  className={`${
+                                                      mode === "dark"
+                                                          ? "text-gray-200"
+                                                          : "text-smothDark"
+                                                  } mt-4 sm:mt-3`}
+                                              >
                                                   {searchData.title ||
                                                       searchData.name}
                                               </h3>
@@ -327,7 +344,7 @@ const MultiSearch = (
                                           </div>
                                       </div>
                                       <div>
-                                          <h3 className="mt-4 sm:mt-3 text-gray-200">
+                                          <h3 className="mt-4 sm:mt-3 text-smothDark darktext-gray-200">
                                               {searchData.name}
                                           </h3>
                                       </div>

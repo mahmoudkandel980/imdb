@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import ToggleMode from "../../context/darkMode";
+import DarkModeButton from "./darkModeButton";
 
 import { AiFillHome } from "react-icons/ai";
 import { RiMovie2Fill } from "react-icons/ri";
@@ -14,15 +17,23 @@ const LargeScreensMenu = (): JSX.Element => {
     const router = useRouter();
     const { route } = router;
 
+    const toggleModeCtx = useContext(ToggleMode);
+    const { mode } = toggleModeCtx;
+
     return (
-        <div className="flex justify-between py-2 px-1 sm:p-5 sm:px-2 md:px-10 items-center select-none text-white bg-gradient-to-b from-darkGray/50 to-darkGray/0  bg-opacity-80 space-x-3 sm:space-x-10">
+        <div className="flex justify-between py-2 px-1 sm:p-4 sm:px-2 md:px-10 items-center select-none text-white bg-gradient-to-b from-smothDark/50 to-smothDark/30  bg-opacity-80 space-x-3 sm:space-x-10">
             <nav className="flex items-center justify-start uppercase w-[80%]  lg:w-[55%] xl:w-[40%]">
                 <NavElement
                     href="/"
                     icon={
                         <AiFillHome
                             className={`w-7 h-7 p-1 rounded-full sm:w-7 sm:h-7 ${
-                                route === "/" && "flicker-white"
+                                route === "/" &&
+                                `${
+                                    mode === "dark"
+                                        ? "flicker-white"
+                                        : "flicker-black"
+                                }`
                             }`}
                         />
                     }
@@ -33,7 +44,12 @@ const LargeScreensMenu = (): JSX.Element => {
                     icon={
                         <RiMovie2Fill
                             className={`w-7 h-7 p-1 rounded-full sm:w-7 sm:h-7 ${
-                                route === "/movie" && "flicker-white"
+                                route === "/movie" &&
+                                `${
+                                    mode === "dark"
+                                        ? "flicker-white"
+                                        : "flicker-black"
+                                }`
                             }`}
                         />
                     }
@@ -44,7 +60,12 @@ const LargeScreensMenu = (): JSX.Element => {
                     icon={
                         <CgScreen
                             className={`w-7 h-7 p-1 rounded-full sm:w-7 sm:h-7 ${
-                                route === "/tv" && "flicker-white"
+                                route === "/tv" &&
+                                `${
+                                    mode === "dark"
+                                        ? "flicker-white"
+                                        : "flicker-black"
+                                }`
                             }`}
                         />
                     }
@@ -55,7 +76,12 @@ const LargeScreensMenu = (): JSX.Element => {
                     icon={
                         <BsPeopleFill
                             className={`w-7 h-7 p-1 rounded-full sm:w-7 sm:h-7 ${
-                                route === "/people" && "flicker-white"
+                                route === "/people" &&
+                                `${
+                                    mode === "dark"
+                                        ? "flicker-white"
+                                        : "flicker-black"
+                                }`
                             }`}
                         />
                     }
@@ -66,25 +92,33 @@ const LargeScreensMenu = (): JSX.Element => {
                     icon={
                         <BiSearch
                             className={`w-7 h-7 p-1 rounded-full sm:w-7 sm:h-7 ${
-                                route === "/search" && "flicker-white"
+                                route === "/search" &&
+                                `${
+                                    mode === "dark"
+                                        ? "flicker-white"
+                                        : "flicker-black"
+                                }`
                             }`}
                         />
                     }
                     navEl="search"
                 />
             </nav>
-            <div className="flex items-stretch justify-end w-[30%] ">
-                <Link href={`/`}>
-                    <a>
-                        <Image
-                            src="/images/imdb-logo.png"
-                            alt="imdb-logo"
-                            width={`75%`}
-                            height={`30%`}
-                            className="hover:cursor-pointer"
-                        />
-                    </a>
-                </Link>
+            <div className="flex justify-center items-center space-x-5">
+                <DarkModeButton />
+                <div className="flex items-stretch justify-end w-[30%] ">
+                    <Link href={`/`}>
+                        <a>
+                            <Image
+                                src="/images/imdb-logo.png"
+                                alt="imdb-logo"
+                                width={`200%`}
+                                height={`80%`}
+                                className="hover:cursor-pointer"
+                            />
+                        </a>
+                    </Link>
+                </div>
             </div>
         </div>
     );

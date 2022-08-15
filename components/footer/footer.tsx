@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import Pagination from "./pagination";
+import ToggleMode from "../../context/darkMode";
 
 import FooterContent from "./footerContent";
 
@@ -9,12 +11,19 @@ const Footer = (props: TotalPagesInterface): JSX.Element => {
     const { total_pages } = props;
     const router = useRouter();
     const page = router.query.page;
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
     return (
         <div className="">
-            <div className=" bg-smothDark ">
+            <div className={mode === "dark" ? "bg-smothDark" : "bg-white"}>
                 {page && <Pagination total_pages={total_pages} />}
             </div>
-            <div className="py-16 bg-black text-white">
+            <div
+                className={`${
+                    mode === "dark" ? "bg-black" : "bg-smothDark "
+                } py-16 text-white`}
+            >
                 <FooterContent />
             </div>
         </div>

@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import SpinnerContext from "../../../context/spinner-context";
 import MovieContext from "../../../context/movieData-context";
+import ToggleMode from "../../../context/darkMode";
 
 import { BiPlayCircle } from "react-icons/bi";
 import { AiFillStar, AiFillLike } from "react-icons/ai";
@@ -25,9 +26,11 @@ const SwiperMeidaContent = (
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const spinnerCtx = useContext(SpinnerContext);
+    const modeCtx = useContext(ToggleMode);
 
     const { getMovieData } = movieCtx;
     const { showSpinnerHandler } = spinnerCtx;
+    const { mode } = modeCtx;
 
     const onClickHandler = (
         title: string,
@@ -170,7 +173,11 @@ const SwiperMeidaContent = (
                 </div>
             </div>
             <div className="self-center sm:self-start">
-                <h3 className="mt-1 sm:mt-3 text-gray-200">
+                <h3
+                    className={`${
+                        mode === "dark" ? "text-gray-200" : "text-smothDark"
+                    } mt-1 sm:mt-3 `}
+                >
                     {media.title ||
                         media.original_title ||
                         media.name ||

@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import SpinnerContext from "../../../context/spinner-context";
 import MovieContext from "../../../context/movieData-context";
+import ToggleMode from "../../../context/darkMode";
 
 import { BiPlayCircle } from "react-icons/bi";
 import { AiFillStar, AiFillLike } from "react-icons/ai";
@@ -38,6 +39,9 @@ const SpecificPersonMediaCastSwiper = (
 
     const spinnerCtx = useContext(SpinnerContext);
     const { showSpinnerHandler } = spinnerCtx;
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     useEffect(() => {
         personMedia.forEach((media) => {
@@ -297,7 +301,13 @@ const SpecificPersonMediaCastSwiper = (
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <h3 className="mt-4 sm:mt-5 text-gray-200">
+                                                    <h3
+                                                        className={`${
+                                                            mode === "dark"
+                                                                ? "text-gray-200"
+                                                                : "text-smothDark"
+                                                        } mt-4 sm:mt-5`}
+                                                    >
                                                         {media.title ||
                                                             media.original_title ||
                                                             media.name ||

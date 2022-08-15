@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 import { TbGenderMale } from "react-icons/tb";
 import { CgGenderFemale } from "react-icons/cg";
 import { BsEye } from "react-icons/bs";
@@ -37,6 +38,9 @@ const SearchPeople = (props: SearchPeopleInterface): JSX.Element => {
     const spinnerCtx = useContext(SpinnerContext);
     const { showSpinnerHandler } = spinnerCtx;
 
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
+
     const onClickHandler = (name: string, id: number) => {
         const type = router.query.type || "Popular";
         const page = router.pathname.toString().substring(1);
@@ -47,10 +51,16 @@ const SearchPeople = (props: SearchPeopleInterface): JSX.Element => {
 
     if (router.query.query && searchPeople?.length === 0) {
         return (
-            <div className="bg-smothDark">
+            <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
                 <div className="container mx-auto">
                     <div className="flex items-center justify-center">
-                        <div className="text-white text-sm sm:text-lg">
+                        <div
+                            className={`${
+                                mode === "dark"
+                                    ? "text-white"
+                                    : "text-smothDark"
+                            } text-sm sm:text-lg`}
+                        >
                             Sorry we didn`t find any actor have{" "}
                             <span className="text-darkRed">
                                 {router.query.query}
@@ -64,7 +74,7 @@ const SearchPeople = (props: SearchPeopleInterface): JSX.Element => {
     }
 
     return (
-        <div className="bg-smothDark">
+        <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
             <div className="container mx-auto">
                 <div className="relative px-5 sm:px-10">
                     <Swiper
@@ -184,7 +194,13 @@ const SearchPeople = (props: SearchPeopleInterface): JSX.Element => {
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <h3 className="mt-4 sm:mt-3 text-gray-200">
+                                                        <h3
+                                                            className={`${
+                                                                mode === "dark"
+                                                                    ? "text-gray-200"
+                                                                    : "text-smothDark"
+                                                            } mt-4 sm:mt-5 `}
+                                                        >
                                                             {person.name}
                                                         </h3>
                                                     </div>

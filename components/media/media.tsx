@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import MediaCard from "./models/mediaCard";
 import MovieContext from "../../context/movieData-context";
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 
 import { MediaDataInterface } from "../../models/media-interfaces";
 import { movieDataInterface } from "../../models/context-interfaces";
@@ -13,9 +14,11 @@ const Media = (props: MediaDataInterface): JSX.Element => {
     const router = useRouter();
     const movieCtx = useContext(MovieContext);
     const spinnerCtx = useContext(SpinnerContext);
+    const modeCtx = useContext(ToggleMode);
 
     const { getMovieData } = movieCtx;
     const { showSpinnerHandler } = spinnerCtx;
+    const { mode } = modeCtx;
 
     const onClickHandler = (
         title: string,
@@ -56,7 +59,11 @@ const Media = (props: MediaDataInterface): JSX.Element => {
     };
 
     return (
-        <div className="bg-smothDark pt-20">
+        <div
+            className={`${
+                mode === "dark" ? "bg-smothDark" : "bg-white"
+            }  pt-20`}
+        >
             <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-0 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {mediaData.map((media, index) => (
                     <MediaCard

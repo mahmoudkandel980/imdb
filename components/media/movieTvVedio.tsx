@@ -1,17 +1,29 @@
+import { useContext } from "react";
 import { useRouter } from "next/router";
+import ToggleMode from "../../context/darkMode";
 
 const MovieTvVedio = (): JSX.Element => {
     const router = useRouter();
     const mediaName = router.query.slug;
     const id = router.query.id;
 
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
+
     return (
         <div className="p-0 2xl:p-20 py-14 sm:py-14 ">
             <div className="flex">
                 <div className="container mx-auto">
                     <div className="flex flex-col items-center justify-center ">
-                        <h2 className="self-start text-white lg:ml-15 text-sm md:text-xl mb-5 font-bold font-mono">
-                            {mediaName}
+                        <h2
+                            className={`${
+                                mode === "dark"
+                                    ? "text-white"
+                                    : "text-smothDark"
+                            } self-start lg:ml-15 text-sm md:text-xl mb-5 font-bold font-mono`}
+                        >
+                            {mediaName}{" "}
+                            {router.pathname.includes("tv") ? "Tv" : "Film"}
                         </h2>
                         <div>
                             <iframe

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import ToggleMode from "../../context/darkMode";
 
 import {
     MediaVedioDataInterface,
@@ -13,11 +15,13 @@ const SpecificMediaVideo = (
     const [mediaData, setMediaData] = useState({ key: "", name: "" });
     const { key, name } = initialVideoData;
 
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
+
     const onClickHandler = (mediaKey: string, mediaName: string) => {
         setMediaData({ key: mediaKey, name: mediaName });
         setIsMediaClicked(true);
     };
-    console.log(mediaVedioData.length);
 
     return (
         <div
@@ -30,7 +34,13 @@ const SpecificMediaVideo = (
                 <div className="flex">
                     <div className="container mx-auto">
                         <div className="flex flex-col items-center justify-center ">
-                            <h2 className="self-start text-white lg:ml-15 text-sm md:text-xl mb-5 font-bold font-mono">
+                            <h2
+                                className={`${
+                                    mode === "dark"
+                                        ? "text-white"
+                                        : "text-smothDark"
+                                } self-start lg:ml-15 text-sm md:text-xl mb-5 font-bold font-mono`}
+                            >
                                 {isMediaClicked ? mediaData.name : name}
                             </h2>
                             <div>
@@ -76,8 +86,16 @@ const SpecificMediaVideo = (
                                         className={`${
                                             mediaData.name ===
                                                 mediaVedio.name &&
-                                            "sm-flicker text-white bg-black scale-[1.03] font-normal shadow-2xl"
-                                        } text-gray-700 text-xs sm:text-sm rounded-md cursor-pointer hover:scale-x-105 select-none p-1 px-3 truncate bg-white duration-200`}
+                                            `sm-flicker ${
+                                                mode === "dark"
+                                                    ? "bg-black text-white"
+                                                    : "text-smothDark bg-white"
+                                            }   scale-[1.03] font-normal shadow-2xl`
+                                        } ${
+                                            mode === "dark"
+                                                ? "bg-white text-gray-700"
+                                                : "text-white bg-smothDark"
+                                        }   text-xs sm:text-sm rounded-md cursor-pointer hover:scale-x-105 select-none p-1 px-3 truncate duration-200`}
                                     >
                                         {mediaVedio.name}
                                     </div>

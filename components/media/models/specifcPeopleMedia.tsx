@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import SpinnerContext from "../../../context/spinner-context";
+import ToggleMode from "../../../context/darkMode";
 
 import { BsEye } from "react-icons/bs";
 import { TbGenderMale } from "react-icons/tb";
@@ -26,8 +27,12 @@ import { MediaPeopleInterface } from "../../../models/people-interfaces";
 const SpecifcPeopleMedia = (props: MediaPeopleInterface) => {
     const { mediaPeople } = props;
     const router = useRouter();
+
     const spinnerCtx = useContext(SpinnerContext);
+    const modeCtx = useContext(ToggleMode);
+
     const { showSpinnerHandler } = spinnerCtx;
+    const { mode } = modeCtx;
 
     const onClickHandler = (name: string, id: number) => {
         const type = router.query.type || "Popular";
@@ -152,7 +157,13 @@ const SpecifcPeopleMedia = (props: MediaPeopleInterface) => {
                                             </div>
                                         </div>
                                         <div>
-                                            <h3 className="mt-4 sm:mt-5 text-gray-200">
+                                            <h3
+                                                className={`${
+                                                    mode === "dark"
+                                                        ? "text-gray-200"
+                                                        : "text-smothDark"
+                                                } mt-4 sm:mt-5`}
+                                            >
                                                 {person.name ||
                                                     person.original_name}
                                             </h3>

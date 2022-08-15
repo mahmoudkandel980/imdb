@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+
+import ToggleMode from "../../../context/darkMode";
 
 import { CardInterface } from "../../../models/media-interfaces";
 
@@ -32,6 +35,9 @@ const MediaCard = (props: CardInterface & IndexInterface): JSX.Element => {
     const { onClickHandler } = props;
 
     const router = useRouter();
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     const mediahasVideo = vote_average === 0 ? false : true;
 
@@ -226,7 +232,13 @@ const MediaCard = (props: CardInterface & IndexInterface): JSX.Element => {
                         </div>
                     </div>
                     <div>
-                        <h3 className="mt-4 sm:mt-3 text-gray-200">
+                        <h3
+                            className={`${
+                                mode === "dark"
+                                    ? "text-gray-200"
+                                    : "text-smothDark"
+                            } mt-4 sm:mt-3`}
+                        >
                             {title || name}
                         </h3>
                     </div>

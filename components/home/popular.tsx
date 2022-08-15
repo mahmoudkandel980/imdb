@@ -6,6 +6,7 @@ import SwiperMeidaContent from "./models/swiperMediaContent";
 import SwiperPeopleContent from "./models/swiperPeopleContent";
 
 import ToggleGenesContext from "../../context/toggleGenes-context";
+import ToggleMode from "../../context/darkMode";
 
 import {
     PopularMoviesInterface,
@@ -38,8 +39,11 @@ const Popular = (
 ): JSX.Element => {
     const moreThan640 = useMediaPredicate("(min-width: 640px)");
     const { popularMovies, popularTv, popularPeople } = props;
+
     const typeCtx = useContext(ToggleGenesContext);
     const { popularType, togglePopular } = typeCtx;
+    const toggleModeCtx = useContext(ToggleMode);
+    const { mode } = toggleModeCtx;
 
     const [sliderContent, SetSliderContent] = useState("movies");
     const [translateVale, SetTranslateValue] = useState(0);
@@ -76,14 +80,30 @@ const Popular = (
     };
 
     return (
-        <div className="py-20 pb-0 bg-smothDark">
+        <div
+            className={`py-20 pb-0 ${
+                mode === "dark" ? "bg-smothDark" : "bg-white"
+            } `}
+        >
             <div className="container mx-auto pl-3 sm:pl-0">
-                <h2 className="text-2xl text-white font-mono font-semibold mb-4">
+                <h2
+                    className={` ${
+                        mode === "dark" ? "text-white" : "text-smothDark"
+                    } text-2xl font-mono font-semibold mb-4`}
+                >
                     Popular
                 </h2>
-                <div className="relative w-56 sm:w-80 flicker-black select-none bg-transparent text-gray-200 font-mono font-semibold p-2 px-0 rounded-full mb-3">
+                <div
+                    className={`${
+                        mode === "dark" ? "text-white" : "text-smothDark"
+                    } relative w-56 sm:w-80 flicker-black select-none bg-transparent font-mono font-semibold p-2 px-0 rounded-full mb-3`}
+                >
                     <div
-                        className={`flicker-white z-20 flex justify-center items-center absolute w-[75px] h-8 sm:w-[110px] sm:h-11 bg-white top-0 p-2 px-0 rounded-full duration-700
+                        className={`${
+                            mode === "dark"
+                                ? "flicker-white bg-white"
+                                : "flicker-black bg-smothDark"
+                        }  z-20 flex justify-center items-center absolute w-[75px] h-8 sm:w-[110px] sm:h-11 top-0 p-2 px-0 rounded-full duration-700
                         `}
                         style={{
                             transform: `translateX(${
@@ -91,7 +111,13 @@ const Popular = (
                             }px)`,
                         }}
                     >
-                        <span className="text-xs sm:text-base text-smothDark font-bold font-sans">
+                        <span
+                            className={`${
+                                mode === "dark"
+                                    ? "text-smothDark"
+                                    : "text-white"
+                            } text-xs sm:text-base font-bold font-sans`}
+                        >
                             {sliderContent}
                         </span>
                     </div>

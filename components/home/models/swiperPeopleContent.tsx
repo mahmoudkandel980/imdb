@@ -8,6 +8,7 @@ import { CgGenderFemale } from "react-icons/cg";
 import { PeopleSwiperInterface } from "../../../models/home-interfaces";
 
 import SpinnerContext from "../../../context/spinner-context";
+import ToggleMode from "../../../context/darkMode";
 
 const srcStartWith = "https://image.tmdb.org/t/p/original/";
 
@@ -16,7 +17,10 @@ const SwiperPeopleContent = (props: PeopleSwiperInterface): JSX.Element => {
     const router = useRouter();
 
     const spinnerCtx = useContext(SpinnerContext);
+    const modeCtx = useContext(ToggleMode);
+
     const { showSpinnerHandler } = spinnerCtx;
+    const { mode } = modeCtx;
 
     const onClickHandler = (name: string, id: number) => {
         router.push(`/people/${name}?id=${id}`);
@@ -77,7 +81,13 @@ const SwiperPeopleContent = (props: PeopleSwiperInterface): JSX.Element => {
                 </div>
             </div>
             <div className="self-center sm:self-start">
-                <h3 className="mt-1 sm:mt-3 text-gray-200">{person.name}</h3>
+                <h3
+                    className={`${
+                        mode === "dark" ? "text-gray-200" : "text-smothDark"
+                    } mt-1 sm:mt-3 `}
+                >
+                    {person.name}
+                </h3>
             </div>
         </div>
     );

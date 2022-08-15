@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import Image from "next/image";
+
+import ToggleMode from "../../../context/darkMode";
 
 import { SpecificMediaDataInterface } from "../../../models/media-interfaces";
 import { GoCalendar } from "react-icons/go";
@@ -21,6 +24,9 @@ const SpecificMediaSwiper = (
     props: SpecificMediaDataInterface
 ): JSX.Element => {
     const { seasons } = props.mediaData;
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     if (!seasons) {
         return <></>;
@@ -129,7 +135,13 @@ const SpecificMediaSwiper = (
                                                     } group flex items-center justify-center space-x-1`}
                                                 >
                                                     <GoCalendar className="flicker-black h-7 w-7 text-gray-300 bg-darkGray group-hover:bg-transparent p-1 rounded-full bg-opacity-100 group-hover:text-white cursor-pointer duration-300" />
-                                                    <div className="absolut left-10 text-white translate-x-3 duration-500">
+                                                    <div
+                                                        className={`${
+                                                            mode === "dark"
+                                                                ? "text-white"
+                                                                : "text-smothDark"
+                                                        } absolut left-10 translate-x-3 duration-500`}
+                                                    >
                                                         {season.air_date}
                                                     </div>
                                                 </div>

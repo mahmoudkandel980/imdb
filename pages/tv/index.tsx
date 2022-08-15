@@ -8,6 +8,7 @@ import MediaPosterHeaader from "../../components/media/mediaPosterHeader";
 import Footer from "../../components/footer/footer";
 import RouterSpinner from "../../components/ui/routerSpinner";
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 import ForbiddenMediaContentContext from "../../context/forbiddenMediaContent-context";
 import { requestTvPage, requestSearchPage } from "../../libs/requests";
 
@@ -28,6 +29,9 @@ const TvPage = (
     const { mediaData, total_pages, searchMedia } = props;
     const spinnerCtx = useContext(SpinnerContext);
     const { showMedia } = spinnerCtx;
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     const mediaDataCtx = useContext(ForbiddenMediaContentContext);
     const {
@@ -52,7 +56,7 @@ const TvPage = (
     }, [searchMedia?.results]);
 
     return (
-        <div className="bg-smothDark">
+        <div className={`${mode === "dark" ? "bg-smothDark" : "bg-white"}`}>
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />
@@ -66,7 +70,11 @@ const TvPage = (
                                 trendingMedia={null}
                             />
                             <SearchInput
-                                className="bg-smothDark"
+                                className={`${
+                                    mode === "dark"
+                                        ? "bg-smothDark"
+                                        : "bg-white"
+                                }`}
                                 searchFor="tv"
                                 SearchDataWithImageLength={
                                     searchMediaModified.length

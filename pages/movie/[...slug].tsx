@@ -44,7 +44,7 @@ const SelcetedMovie = (
     }
 
     return (
-        <div className="bg-smothDark">
+        <div className="bg-white dark:bg-smothDark">
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />

@@ -9,6 +9,7 @@ import TopRated from "../components/home/topRated";
 import UpComing from "../components/home/upComing";
 import Footer from "../components/footer/footer";
 import ForbiddenHomePageMediaContext from "../context/forbiddenhomePageMedia-context";
+import ToggleMode from "../context/darkMode";
 import {
     requestMoviePage,
     requestTvPage,
@@ -47,6 +48,9 @@ const Home = (
         popularPeople,
     } = props;
     const [isSSR, setIsSSR] = useState(true);
+
+    const modeCtx = useContext(ToggleMode);
+    const { mode } = modeCtx;
 
     const spinnerCtx = useContext(SpinnerContext);
     const homePageMediaDataCtx = useContext(ForbiddenHomePageMediaContext);
@@ -95,7 +99,11 @@ const Home = (
     }, []);
 
     return (
-        <div className="bg-smothDark h-screen">
+        <div
+            className={`${
+                mode === "dark" ? "bg-smothDark" : "bg-white"
+            }  h-screen`}
+        >
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />

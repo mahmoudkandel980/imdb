@@ -1,12 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import FilterMultiSearchContext from "../../context/filterMultiSearch-context";
+import ToggleMode from "../../context/darkMode";
 
 const searchTypes = ["all", "movie", "tv", "people"];
 
 const SelectSearchFilter = (): JSX.Element => {
     const router = useRouter();
     const [prevQuery, SetPrevQuery] = useState("");
+    const [modifiedMode, setModifiedMode] = useState("");
+
+    const toggleModeCtx = useContext(ToggleMode);
+    const { mode } = toggleModeCtx;
 
     const multSearchCtx = useContext(FilterMultiSearchContext);
     const {
@@ -25,6 +30,10 @@ const SelectSearchFilter = (): JSX.Element => {
 
     const path = router.asPath;
     const query = path.split("query=").pop() || "";
+
+    useEffect(() => {
+        setModifiedMode(mode);
+    }, [mode]);
 
     useEffect(() => {
         if (prevQuery !== query) {
@@ -54,6 +63,8 @@ const SelectSearchFilter = (): JSX.Element => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchType]);
 
+    console.log(modifiedMode);
+
     return (
         <div
             className={`${
@@ -61,7 +72,11 @@ const SelectSearchFilter = (): JSX.Element => {
             }`}
         >
             {router.query.searchType === "all" && router.query.query ? (
-                <div className="flex select-none justify-center items-center space-x-5 text-white mt-10  lg:mt-3 text-base sm:text-xl">
+                <div
+                    className={`${
+                        mode === "dark" ? "text-white" : "text-smothDark "
+                    } flex select-none justify-center items-center space-x-5 mt-10  lg:mt-3 text-base sm:text-xl`}
+                >
                     {searchTypes.map((searchT, index) => (
                         <span
                             key={index}
@@ -80,9 +95,13 @@ const SelectSearchFilter = (): JSX.Element => {
                                 peopleLength === 0 &&
                                 "hidden"
                             } ${
-                                selectedType === searchT
-                                    ? "flicker-white scale-105"
-                                    : "flicker-black"
+                                modifiedMode === "dark"
+                                    ? selectedType === searchT
+                                        ? "flicker-white scale-105"
+                                        : "flicker-black"
+                                    : selectedType === searchT
+                                    ? "flicker-black scale-105"
+                                    : "flicker-white border-[1px] border-gray-300"
                             }  rounded-xl  shadow-2xl hover:scale-90  cursor-pointer  p-1 px-3 duration-200`}
                         >
                             {searchT === "movie" && movieLength > 1

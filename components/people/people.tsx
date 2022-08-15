@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import SpinnerContext from "../../context/spinner-context";
+import ToggleMode from "../../context/darkMode";
 
 import { TbGenderMale } from "react-icons/tb";
 import { CgGenderFemale } from "react-icons/cg";
@@ -17,7 +18,10 @@ const People = (props: PeopleDataInterface): JSX.Element => {
     const router = useRouter();
 
     const spinnerCtx = useContext(SpinnerContext);
+    const modeCtx = useContext(ToggleMode);
+
     const { showSpinnerHandler } = spinnerCtx;
+    const { mode } = modeCtx;
 
     const onClickHandler = (name: string, id: number) => {
         const type = router.query.type || "Popular";
@@ -28,7 +32,9 @@ const People = (props: PeopleDataInterface): JSX.Element => {
     };
 
     return (
-        <div className="bg-smothDark pt-20">
+        <div
+            className={`${mode === "dark" ? "bg-smothDark" : "bg-white"} pt-20`}
+        >
             <div className="container grid grid-cols-1 mx-auto gap-6 p-6 pt-6 gap-y-12 justify-center items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {peopleData.map((person, index) => (
                     <div
@@ -152,7 +158,13 @@ const People = (props: PeopleDataInterface): JSX.Element => {
                             </div>
                         </div>
                         <div>
-                            <h3 className="mt-4 sm:mt-3 text-gray-200">
+                            <h3
+                                className={`${
+                                    mode === "dark"
+                                        ? "text-gray-200"
+                                        : "text-smothDark"
+                                } mt-4 sm:mt-3`}
+                            >
                                 {person.name}
                             </h3>
                         </div>
