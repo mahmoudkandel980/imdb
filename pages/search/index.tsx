@@ -62,14 +62,18 @@ const SearchPage = (props: SearchMultiInterface & TotalPagesInterface) => {
                     !multiSearch ||
                     multiSearchWithImage.length === 0) &&
                 "relative h-screen"
-            }${mode === "dark" ? "bg-smothDark" : "bg-white"} h-screen w-full`}
+            } h-screen w-full ${mode === "dark" ? "bg-smothDark" : "bg-white"}`}
         >
             {showMedia ? (
                 <div className="h-screen w-full flex justify-center items-center">
                     <RouterSpinner />
                 </div>
             ) : (
-                <div className="pt-32">
+                <div
+                    className={`${
+                        mode === "dark" ? "bg-smothDark" : "bg-white"
+                    } pt-32`}
+                >
                     <SelectSearchFilter />
                     <SearchInput
                         className={`${
