@@ -29,7 +29,7 @@ const MovieTvVedio = (): JSX.Element => {
                             <iframe
                                 className="sm:w-[560px] sm:h-[315px] md:w-[768px] md:h-[432px] lg:w-[1024px] lg:h-[576px] xl:w-[1024px] xl:h-[576px] rounded-md"
                                 src={`https://2embed.org/embed/${id}`}
-                                //sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
+                                sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
                                 title="YouTube video player"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
